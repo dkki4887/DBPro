@@ -6,10 +6,10 @@ import persistence.dto.StoreMenuDTO;
 
 import java.util.List;
 
-public class MyStoreMenuDAO {
+public class MyStore_MenuDAO {
     private SqlSessionFactory sqlSessionFactory = null;
 
-    public MyStoreMenuDAO(SqlSessionFactory sqlSessionFactory){
+    public MyStore_MenuDAO(SqlSessionFactory sqlSessionFactory){
         this.sqlSessionFactory = sqlSessionFactory;
     }
     public List<StoreMenuDTO> selectAll(){
