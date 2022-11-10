@@ -10,10 +10,10 @@ public class Main {
         List<BoardDTO> all = boardService.findAll();
         boardView.printAll(all);*/
 
-        MyBoardDAO myBoardDAO = new MyBoardDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        MyMenuDAO myBoardDAO = new MyMenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
 
-        List<BoardDTO> boardDTOS = myBoardDAO.selectAll();
-        for(BoardDTO dto:boardDTOS){
+        List<MenuDTO> boardDTOS = myBoardDAO.selectAll();
+        for(MenuDTO dto:boardDTOS){
             System.out.println("dto.toString() = " + dto.toString());
         }
     }
