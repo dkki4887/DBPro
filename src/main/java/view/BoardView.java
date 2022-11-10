@@ -1,7 +1,5 @@
 package view;
 
-import persistence.dto.BoardDTO;
-
 import java.util.List;
 
 public class BoardView {
