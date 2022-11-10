@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.MenuMapper">
+    <resultMap id="result" type="persistence.dto.MenuDTO">
+        <result property="menu_id" column="menu_id"/>
+        <result property="store_id" column="store_id"/>
+        <result property="menu_price" column="menu_price"/>
+        <result property="menu_quantity" column="menu_quantity"/>
+        <result property="menu_category" column="menu_category"/>
+    </resultMap>
+    <select id="selectAll" resultMap="result">
+        SELECT * FROM MENU
+    </select>
+
+    <select id="selectMenu_StoreId" resultMap="result">
+        SELECT * FROM MENU WHERE store_id = #{store_id}
+    </select>
+</mapper>

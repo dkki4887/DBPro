@@ -6,6 +6,15 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="BoardDTO" type="persistence.dto.BoardDTO"/>
+        <typeAlias alias="MenuDTO" type="persistence.dto.MenuDTO"/>
+        <typeAlias alias="Menu_OptionDTO" type="persistence.dto.Menu_OptionDTO"/>
+        <typeAlias alias="OptionDTO" type="persistence.dto.OptionDTO"/>
+        <typeAlias alias="OrderDTO" type="persistence.dto.OrderDTO"/>
+        <typeAlias alias="Order_MenuDTO" type="persistence.dto.Order_MenuDTO"/>
+        <typeAlias alias="ReviewDTO" type="persistence.dto.ReviewDTO"/>
+        <typeAlias alias="StoreDTO" type="persistence.dto.StoreDTO"/>
+        <typeAlias alias="Store_MenuDTO" type="persistence.dto.Store_MenuDTO"/>
+        <typeAlias alias="UserDTO" type="persistence.dto.UserDTO"/>
     </typeAliases>
 
     <environments default="development">

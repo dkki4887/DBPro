@@ -1,22 +1,22 @@
 package persistence.dao;
 
 import persistence.PooledDataSource;
-import persistence.dto.MenuOptionDTO;
+import persistence.dto.Order_MenuDTO;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuOptionDAO {
+public class Order_MenuDAO {
     private final DataSource ds = PooledDataSource.getDataSource();
 
-    public List<MenuOptionDTO> findAll(){
+    public List<Order_MenuDTO> findAll(){
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
 
-        List<MenuOptionDTO> menuOptionDTOs = new ArrayList<>();
+        List<Order_MenuDTO> orderMenuDTOs = new ArrayList<>();
         try{
             String query = "SELECT * FROM BOARD";
             conn = ds.getConnection();
@@ -24,14 +24,16 @@ public class MenuOptionDAO {
             rs = stmt.executeQuery(query);
 
             while(rs.next()) {
-                MenuOptionDTO menuOptionDTO = new MenuOptionDTO();
+                Order_MenuDTO orderMenuDTO = new Order_MenuDTO();
 
+                int order_id = rs.getInt("order_id");
                 int menu_id = rs.getInt("menu_id");
                 int option_id = rs.getInt("option_id");
 
-                menuOptionDTO.setMenu_id(menu_id);
-                menuOptionDTO.setOption_id(option_id);
-                menuOptionDTOs.add(menuOptionDTO);
+                orderMenuDTO.setOrder_id(order_id);
+                orderMenuDTO.setMenu_id(menu_id);
+                orderMenuDTO.setOption_id(option_id);
+                orderMenuDTOs.add(orderMenuDTO);
                 conn.commit();
             }
         } catch(SQLException e){
@@ -58,7 +60,7 @@ public class MenuOptionDAO {
                 e.printStackTrace();
             }
         }
-        return menuOptionDTOs;
+        return orderMenuDTOs;
     }
 }
 

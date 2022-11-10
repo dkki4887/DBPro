@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class StoreMenuDTO {
-    private int store_id;
+public class Menu_OptionDTO {
     private int menu_id;
+    private int option_id;
 }
