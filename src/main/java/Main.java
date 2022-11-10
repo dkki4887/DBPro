@@ -1,13 +1,5 @@
 import persistence.MyBatisConnectionFactory;
-import persistence.dao.BoardDAO;
-import persistence.dao.MyBoardDAO;
-import persistence.dto.BoardDTO;
-import service.BoardService;
-import view.BoardView;
 
-import java.sql.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {

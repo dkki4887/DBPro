@@ -12,9 +12,11 @@
         <result property="regDate" column="regdate"/>
         <result property="hit" column="hit"/>
     </resultMap>
+
     <select id="selectAll" resultMap="result">
         SELECT * FROM BOARD
     </select>
+
     <select id="findPostWithTitleLike" resultMap="result">
         SELECT * FROM BOARD
         WHERE hit = 0
@@ -22,6 +24,7 @@
             AND title like CONCAT('%',#{title},'%')
         </if>
     </select>
+
     <select id="findPostWithTitleNameLike"
             resultMap="result">
         SELECT * FROM BOARD
@@ -33,6 +36,7 @@
             AND writer like CONCAT('%',#{writer},'%')
         </if>
     </select>
+
     <select id="selectWithTrim"  resultMap="result">
         SELECT * FROM BOARD WHERE board_id = #{id}
         <trim prefix="AND (" prefixOverrides="OR" suffix=")">
@@ -44,4 +48,5 @@
             </if>
         </trim>
     </select>
+
 </mapper>

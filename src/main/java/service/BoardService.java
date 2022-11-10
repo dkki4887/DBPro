@@ -1,8 +1,5 @@
 package service;
 
-import persistence.dao.BoardDAO;
-import persistence.dto.BoardDTO;
-
 import java.util.List;
 
 public class BoardService {
