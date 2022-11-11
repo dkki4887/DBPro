@@ -7,6 +7,7 @@
     <resultMap id="result" type="persistence.dto.MenuDTO">
         <result property="menu_id" column="menu_id"/>
         <result property="store_id" column="store_id"/>
+        <result property="menu_name" column="menu_name"/>
         <result property="menu_price" column="menu_price"/>
         <result property="menu_quantity" column="menu_quantity"/>
         <result property="menu_category" column="menu_category"/>
@@ -19,6 +20,20 @@
     <select id="selectMenu_StoreId" resultMap="result">
         SELECT * FROM MENU WHERE store_id = #{store_id}
     </select>
+
+    <insert id="menuAdd" parameterType="MenuDTO" keyProperty="menu_id">
+        INSERT INTO project.store(store_id, menu_name, menu_price, menu_quantity, menu_category)
+        VALUES(#{store_id}, #{menu_name}, #{menu_price}, #{menu_quantity}, #{menu_category})
+    </insert>
+
+    <update id="menuUpdate" parameterType="MenuDTO">
+        UPDATE menu
+        SET menu_name = #{menu_name},
+            menu_price = #{menu_price},
+            menu_quantity = #{menu_quantity},
+            menu_category = #{menu_category}
+        WHERE store_id = #{store_id}  AND  menu_name = #{menu_name}
+    </update>
 
     <update id="updateOrderState">
         UPDATE menu

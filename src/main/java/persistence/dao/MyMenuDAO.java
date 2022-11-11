@@ -12,6 +12,7 @@ public class MyMenuDAO {
     public MyMenuDAO(SqlSessionFactory sqlSessionFactory){
         this.sqlSessionFactory = sqlSessionFactory;
     }
+
     public List<MenuDTO> selectAll(){
         List<MenuDTO> list = null;
         SqlSession session = sqlSessionFactory.openSession();
@@ -22,6 +23,35 @@ public class MyMenuDAO {
         }
         return list;
     }
-    public MenuDTO selectById(Long id){return null;}
+
+    public MenuDTO selectByStoreId(String id){
+        MenuDTO menuDTO = new MenuDTO();
+        SqlSession session = sqlSessionFactory.openSession();
+
+        try{
+            menuDTO = session.selectOne("mapper.MenuMapper.selectMenu_StoreId", id);
+        } finally {
+            session.close();
+        }
+
+        return null;
+    }
+
+    public void menuAdd(MenuDTO menuDTO){
+        SqlSession session = sqlSessionFactory.openSession();
+        int result = -1;
+        try{
+            result = session.selectOne("mapper.MenuMapper.menuAdd", menuDTO);
+
+            if (result==1){
+                session.commit();
+            }else {
+                session.rollback();
+            }
+        } finally {
+            session.close();
+        }
+    }
+
 }
 
