@@ -29,8 +29,8 @@ public class ReviewView {
                 {
                     ReviewDTO dto = dtos.get(i);
                     System.out.println("가게 :" + dto.getStore_id());
-                    System.out.println("리뷰 :" + dto.getContents());
-                    System.out.println("별점 :" + dto.getGrade());
+                    System.out.println("리뷰 :" + dto.getReview_content());
+                    System.out.println("별점 :" + dto.getReview_rate());
                     System.out.println("=============================");
                 }
             }
@@ -41,15 +41,13 @@ public class ReviewView {
                 {
                     ReviewDTO dto = dtos.get(i);
                     System.out.println("가게 :" + dto.getStore_id());
-                    System.out.println("리뷰 :" + dto.getContents());
-                    System.out.println("별점 :" + dto.getGrade());
+                    System.out.println("리뷰 :" + dto.getReview_content());
+                    System.out.println("별점 :" + dto.getReview_rate());
                     System.out.println("=============================");
                 }
             }
             else
                 break;
-
-
         }
     }
 }

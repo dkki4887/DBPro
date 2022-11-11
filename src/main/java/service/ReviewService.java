@@ -27,7 +27,7 @@ public class ReviewService {
         return reviewDTOS;
     }
 
-    public int insertReview(Long review_id , Long store_id , Long customer_id , Long order_id )
+    public int insertReview(int review_id,int store_id , String user_id , int order_id,int review_rate ,String review_content, LocalDateTime review_time)
     {
         Scanner sc =new Scanner(System.in);
         LocalDateTime current_time = LocalDateTime.now();
@@ -36,14 +36,14 @@ public class ReviewService {
         System.out.println("리뷰을 입력해주세요 : ");
         String contents = sc.nextLine();
         contents =sc.nextLine();
-        ReviewDTO reviewDTO = new ReviewDTO(review_id,store_id,customer_id,order_id,contents,current_time,grade);
+        ReviewDTO reviewDTO = new ReviewDTO(review_id,store_id,user_id,order_id,review_rate,review_content,review_time);
         int result =reviewDAO.insertReview(reviewDTO);
         return result;
     }
 
-    public List<ReviewDTO> findReviewWithCustomerIdLike(Long cust_id)
+    public List<ReviewDTO> findReviewWithCustomerIdLike(String user_id)
     {
-        List<ReviewDTO> reviewDTOS = reviewDAO.findReviewWithCustomerIdLike(cust_id);
+        List<ReviewDTO> reviewDTOS = reviewDAO.findReviewWithUserIdLike(user_id);
         return reviewDTOS;
     }
 }

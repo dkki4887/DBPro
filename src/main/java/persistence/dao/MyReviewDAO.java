@@ -29,9 +29,6 @@ public class MyReviewDAO {
         return list;
     }
 
-    @Insert("INSERT INTO review  (store_id , customer_id , order_id , contents , review_date , grade) " +
-            "VALUES (#{store_id},#{customer_id},#{order_id},#{contents},#{review_date},#{grade})")
-    @Options(useGeneratedKeys = true, keyProperty = "id")
     public int insertReview(ReviewDTO reviewDTO) {
         SqlSession session = sqlSessionFactory.openSession();
         int result = -1;
@@ -50,12 +47,12 @@ public class MyReviewDAO {
         return result;
     }
 
-    public List<ReviewDTO> findReviewWithCustomerIdLike(Long cust_id)
+    public List<ReviewDTO> findReviewWithUserIdLike(String user_id)
     {
         List<ReviewDTO> dtos = null;
         SqlSession session = sqlSessionFactory.openSession();
         try{
-            dtos = session.selectList("mapper.ReviewMapper.findReviewWithCustomerIdLike",cust_id);
+            dtos = session.selectList("mapper.ReviewMapper.findReviewWithUserIdLike",user_id);
         }finally {
             session.close();
         }
