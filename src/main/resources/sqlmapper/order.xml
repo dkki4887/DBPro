@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.OrderMapper">
+    <resultMap id="result" type="persistence.dto.OrderDTO">
+        <result property="order_id" column="order_id"/>
+        <result property="user_id" column="user_id"/>
+        <result property="store_id" column="store_id"/>
+        <result property="order_price" column="order_price"/>
+        <result property="order_payment" column="order_payment"/>
+        <result property="order_state" column="order_state"/>
+        <result property="order_orderTime" column="order_orderTime"/>
+        <result property="order_receiveTime" column="order_receiveTime"/>
+        
+        <collection property="orderMenuList" resultMap="orderMenuList"/>
+        <collection property="orderOptionList" resultMap="orderOptionList"/>
+    </resultMap>
+
+
+</mapper>
