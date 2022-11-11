@@ -34,12 +34,6 @@
         SELECT * FROM project.order
     </select>
 
-    <select id="findOrderWithCustomerIdLike" resultMap="orderResult">
-        SELECT * FROM project.order
-        WHERE (customer_id = #{customer_id} AND state = '취소')
-        OR (customer_id = #{customer_id} AND state = '배달완료')
-    </select>
-
     <insert id="insertOrder" parameterType="OrderDTO" useGeneratedKeys="true"
             keyProperty="order_id">
         INSERT INTO project.order (order_id , customer_id , store_id , price , type , date , date2 , state)
@@ -66,6 +60,17 @@
         INNER JOIN orderoption oo
         ON om.orderMenu_id = oo.orderMenu_id
         WHERE o.store_id = #{store_id}
+    </select>
+
+    <select id="selectOrder_customer" resultMap="orderResult">
+        SELECT user_id, menu_name, option_name, order_price, order_state
+        FROM ordermenu om
+        INNER JOIN project.order o
+        ON om.order_id = o.order_id
+        INNER JOIN orderoption oo
+        ON om.orderMenu_id = oo.orderMenu_id
+        WHERE o.user_id = #{user_id}
+        AND (o.order_state = "배달 완료" OR o.order_state = "취소")
     </select>
 
     <update id="updateOrderState">
