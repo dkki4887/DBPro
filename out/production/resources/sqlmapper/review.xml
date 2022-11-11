@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.ReviewMapper">
+    <resultMap id="result" type="persistence.dto.ReviewDTO">
+        <result property="review_id" column="review_id"/>
+        <result property="store_id" column="store_id"/>
+        <result property="user_id" column="user_id"/>
+        <result property="order_id" column="order_id"/>
+        <result property="review_rate" column="review_rate"/>
+        <result property="review_content" column="review_content"/>
+        <result property="review_time" column="review_time"/>
+    </resultMap>
+    <select id="selectAll" resultMap="result">
+        SELECT * FROM REVIEW
+    </select>
+
+
+</mapper>
