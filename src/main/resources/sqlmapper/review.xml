@@ -13,9 +13,42 @@
         <result property="review_content" column="review_content"/>
         <result property="review_time" column="review_time"/>
     </resultMap>
-    <select id="selectAll" resultMap="result">
+
+    <select id="selectAll" resultMap="reviewResult">
         SELECT * FROM REVIEW
     </select>
 
+    <select id="findReviewWithCustomerIdLike" resultMap="reviewResult">
+        SELECT * FROM REVIEW WHERE customer_id = #{customer_id}
+    </select>
+
+    <insert id="insertReview" parameterType="ReviewDTO" useGeneratedKeys="true"
+            keyProperty="review_id">
+        INSERT INTO REVIEW (review_id,store_id , customer_id , order_id , contents , review_date , grade)
+        values(#{review_id},#{store_id},#{customer_id},#{order_id},#{contents},#{review_date},#{grade})
+    </insert>
+
+    <select id="findPostWithTitleNameLike" resultMap="reviewResult">
+        SELECT * FROM REVIEW
+        WHERE hit = 0
+        <if test="title != null">
+            AND title like CONCAT('%',#{title},'%')
+        </if>
+        <if test="writer != null">
+            AND writer like CONCAT('%',#{writer},'%')
+        </if>
+    </select>
+
+    <select id="selectWithTrim"  resultMap="reviewResult">
+        SELECT * FROM BOARD WHERE board_id = #{id}
+        <trim prefix="AND (" prefixOverrides="OR" suffix=")">
+            <if test="title != null">
+                OR title = #{title}
+            </if>
+            <if test="writer != null">
+                OR writer = #{writer}
+            </if>
+        </trim>
+    </select>
 
 </mapper>
