@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import persistence.dto.ReviewDTO;
+import persistence.dto.Review_omDTO;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
@@ -47,9 +48,9 @@ public class MyReviewDAO {
         return result;
     }
 
-    public List<ReviewDTO> findReviewWithUserIdLike(String user_id)
+    public List<Review_omDTO> findReviewWithUserIdLike(String user_id)
     {
-        List<ReviewDTO> dtos = null;
+        List<Review_omDTO> dtos = null;
         SqlSession session = sqlSessionFactory.openSession();
         try{
             dtos = session.selectList("mapper.ReviewMapper.findReviewWithUserIdLike",user_id);

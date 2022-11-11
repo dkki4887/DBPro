@@ -1,6 +1,7 @@
 package view;
 
 import persistence.dto.ReviewDTO;
+import persistence.dto.Review_omDTO;
 
 import java.util.List;
 import java.util.Scanner;
@@ -13,7 +14,7 @@ public class ReviewView {
 
     }
 
-    public void printMyReview(List<ReviewDTO> dtos){
+    public void printMyReview(List<Review_omDTO> dtos){
         Scanner sc =new Scanner(System.in);
         int reviewCount = dtos.size();
         System.out.println("==========내가 작성한 리뷰==========");
@@ -27,10 +28,13 @@ public class ReviewView {
                 System.out.println("=============================");
                 for(int i = 0 ; i < reviewCount/2 ; i ++)
                 {
-                    ReviewDTO dto = dtos.get(i);
+                    Review_omDTO dto = dtos.get(i);
+                    System.out.println("주문번호 :" + dto.getOrder_id());
                     System.out.println("가게 :" + dto.getStore_id());
-                    System.out.println("리뷰 :" + dto.getReview_content());
+                    System.out.println("메뉴 :" + dto.getMenu_name());
+                    System.out.println("가격 :" + dto.getMenu_price());
                     System.out.println("별점 :" + dto.getReview_rate());
+                    System.out.println("리뷰 :" + dto.getReview_content());
                     System.out.println("=============================");
                 }
             }
@@ -39,10 +43,13 @@ public class ReviewView {
                 System.out.println("=============================");
                 for(int i = reviewCount/2 ; i < reviewCount ; i ++)
                 {
-                    ReviewDTO dto = dtos.get(i);
+                    Review_omDTO dto = dtos.get(i);
+                    System.out.println("주문번호 :" + dto.getOrder_id());
                     System.out.println("가게 :" + dto.getStore_id());
-                    System.out.println("리뷰 :" + dto.getReview_content());
+                    System.out.println("메뉴 :" + dto.getMenu_name());
+                    System.out.println("가격 :" + dto.getMenu_price());
                     System.out.println("별점 :" + dto.getReview_rate());
+                    System.out.println("리뷰 :" + dto.getReview_content());
                     System.out.println("=============================");
                 }
             }
