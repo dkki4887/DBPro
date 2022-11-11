@@ -1,5 +1,6 @@
 package service;
 
+import org.apache.ibatis.session.SqlSession;
 import persistence.dao.MyOrderDAO;
 import persistence.dto.OrderDTO;
 
@@ -47,6 +48,13 @@ public class OrderService {
             OrderDTO orderDTO =dtos.get(0);
             return orderDAO.updateOrder(orderDTO);
         }
+    }
+
+    public List<OrderDTO> selectOrder_store(int store_id)
+    {
+        List<OrderDTO> orderDTOS = orderDAO.selectOrder_store(store_id);
+
+        return orderDTOS;
     }
 
 
