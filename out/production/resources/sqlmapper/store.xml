@@ -30,7 +30,7 @@
     </select>
 
     <insert id="storeAdd" parameterType="hashmap">
-        INSERT INTO STORE(user_id, store_name, store_phone, store_address, store_category, store_time, store_info, store_state, store_rate)
+        INSERT INTO project.store(user_id, store_name, store_phone, store_address, store_category, store_time, store_info, store_state, store_rate)
         VALUES(#{user_id}, #{store_name}, #{store_phone}, #{store_address}, #{store_category}, #{store_time}, #{store_info}, false, 0)
     </insert>
     

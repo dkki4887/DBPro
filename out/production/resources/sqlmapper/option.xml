@@ -6,11 +6,20 @@
 <mapper namespace="mapper.OptionMapper">
     <resultMap id="result" type="persistence.dto.OptionDTO">
         <result property="option_id" column="option_id"/>
+<<<<<<< HEAD
+        <result property="store_id" column="store_id"/>
+=======
+>>>>>>> github/master
         <result property="option_price" column="option_price"/>
         <result property="option_name" column="option_name"/>
     </resultMap>
 
+<<<<<<< HEAD
+
+
+=======
     <select id="selectAll" resultMap="result">
         SELECT * FROM OPTION
     </select>
+>>>>>>> github/master
 </mapper>

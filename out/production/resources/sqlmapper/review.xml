@@ -13,9 +13,19 @@
         <result property="review_content" column="review_content"/>
         <result property="review_time" column="review_time"/>
     </resultMap>
+
     <select id="selectAll" resultMap="result">
-        SELECT * FROM REVIEW
+        SELECT * FROM project.review
     </select>
 
+    <select id="findReviewWithUserIdLike" resultMap="result">
+        SELECT * FROM project.review WHERE user_id = #{user_id}
+    </select>
+
+    <insert id="insertReview" parameterType="ReviewDTO" useGeneratedKeys="true"
+            keyProperty="review_id">
+        INSERT INTO project.review (review_id,store_id , user_id , order_id , review_rate , review_content , review_time)
+        values(#{review_id},#{store_id},#{user_id},#{order_id},#{review_rate},#{review_content},#{review_time})
+    </insert>
 
 </mapper>

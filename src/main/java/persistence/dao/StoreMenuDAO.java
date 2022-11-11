@@ -1,22 +1,22 @@
 package persistence.dao;
 
 import persistence.PooledDataSource;
-import persistence.dto.Order_MenuDTO;
+import persistence.dto.StoreMenuDTO;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order_MenuDAO {
+public class StoreMenuDAO {
     private final DataSource ds = PooledDataSource.getDataSource();
 
-    public List<Order_MenuDTO> findAll(){
+    public List<StoreMenuDTO> findAll(){
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
 
-        List<Order_MenuDTO> orderMenuDTOs = new ArrayList<>();
+        List<StoreMenuDTO> storeMenuDTOs = new ArrayList<>();
         try{
             String query = "SELECT * FROM BOARD";
             conn = ds.getConnection();
@@ -24,16 +24,14 @@ public class Order_MenuDAO {
             rs = stmt.executeQuery(query);
 
             while(rs.next()) {
-                Order_MenuDTO orderMenuDTO = new Order_MenuDTO();
+                StoreMenuDTO storeMenuDTO = new StoreMenuDTO();
 
-                int order_id = rs.getInt("order_id");
+                int store_id = rs.getInt("store_id");
                 int menu_id = rs.getInt("menu_id");
-                long menu_price = rs.getLong("menu_price");
 
-                orderMenuDTO.setOrder_id(order_id);
-                orderMenuDTO.setMenu_id(menu_id);
-                orderMenuDTO.setMenu_price(menu_price);
-                orderMenuDTOs.add(orderMenuDTO);
+                storeMenuDTO.setStore_id(store_id);
+                storeMenuDTO.setMenu_id(menu_id);
+                storeMenuDTOs.add(storeMenuDTO);
                 conn.commit();
             }
         } catch(SQLException e){
@@ -60,7 +58,7 @@ public class Order_MenuDAO {
                 e.printStackTrace();
             }
         }
-        return orderMenuDTOs;
+        return storeMenuDTOs;
     }
 }
 
