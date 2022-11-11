@@ -19,10 +19,9 @@ public class OrderService {
         return orderDTOS;
     }
 
-    public int insertOrder(Long order_id , Long customer_id , Long store_id , Long price
-            , String type )
+    public int insertOrder(Long order_id , Long customer_id , Long store_id , Long price, String type )
     {
-        OrderDTO orderDTO = new OrderDTO(order_id,customer_id,store_id,price,type,LocalDateTime.now(),null,"접수대기");
+        OrderDTO orderDTO = new OrderDTO(/*order_id,customer_id,store_id,price,type,LocalDateTime.now(),null,"접수대기"*/);
         int result =orderDAO.insertOrder(orderDTO);
         return result;
     }

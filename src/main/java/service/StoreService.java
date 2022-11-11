@@ -55,11 +55,13 @@ public class StoreService
                 return input;
         }
     }
+
     private String getStore_Name(Scanner sc)
     {
         System.out.println("가게 이름를 입력해주세요 : ");
         return sc.nextLine();
     }
+
     private String getStore_Address(Scanner sc)
         {
             System.out.println("가게 주소를 입력해주세요 : ");

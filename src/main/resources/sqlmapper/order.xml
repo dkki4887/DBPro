@@ -13,13 +13,8 @@
         <result property="order_state" column="order_state"/>
         <result property="order_orderTime" column="order_orderTime"/>
         <result property="order_receiveTime" column="order_receiveTime"/>
-<<<<<<< HEAD
-        
         <collection property="orderMenuList" resultMap="orderMenuList"/>
         <collection property="orderOptionList" resultMap="orderOptionList"/>
-    </resultMap>
-
-=======
     </resultMap>
 
     <select id="selectAll" resultMap="orderResult">
@@ -49,6 +44,4 @@
         FROM project.order
         WHERE order_id = #{order_id}
     </select>
->>>>>>> github/master
-
 </mapper>
