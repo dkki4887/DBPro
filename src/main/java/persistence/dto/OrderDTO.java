@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,4 +19,6 @@ public class OrderDTO {
     private String order_state;
     private LocalDateTime order_orderTime;
     private LocalDateTime order_receiveTime;
+    private List<OrderMenuDTO> orderMenuList;
+    private List<OrderOptionDTO> orderOptionList;
 }

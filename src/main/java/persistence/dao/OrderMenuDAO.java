@@ -28,11 +28,11 @@ public class OrderMenuDAO {
 
                 int order_id = rs.getInt("order_id");
                 int menu_id = rs.getInt("menu_id");
-                int option_id = rs.getInt("option_id");
+                long menu_price = rs.getLong("menu_price");
 
                 orderMenuDTO.setOrder_id(order_id);
                 orderMenuDTO.setMenu_id(menu_id);
-                orderMenuDTO.setOption_id(option_id);
+                orderMenuDTO.setMenu_price(menu_price);
                 orderMenuDTOs.add(orderMenuDTO);
                 conn.commit();
             }
