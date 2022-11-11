@@ -14,6 +14,7 @@
         <typeAlias alias="StoreDTO" type="persistence.dto.StoreDTO"/>
         <typeAlias alias="Store_MenuDTO" type="persistence.dto.Store_MenuDTO"/>
         <typeAlias alias="UserDTO" type="persistence.dto.UserDTO"/>
+        <typeAlias alias="orderMenuList" type="persistence.dto.Order_MenuDTO"/>
     </typeAliases>
 
 <environments default="development">
@@ -30,13 +31,13 @@
 </environment>
 </environments>
 <mappers>
-<mapper resource="sqlmapper/store.xml"/>
-<mapper resource="sqlmapper/menu.xml"/>
-<mapper resource="sqlmapper/option.xml"/>
-<mapper resource="sqlmapper/order.xml"/>
-<mapper resource="sqlmapper/order_menu.xml"/>
-<mapper resource="sqlmapper/review.xml"/>
-<mapper resource="sqlmapper/store_menu.xml"/>
-<mapper resource="sqlmapper/user.xml"/>
+    <mapper resource="sqlmapper/store.xml"/>
+    <mapper resource="sqlmapper/menu.xml"/>
+    <mapper resource="sqlmapper/option.xml"/>
+    <mapper resource="sqlmapper/order.xml"/>
+    <mapper resource="sqlmapper/order_menu.xml"/>
+    <mapper resource="sqlmapper/review.xml"/>
+    <mapper resource="sqlmapper/store_menu.xml"/>
+    <mapper resource="sqlmapper/user.xml"/>
 </mappers>
         </configuration>

@@ -1,6 +1,7 @@
 import persistence.MyBatisConnectionFactory;
 import persistence.dao.MyStoreDAO;
 import persistence.dto.StoreDTO;
+import service.StoreService;
 
 import java.util.List;
 
@@ -13,8 +14,12 @@ public class Main {
         boardView.printAll(all);*/
 
         MyStoreDAO myStoreDAO = new MyStoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        StoreService ss = new StoreService(myStoreDAO);
 
-        StoreDTO storeDTO = myStoreDAO.selectById(1);
-        System.out.println("dto.toString() = " + storeDTO.toString());
+        ss.storeAdd();
+        List<StoreDTO> storeDTOS = ss.findAll();
+
+        for(StoreDTO storeDTO : storeDTOS)
+            System.out.println("dto.toString() = " + storeDTO.toString());
     }
 }

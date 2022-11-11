@@ -1,8 +1,10 @@
 package service;
 
 import persistence.dao.MyStoreDAO;
+import persistence.dto.StoreDTO;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class StoreService
@@ -13,16 +15,16 @@ public class StoreService
     {
         this.myStoreDAO = myStoreDAO;
     }
-  /*  public List<StoreDTO> findAll()
+    public List<StoreDTO> findAll()
     {
-        List<StoreDTO> all = storeDAO.findAll();
+        List<StoreDTO> all = myStoreDAO.selectAll();
         return all;
-    }*/
+    }
 
     public void storeAdd()
     {
         Scanner sc = new Scanner(System.in);
-        HashMap<String, String> storeMap = new HashMap<String,String>();
+        HashMap<String, Object> storeMap = new HashMap<String,Object>();
 
         storeMap.put("user_id", getUser_id(sc));
         storeMap.put("store_name", getStore_Name(sc));
@@ -63,10 +65,19 @@ public class StoreService
             System.out.println("가게 주소를 입력해주세요 : ");
             return sc.nextLine();
         }
-    private String getStore_Category(Scanner sc)
+    private int getStore_Category(Scanner sc)
         {
-            System.out.println("가게 카테고리를 입력해주세요 : ");
-            return sc.nextLine();
+            String input;
+            while(true)
+            {
+                System.out.println("가게 카테고리를 입력해주세요 (1: 뭐, 2 : 뭐, 3, 뭐): ");
+                input = sc.nextLine();
+
+                if (isdigit(input))
+                    return Integer.parseInt(input);
+                else
+                    System.out.println("입력 값이 형식에 맞지 않습니다.");
+            }
         }
     private String getStore_Time(Scanner sc)
         {

@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import persistence.dto.StoreDTO;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +39,7 @@ public class MyStoreDAO {
         return storeDTO;
     }
 
-    public void storeAdd(Map storeMap)
+    public void storeAdd(HashMap storeMap)
     {
         SqlSession session = sqlSessionFactory.openSession();
         try{

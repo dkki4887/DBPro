@@ -29,9 +29,9 @@
         SELECT store_name FROM STORE WHERE store_id = #{store_id}
     </select>
 
-    <insert id="storeAdd">
-        INSERT INTO STORE(store_id,user_id, store_name, store_phone, store_address, store_category, store_time, store_info, store_state, store_rate)
-        VALUES(#{store_id}, #{user_id}, #{store_name}, #{store_phone}, #{store_address}, #{store_category}, #{store_time}, #{store_info}, false, 0)
+    <insert id="storeAdd" parameterType="hashmap">
+        INSERT INTO STORE(user_id, store_name, store_phone, store_address, store_category, store_time, store_info, store_state, store_rate)
+        VALUES(#{user_id}, #{store_name}, #{store_phone}, #{store_address}, #{store_category}, #{store_time}, #{store_info}, false, 0)
     </insert>
     
     <update id="storeUpdate">

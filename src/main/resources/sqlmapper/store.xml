@@ -30,8 +30,8 @@
     </select>
 
     <insert id="storeAdd" parameterType="hashmap">
-        INSERT INTO STORE(store_id,user_id, store_name, store_phone, store_address, store_category, store_time, store_info, store_time}, #{storre_state, store_rate)
-            VALUES(#{store_id}, #{user_id}, #{store_name}, #{store_phone}, #{store_address}, #{store_category}, #{stoe_info}, false, 0)
+        INSERT INTO STORE(user_id, store_name, store_phone, store_address, store_category, store_time, store_info, store_state, store_rate)
+        VALUES(#{user_id}, #{store_name}, #{store_phone}, #{store_address}, #{store_category}, #{store_time}, #{store_info}, false, 0)
     </insert>
     
     <update id="storeUpdate">
