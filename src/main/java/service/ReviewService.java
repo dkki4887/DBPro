@@ -1,13 +1,11 @@
 package service;
 
 import persistence.dao.MyReviewDAO;
-import persistence.dao.ReviewDAO;
 import persistence.dto.ReviewDTO;
 import persistence.dto.Review_omDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class ReviewService {

@@ -6,6 +6,7 @@
 <mapper namespace="mapper.MenuMapper">
     <resultMap id="result" type="persistence.dto.MenuDTO">
         <result property="menu_id" column="menu_id"/>
+        <result property="menu_name" column="menu_name"/>
         <result property="store_id" column="store_id"/>
         <result property="menu_name" column="menu_name"/>
         <result property="menu_price" column="menu_price"/>

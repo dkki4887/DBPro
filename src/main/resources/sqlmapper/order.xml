@@ -14,10 +14,21 @@
         <result property="order_orderTime" column="order_orderTime"/>
         <result property="order_receiveTime" column="order_receiveTime"/>
         
-        <collection property="orderMenuList" resultMap="OrderMenu"/>
-        <collection property="orderOptionList" resultMap="OrderOption"/>
+        <collection property="orderMenuList" resultMap="orderMenuList"/>
+        <collection property="orderOptionList" resultMap="orderOptionList"/>
     </resultMap>
 
+    <resultMap id="orderMenuList" type="persistence.dto.OrderMenuDTO">
+        <result property="orderMenu_id" column="orderMenu_id"/>
+        <result property="menu_name" column="menu_name"/>
+        <result property="menu_price" column="menu_price"/>
+    </resultMap>
+
+    <resultMap id="orderOptionList" type="persistence.dto.OrderOptionDTO">
+        <result property="orderMenu_id" column="orderMenu_id"/>
+        <result property="option_name" column="option_name"/>
+        <result property="option_price" column="option_price"/>
+    </resultMap>
 
     <select id="selectAll" resultMap="orderResult">
         SELECT * FROM project.order
@@ -49,10 +60,10 @@
 
     <select id="selectOrder_store" resultMap="orderResult">
         SELECT user_id, menu_name, option_name, order_price, order_state
-        FROM project.ordermenu om
+        FROM ordermenu om
         INNER JOIN project.order o
         ON om.order_id = o.order_id
-        INNER JOIN project.orderoption oo
+        INNER JOIN orderoption oo
         ON om.orderMenu_id = oo.orderMenu_id
         WHERE o.store_id = #{store_id}
     </select>

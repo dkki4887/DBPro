@@ -11,7 +11,6 @@ public class MenuDTO {
     private int menu_id;
     private String menu_name;
     private int store_id;
-    private String menu_name;
     private Long menu_price;
     private int menu_quantity;
     private String menu_category;

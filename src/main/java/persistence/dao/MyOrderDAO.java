@@ -29,8 +29,6 @@ public class MyOrderDAO {
         return list;
     }
 
-    @Insert("INSERT INTO order  (order_id , customer_id , store_id , contents , review_date , grade) " +
-            "VALUES (#{store_id},#{customer_id},#{order_id},#{contents},#{review_date},#{grade})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     public int insertOrder(OrderDTO orderDTO) {
         SqlSession session = sqlSessionFactory.openSession();
