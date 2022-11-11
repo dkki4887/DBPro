@@ -11,6 +11,7 @@ import org.apache.ibatis.type.Alias;
 @Alias("OrderOptionDTO")
 public class OrderOptionDTO {
     private int order_id;
+    private int orderMenu_id;
     private String option_name;
     private long option_price;
 }

@@ -11,10 +11,8 @@
         <result property="menu_quantity" column="menu_quantity"/>
         <result property="menu_category" column="menu_category"/>
     </resultMap>
-<<<<<<< HEAD
-
 </mapper>
-=======
+
     <select id="selectAll" resultMap="result">
         SELECT * FROM MENU
     </select>
@@ -23,4 +21,3 @@
         SELECT * FROM MENU WHERE store_id = #{store_id}
     </select>
 </mapper>
->>>>>>> github/master

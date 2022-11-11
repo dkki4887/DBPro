@@ -3,13 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="mapper.OrderMenuMapper">
+<mapper namespace="mapper.Order_MenuMapper">
     <resultMap id="result" type="persistence.dto.OrderMenuDTO">
         <result property="order_id" column="order_id"/>
-        <result property="menu_name" column="menu_name"/>
-        <result property="menu_price" column="menu_price"/>
+        <result property="menu_id" column="menu_id"/>
+        <result property="option_id" column="option_id"/>
     </resultMap>
 
-
-
+    <select id="selectAll" resultMap="result">
+        SELECT * FROM ORDER_MENU
+    </select>
 </mapper>
