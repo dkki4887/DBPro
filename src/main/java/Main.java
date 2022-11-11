@@ -15,8 +15,8 @@ public class Main {
         OrderService orderService = new OrderService(myOrderDAO);
         OrderView orderView = new OrderView();
 
-        List<OrderDTO> orderDTOS = myOrderDAO.selectOrder_store(1);
-        orderView.printMyOrder(orderDTOS);
+        orderService.selectOrder_store(1);
+        orderView.printMyOrder(orderService.selectOrder_store(1));
 
 //        for(OrderDTO orderDTO : orderDTOS)
 //            System.out.println("dto.toString() = " + orderDTO.toString());
