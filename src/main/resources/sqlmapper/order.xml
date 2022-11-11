@@ -13,9 +13,11 @@
         <result property="order_state" column="order_state"/>
         <result property="order_orderTime" column="order_orderTime"/>
         <result property="order_receiveTime" column="order_receiveTime"/>
-        <collection property="orderMenuList" resultMap="orderMenuList"/>
-        <collection property="orderOptionList" resultMap="orderOptionList"/>
+        
+        <collection property="orderMenuList" ofType="OrderMenu"/>
+        <collection property="orderOptionList" ofType="OrderOption"/>
     </resultMap>
+
 
     <select id="selectAll" resultMap="orderResult">
         SELECT * FROM project.order
@@ -44,4 +46,22 @@
         FROM project.order
         WHERE order_id = #{order_id}
     </select>
+
+    <select id="selectOrder_store" resultMap="orderResult">
+        SELECT project.order.user_id, ordermenu.menu_id, orderoption.option_name,
+               project.order.order_price, project.order.order_state
+        FROM project.ordermenu om
+        INNER JOIN project.order o
+        ON om.order_id = o.order_id
+        INNER JOIN project.orderoption oo
+        ON om.orderMenu_id = oo.orderMenu_id
+        WHERE o.store_id = #{store_id}
+    </select>
+
+    <update id="updateOrderState">
+        UPDATE project.order
+        SET order_state = #{order_stste}
+        WHENEVER order_id = #{order_id}
+    </update>
+
 </mapper>
