@@ -5,6 +5,7 @@ import persistence.dto.StoreDTO;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class StoreService
@@ -24,17 +25,25 @@ public class StoreService
     public void storeAdd()
     {
         Scanner sc = new Scanner(System.in);
-        HashMap<String, Object> storeMap = new HashMap<String,Object>();
+        StoreDTO addStoreDTO = new StoreDTO();
 
-        storeMap.put("user_id", getUser_id(sc));
-        storeMap.put("store_name", getStore_Name(sc));
-        storeMap.put("store_address", getStore_Address(sc));
-        storeMap.put("store_phone", getStore_Phone(sc));
-        storeMap.put("store_category", getStore_Category(sc));
-        storeMap.put("store_time", getStore_Time(sc));
-        storeMap.put("store_info", getStore_info(sc));
+        String user_id = getUser_id(sc);
+        String store_name = getStore_Name(sc);
+        String store_address = getStore_Address(sc);
+        String store_phone = getStore_Phone(sc);
+        int store_category = getStore_Category(sc);
+        String store_time = getStore_Time(sc);
+        String store_info = getStore_info(sc);
 
-        myStoreDAO.storeAdd(storeMap);
+        addStoreDTO.setUser_id(user_id);
+        addStoreDTO.setStore_name(store_name);
+        addStoreDTO.setStore_address(store_address);
+        addStoreDTO.setStore_phone(store_phone);
+        addStoreDTO.setStore_category(store_category);
+        addStoreDTO.setStore_time(store_time);
+        addStoreDTO.setStore_info(store_info);
+
+        myStoreDAO.storeAdd(addStoreDTO);
     }
 
     private String getUser_id(Scanner sc)
@@ -83,23 +92,26 @@ public class StoreService
         }
     private String getStore_Time(Scanner sc)
         {
-            String store_time = "",input;
+            String store_time = "",open_input, close_input;
             while(true)
             {
                 System.out.println("가게 오픈시간을 입력해주세요(00:00): ");
-                input = sc.nextLine();
-                if (isTime(input)) {
-                    store_time += input;
+                open_input = sc.nextLine();
+
+                if (isTime(open_input)) {
                     while(true)
                     {
                         System.out.println("가게 마감시간을 입력해주세요(00:00): ");
-                        input = sc.nextLine();
-                        if(isTime(input)) {
-                            store_time += "~" + input;
+                        close_input = sc.nextLine();
+                        if(isTime(close_input) && compareTime(open_input, close_input)) {
+                            store_time += open_input + "~" + close_input;
                             return store_time;
                         }
-                        else
+                        else {
                             System.out.println("입력 값이 형식에 맞지 않습니다. (00:00) ");
+                            break;
+                        }
+
                     }
 
                 }
@@ -133,10 +145,30 @@ public class StoreService
         String[] temp = input.split(":");
         for(int i = 0; i < temp.length; i++)
         {
-            if(!isdigit(temp[i]))
+            if(!(isdigit(temp[i]) && temp[i].length() == 2))
                 return false;
         }
+        if(0 <= Integer.parseInt(temp[0]) && Integer.parseInt(temp[0]) <= 24)
+            if(0 <= Integer.parseInt(temp[1]) && Integer.parseInt(temp[1]) < 60)
+                return true;
 
-        return true;
+        return false;
     }
+
+    private boolean compareTime(String open, String close)
+    {
+        String[] open_temp = open.split(":");
+        String[] close_temp = close.split(":");
+
+        if(Integer.parseInt(open_temp[0]) < Integer.parseInt(close_temp[0]))
+            return true;
+        else if(Integer.parseInt(open_temp[0]) == Integer.parseInt(close_temp[0]))
+        {
+            if(Integer.parseInt(open_temp[1]) <= Integer.parseInt(close_temp[1]))
+                return true;
+        }
+
+        return false;
+    }
+
 }

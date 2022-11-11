@@ -28,8 +28,7 @@ public class MyStoreDAO {
 
     public StoreDTO selectById(int id)
     {
-
-        StoreDTO storeDTO = new StoreDTO();
+        StoreDTO storeDTO;
         SqlSession session = sqlSessionFactory.openSession();
         try{
             storeDTO = session.selectOne("mapper.StoreMapper.selectStore_id", id);
@@ -39,11 +38,18 @@ public class MyStoreDAO {
         return storeDTO;
     }
 
-    public void storeAdd(HashMap storeMap)
+    public void storeAdd(StoreDTO addStoreDTO)
     {
         SqlSession session = sqlSessionFactory.openSession();
+        int result = -1;
         try{
-            session.insert("mapper.StoreMapper.storeAdd", storeMap);
+            result = session.insert("mapper.StoreMapper.storeAdd", addStoreDTO);
+
+            if (result==1){
+                session.commit();
+            }else {
+                session.rollback();
+            }
         } finally {
             session.close();
         }

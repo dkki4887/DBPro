@@ -35,9 +35,9 @@
     <mapper resource="sqlmapper/menu.xml"/>
     <mapper resource="sqlmapper/option.xml"/>
     <mapper resource="sqlmapper/order.xml"/>
-    <mapper resource="sqlmapper/order_menu.xml"/>
+    <mapper resource="sqlmapper/ordermenu.xml"/>
     <mapper resource="sqlmapper/review.xml"/>
-    <mapper resource="sqlmapper/store_menu.xml"/>
+    <mapper resource="sqlmapper/storemenu.xml"/>
     <mapper resource="sqlmapper/user.xml"/>
 </mappers>
         </configuration>

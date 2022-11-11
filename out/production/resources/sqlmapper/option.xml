@@ -12,6 +12,6 @@
     </resultMap>
 
     <select id="selectAll" resultMap="result">
-        SELECT * FROM OPTION
+        SELECT * FROM project.option
     </select>
 </mapper>

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.OrderMapper">
-    <resultMap id="result" type="persistence.dto.OrderDTO">
+    <resultMap id="orderResult" type="persistence.dto.OrderDTO">
         <result property="order_id" column="order_id"/>
         <result property="user_id" column="user_id"/>
         <result property="store_id" column="store_id"/>
@@ -13,13 +13,8 @@
         <result property="order_state" column="order_state"/>
         <result property="order_orderTime" column="order_orderTime"/>
         <result property="order_receiveTime" column="order_receiveTime"/>
-<<<<<<< HEAD
-        
         <collection property="orderMenuList" resultMap="orderMenuList"/>
         <collection property="orderOptionList" resultMap="orderOptionList"/>
-    </resultMap>
-
-=======
     </resultMap>
 
     <select id="selectAll" resultMap="orderResult">
@@ -49,6 +44,4 @@
         FROM project.order
         WHERE order_id = #{order_id}
     </select>
->>>>>>> github/master
-
 </mapper>

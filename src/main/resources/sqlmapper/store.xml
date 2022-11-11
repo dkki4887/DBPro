@@ -29,7 +29,7 @@
         SELECT store_name FROM STORE WHERE store_id = #{store_id}
     </select>
 
-    <insert id="storeAdd" parameterType="hashmap" keyProperty="store_id">
+    <insert id="storeAdd" parameterType="StoreDTO" keyProperty="store_id">
         INSERT INTO project.store(user_id, store_name, store_phone, store_address, store_category, store_time, store_info, store_state, store_rate)
         VALUES(#{user_id}, #{store_name}, #{store_phone}, #{store_address}, #{store_category}, #{store_time}, #{store_info}, false, 0)
     </insert>

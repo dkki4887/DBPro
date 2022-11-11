@@ -19,4 +19,10 @@
     <select id="selectMenu_StoreId" resultMap="result">
         SELECT * FROM MENU WHERE store_id = #{store_id}
     </select>
+
+    <update id="updateOrderState">
+        UPDATE menu
+        SET menu_quantity = menu_quantity - 1
+        WHERE menu_name = #{menu_name}
+    </update>
 </mapper>
