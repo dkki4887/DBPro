@@ -24,6 +24,7 @@ public class MyStoreDAO {
         }
         return list;
     }
+
     public StoreDTO selectById(int id)
     {
 
@@ -35,6 +36,16 @@ public class MyStoreDAO {
             session.close();
         }
         return storeDTO;
+    }
+
+    public void storeAdd(Map storeMap)
+    {
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            session.insert("mapper.StoreMapper.storeAdd", storeMap);
+        } finally {
+            session.close();
+        }
     }
 }
 
