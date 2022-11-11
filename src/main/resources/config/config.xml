@@ -5,7 +5,6 @@
 
 <configuration>
     <typeAliases>
-        <typeAlias alias="BoardDTO" type="persistence.dto.BoardDTO"/>
         <typeAlias alias="MenuDTO" type="persistence.dto.MenuDTO"/>
         <typeAlias alias="Menu_OptionDTO" type="persistence.dto.Menu_OptionDTO"/>
         <typeAlias alias="OptionDTO" type="persistence.dto.OptionDTO"/>
@@ -17,20 +16,27 @@
         <typeAlias alias="UserDTO" type="persistence.dto.UserDTO"/>
     </typeAliases>
 
-    <environments default="development">
-        <environment id="development">
-            <transactionManager type="JDBC"/>
-            <!--  connecting to Local MySql -->
-            <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost/mydb?characterEncoding=utf8&amp;serverTimezone=UTC&amp;useSSL=false"/>
-                <property name="username" value="root"/>
-                <property name="password" value="021105"/>
-            </dataSource>
+<environments default="development">
+<environment id="development">
+    <transactionManager type="JDBC"/>
+    <!--  connecting to Local MySql -->
+    <dataSource type="POOLED">
+        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost/project?characterEncoding=utf8&amp;serverTimezone=UTC&amp;useSSL=false&amp;allowPublic"/>
+        <property name="username" value="root"/>
+        <property name="password" value="1234"/>
+    </dataSource>
 
-        </environment>
-    </environments>
-    <mappers>
-        <mapper resource="sqlmapper/board.xml"/>
-    </mappers>
-</configuration>
+</environment>
+</environments>
+<mappers>
+<mapper resource="sqlmapper/store.xml"/>
+<mapper resource="sqlmapper/menu.xml"/>
+<mapper resource="sqlmapper/option.xml"/>
+<mapper resource="sqlmapper/order.xml"/>
+<mapper resource="sqlmapper/order_menu.xml"/>
+<mapper resource="sqlmapper/review.xml"/>
+<mapper resource="sqlmapper/store_menu.xml"/>
+<mapper resource="sqlmapper/user.xml"/>
+</mappers>
+        </configuration>

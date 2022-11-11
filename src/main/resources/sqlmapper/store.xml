@@ -21,8 +21,12 @@
         SELECT * FROM STORE
     </select>
 
-    <select id="selectStore_Category" resultMap="result">
+    <select id="selectStore_Category" parameterType="string" resultMap="result">
         SELECT store_name FROM STORE WHERE store_category = #{store_category}
+    </select>
+
+    <select id="selectStore_id" parameterType="int" resultMap="result">
+        SELECT store_name FROM STORE WHERE store_id = #{store_id}
     </select>
 
     <insert id="storeAdd">

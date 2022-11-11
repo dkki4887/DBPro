@@ -2,7 +2,7 @@ package persistence.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import persistence.dto.StoreMenuDTO;
+import persistence.dto.Store_MenuDTO;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ public class MyStore_MenuDAO {
     public MyStore_MenuDAO(SqlSessionFactory sqlSessionFactory){
         this.sqlSessionFactory = sqlSessionFactory;
     }
-    public List<StoreMenuDTO> selectAll(){
-        List<StoreMenuDTO> list = null;
+    public List<Store_MenuDTO> selectAll(){
+        List<Store_MenuDTO> list = null;
         SqlSession session = sqlSessionFactory.openSession();
         try{
             list = session.selectList("mapper.StoreMenuMapper.selectAll");
@@ -22,6 +22,6 @@ public class MyStore_MenuDAO {
         }
         return list;
     }
-    public StoreMenuDTO selectById(Long id){return null;}
+    public Store_MenuDTO selectById(Long id){return null;}
 }
 

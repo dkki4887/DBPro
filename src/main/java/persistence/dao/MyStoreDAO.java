@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import persistence.dto.StoreDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public class MyStoreDAO {
     private SqlSessionFactory sqlSessionFactory = null;
@@ -12,6 +13,7 @@ public class MyStoreDAO {
     public MyStoreDAO(SqlSessionFactory sqlSessionFactory){
         this.sqlSessionFactory = sqlSessionFactory;
     }
+
     public List<StoreDTO> selectAll(){
         List<StoreDTO> list = null;
         SqlSession session = sqlSessionFactory.openSession();
@@ -22,6 +24,17 @@ public class MyStoreDAO {
         }
         return list;
     }
-    public StoreDTO selectById(Long id){return null;}
+    public StoreDTO selectById(int id)
+    {
+
+        StoreDTO storeDTO = new StoreDTO();
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            storeDTO = session.selectOne("mapper.StoreMapper.selectStore_id", id);
+        } finally {
+            session.close();
+        }
+        return storeDTO;
+    }
 }
 
