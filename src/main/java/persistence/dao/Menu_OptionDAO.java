@@ -1,22 +1,22 @@
 package persistence.dao;
 
 import persistence.PooledDataSource;
-import persistence.dto.MenuOptionDTO;
+import persistence.dto.Menu_OptionDTO;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuOptionDAO {
+public class Menu_OptionDAO {
     private final DataSource ds = PooledDataSource.getDataSource();
 
-    public List<MenuOptionDTO> findAll(){
+    public List<Menu_OptionDTO> findAll(){
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
 
-        List<MenuOptionDTO> menuOptionDTOs = new ArrayList<>();
+        List<Menu_OptionDTO> menuOptionDTOs = new ArrayList<>();
         try{
             String query = "SELECT * FROM BOARD";
             conn = ds.getConnection();
@@ -24,7 +24,7 @@ public class MenuOptionDAO {
             rs = stmt.executeQuery(query);
 
             while(rs.next()) {
-                MenuOptionDTO menuOptionDTO = new MenuOptionDTO();
+                Menu_OptionDTO menuOptionDTO = new Menu_OptionDTO();
 
                 int menu_id = rs.getInt("menu_id");
                 int option_id = rs.getInt("option_id");

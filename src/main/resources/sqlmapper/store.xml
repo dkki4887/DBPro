@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.StoreMapper">
+    <resultMap id="result" type="persistence.dto.StoreDTO">
+        <result property="store_id" column="store_id"/>
+        <result property="user_id" column="user_id"/>
+        <result property="store_name" column="store_name"/>
+        <result property="store_phone" column="store_phone"/>
+        <result property="store_address" column="store_address"/>
+        <result property="store_category" column="store_category"/>
+        <result property="store_time" column="store_time"/>
+        <result property="store_info" column="store_info"/>
+        <result property="store_state" column="store_state"/>
+        <result property="store_rate" column="store_rate"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="result">
+        SELECT * FROM STORE
+    </select>
+
+    <select id="selectStore_Category" parameterType="string" resultMap="result">
+        SELECT store_name FROM STORE WHERE store_category = #{store_category}
+    </select>
+
+    <select id="selectStore_id" parameterType="int" resultMap="result">
+        SELECT store_name FROM STORE WHERE store_id = #{store_id}
+    </select>
+
+    <insert id="storeAdd" parameterType="hashmap">
+        INSERT INTO STORE(store_id,user_id, store_name, store_phone, store_address, store_category, store_time, store_info, store_time}, #{storre_state, store_rate)
+            VALUES(#{store_id}, #{user_id}, #{store_name}, #{store_phone}, #{store_address}, #{store_category}, #{stoe_info}, false, 0)
+    </insert>
+    
+    <update id="storeUpdate">
+        UPDATE STORE SET store_name = #{store_name},
+                         user_id = #{user_id},
+                         store_phone = #{store_phone},
+                         store_address = #{store_address},
+                         store_category = #{store_category},
+                         store_time = #{store_time},
+                         store_post = #{store_post},
+                         store_state = #{store_state},
+                         store_rate = #{store_rate}
+    </update>
+
+    <delete id="deleteStore">
+        DELETE FROM STORE
+        WHERE store_id = #{store_id}
+    </delete>
+
+</mapper>

@@ -1,4 +1,6 @@
 import persistence.MyBatisConnectionFactory;
+import persistence.dao.MyStoreDAO;
+import persistence.dto.StoreDTO;
 
 import java.util.List;
 
@@ -10,11 +12,9 @@ public class Main {
         List<BoardDTO> all = boardService.findAll();
         boardView.printAll(all);*/
 
-        MyMenuDAO myBoardDAO = new MyMenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        MyStoreDAO myStoreDAO = new MyStoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
 
-        List<MenuDTO> boardDTOS = myBoardDAO.selectAll();
-        for(MenuDTO dto:boardDTOS){
-            System.out.println("dto.toString() = " + dto.toString());
-        }
+        StoreDTO storeDTO = myStoreDAO.selectById(1);
+        System.out.println("dto.toString() = " + storeDTO.toString());
     }
 }

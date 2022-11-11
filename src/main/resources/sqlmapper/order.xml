@@ -13,10 +13,42 @@
         <result property="order_state" column="order_state"/>
         <result property="order_orderTime" column="order_orderTime"/>
         <result property="order_receiveTime" column="order_receiveTime"/>
+<<<<<<< HEAD
         
         <collection property="orderMenuList" resultMap="orderMenuList"/>
         <collection property="orderOptionList" resultMap="orderOptionList"/>
     </resultMap>
 
+=======
+    </resultMap>
+
+    <select id="selectAll" resultMap="orderResult">
+        SELECT * FROM project.order
+    </select>
+
+    <select id="findOrderWithCustomerIdLike" resultMap="orderResult">
+        SELECT * FROM project.order
+        WHERE (customer_id = #{customer_id} AND state = '취소')
+        OR (customer_id = #{customer_id} AND state = '배달완료')
+    </select>
+
+    <insert id="insertOrder" parameterType="OrderDTO" useGeneratedKeys="true"
+            keyProperty="order_id">
+        INSERT INTO project.order (order_id , customer_id , store_id , price , type , date , date2 , state)
+        VALUES (#{order_id},#{customer_id},#{store_id},#{price},#{type},#{date},#{date2},#{state})
+    </insert>
+
+    <select id="findOrderWithStoreIdLike" resultMap="orderResult">
+        SELECT *
+        FROM project.order
+        WHERE store_id = #{store_id}
+    </select>
+
+    <select id="findOrderWithOrderID" resultMap="orderResult">
+        SELECT *
+        FROM project.order
+        WHERE order_id = #{order_id}
+    </select>
+>>>>>>> github/master
 
 </mapper>
