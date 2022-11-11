@@ -14,8 +14,8 @@
         <result property="order_orderTime" column="order_orderTime"/>
         <result property="order_receiveTime" column="order_receiveTime"/>
         
-        <collection property="orderMenuList" ofType="OrderMenu"/>
-        <collection property="orderOptionList" ofType="OrderOption"/>
+        <collection property="orderMenuList" resultMap="OrderMenu"/>
+        <collection property="orderOptionList" resultMap="OrderOption"/>
     </resultMap>
 
 
@@ -59,7 +59,7 @@
 
     <update id="updateOrderState">
         UPDATE project.order
-        SET order_state = #{order_stste}
+        SET order_state = #{order_state}
         WHENEVER order_id = #{order_id}
     </update>
 
