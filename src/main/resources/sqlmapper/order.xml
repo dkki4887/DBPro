@@ -48,8 +48,7 @@
     </select>
 
     <select id="selectOrder_store" resultMap="orderResult">
-        SELECT project.order.user_id, ordermenu.menu_id, orderoption.option_name,
-               project.order.order_price, project.order.order_state
+        SELECT user_id, menu_name, option_name, order_price, order_state
         FROM project.ordermenu om
         INNER JOIN project.order o
         ON om.order_id = o.order_id

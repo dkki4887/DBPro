@@ -99,7 +99,19 @@ public class MyOrderDAO {
         List<OrderDTO> dtos = null;
         SqlSession session = sqlSessionFactory.openSession();
         try{
-            dtos = session.selectList("mapper.OrderMapper.findOrderWithStoreIdLike",order_id);
+            dtos = session.selectList("mapper.OrderMapper.findOrderWithStoreIdLike", order_id);
+        }finally {
+            session.close();
+        }
+        return dtos;
+    }
+
+    public List<OrderDTO> selectOrder_store(int store_id)
+    {
+        List<OrderDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.OrderMapper.selectOrder_store", store_id);
         }finally {
             session.close();
         }
