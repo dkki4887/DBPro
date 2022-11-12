@@ -104,35 +104,4 @@ public class MenuService
         return true;
     }
 
-    private boolean isTime(String input)
-    {
-        String[] temp = input.split(":");
-        for(int i = 0; i < temp.length; i++)
-        {
-            if(!(isdigit(temp[i]) && temp[i].length() == 2))
-                return false;
-        }
-        if(0 <= Integer.parseInt(temp[0]) && Integer.parseInt(temp[0]) <= 24)
-            if(0 <= Integer.parseInt(temp[1]) && Integer.parseInt(temp[1]) < 60)
-                return true;
-
-        return false;
-    }
-
-    private boolean compareTime(String open, String close)
-    {
-        String[] open_temp = open.split(":");
-        String[] close_temp = close.split(":");
-
-        if(Integer.parseInt(open_temp[0]) < Integer.parseInt(close_temp[0]))
-            return true;
-        else if(Integer.parseInt(open_temp[0]) == Integer.parseInt(close_temp[0]))
-        {
-            if(Integer.parseInt(open_temp[1]) <= Integer.parseInt(close_temp[1]))
-                return true;
-        }
-
-        return false;
-    }
-
 }
