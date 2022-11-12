@@ -19,7 +19,7 @@ public class OrderView {
             List<OrderMenuDTO> orderMenuList = ods.getOrderMenuList();
             List<OrderOptionDTO> orderOptionList = ods.getOrderOptionList();
 
-            System.out.print("회원" + ods.getUser_id() );
+            System.out.print("회원 :" + ods.getUser_id() );
             for(OrderMenuDTO odms : orderMenuList)
             {
                 System.out.print(", " + odms.getMenu_name());
