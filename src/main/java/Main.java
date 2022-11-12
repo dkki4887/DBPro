@@ -33,7 +33,7 @@ public class Main {
         ReviewView reviewView = new ReviewView();
 
         //insert review
-        int reviewResult=reviewService.insertReview(0,0,"USERID",0,"REVIEW CONTENTS");
+        int reviewResult=reviewService.insertReview(0,0,"USERID",0);
         if(reviewResult ==1) System.out.println("리뷰 작성 성공");
         else System.out.println("리뷰 작성 실패");
 
