@@ -32,7 +32,6 @@ public class ReviewView {
                     System.out.println("주문번호 :" + dto.getOrder_id());
                     System.out.println("가게 :" + dto.getStore_id());
                     System.out.println("메뉴 :" + dto.getMenu_name());
-                    System.out.println("가격 :" + dto.getMenu_price());
                     System.out.println("별점 :" + dto.getReview_rate());
                     System.out.println("리뷰 :" + dto.getReview_content());
                     System.out.println("=============================");
@@ -47,7 +46,6 @@ public class ReviewView {
                     System.out.println("주문번호 :" + dto.getOrder_id());
                     System.out.println("가게 :" + dto.getStore_id());
                     System.out.println("메뉴 :" + dto.getMenu_name());
-                    System.out.println("가격 :" + dto.getMenu_price());
                     System.out.println("별점 :" + dto.getReview_rate());
                     System.out.println("리뷰 :" + dto.getReview_content());
                     System.out.println("=============================");

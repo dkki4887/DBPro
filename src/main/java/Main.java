@@ -14,15 +14,15 @@ import java.util.List;
 public class Main {
     public static void main(String args[]){
 
-        /* Order Test */
+     /*   *//* Order Test *//*
         MyOrderDAO myOrderDAO = new MyOrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         OrderService orderService = new OrderService(myOrderDAO);
         OrderView orderView = new OrderView();
 
         orderService.selectOrder_store(1);
         orderView.printMyOrder(orderService.selectOrder_store(1));
-        /* Order Test End */
-
+        *//* Order Test End *//*
+*/
 //        for(OrderDTO orderDTO : orderDTOS)
 //            System.out.println("dto.toString() = " + orderDTO.toString());
 
@@ -32,13 +32,13 @@ public class Main {
         ReviewService reviewService = new ReviewService(myReviewDAO);
         ReviewView reviewView = new ReviewView();
 
-        //insert review
-        int reviewResult=reviewService.insertReview(0,0,"USERID",0);
+    /*    //insert review
+        int reviewResult=reviewService.insertReview(2,2,"asd",2);
         if(reviewResult ==1) System.out.println("리뷰 작성 성공");
         else System.out.println("리뷰 작성 실패");
-
+*/
         //print review
-        String review_user_id = "USERID"; // 고객 id로 review select
+        String review_user_id = "abc"; // 고객 id로 review select
         reviewView.printMyReview( reviewService.findReviewWithUserIdLike( review_user_id ) );
 
         /* Review Test END*/

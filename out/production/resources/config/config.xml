@@ -13,6 +13,7 @@
         <typeAlias alias="OrderOptionDTO" type="persistence.dto.OrderOptionDTO"/>
         <typeAlias alias="ReviewDTO" type="persistence.dto.ReviewDTO"/>
         <typeAlias alias="StoreDTO" type="persistence.dto.StoreDTO"/>
+        <typeAlias alias="Review_omDTO" type="persistence.dto.Review_omDTO"/>
         <typeAlias alias="StoreMenuDTO" type="persistence.dto.StoreMenuDTO"/>
         <typeAlias alias="UserDTO" type="persistence.dto.UserDTO"/>
     </typeAliases>
@@ -25,7 +26,7 @@
         <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost/project?characterEncoding=utf8&amp;serverTimezone=UTC&amp;useSSL=false&amp;allowPublic"/>
         <property name="username" value="root"/>
-        <property name="password" value="1234"/>
+        <property name="password" value="rlaalsgh0@"/>
     </dataSource>
 
 </environment>
