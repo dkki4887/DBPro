@@ -36,21 +36,9 @@
 
     <insert id="insertOrder" parameterType="OrderDTO" useGeneratedKeys="true"
             keyProperty="order_id">
-        INSERT INTO project.order (order_id , customer_id , store_id , price , type , date , date2 , state)
-        VALUES (#{order_id},#{customer_id},#{store_id},#{price},#{type},#{date},#{date2},#{state})
+        INSERT INTO project.order (order_id , user_id , store_id , order_price , order_payment , order_state , order_orderTime , order_receiveTime)
+        VALUES (#{order_id},#{user_id},#{store_id},#{order_price},#{order_payment},#{order_state},#{order_orderTime},#{order_receiveTime})
     </insert>
-
-    <select id="findOrderWithStoreIdLike" resultMap="orderResult">
-        SELECT *
-        FROM project.order
-        WHERE store_id = #{store_id}
-    </select>
-
-    <select id="findOrderWithOrderID" resultMap="orderResult">
-        SELECT *
-        FROM project.order
-        WHERE order_id = #{order_id}
-    </select>
 
     <select id="selectOrder_store" resultMap="orderResult">
         SELECT user_id, menu_name, option_name, order_price, order_state
@@ -72,11 +60,5 @@
         WHERE o.user_id = #{user_id}
         AND (o.order_state = "배달 완료" OR o.order_state = "취소")
     </select>
-
-    <update id="updateOrderState">
-        UPDATE project.order
-        SET order_state = #{order_state}
-        WHENEVER order_id = #{order_id}
-    </update>
 
 </mapper>

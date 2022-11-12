@@ -1,5 +1,6 @@
 package service;
 
+import org.apache.ibatis.session.SqlSessionFactory;
 import persistence.dao.MyStoreDAO;
 import persistence.dao.MyUserDAO;
 import persistence.dto.StoreDTO;
@@ -15,10 +16,10 @@ public class StoreService
     private final MyStoreDAO myStoreDAO;
     private final MyUserDAO myUserDAO;
 
-    public StoreService(MyStoreDAO myStoreDAO, MyUserDAO myUserDAO)
+    public StoreService(SqlSessionFactory sqlSessionFactory)
     {
-        this.myStoreDAO = myStoreDAO;
-        this.myUserDAO = myUserDAO;
+        myStoreDAO = new MyStoreDAO(sqlSessionFactory);
+        myUserDAO = new MyUserDAO(sqlSessionFactory);
     }
 
     public List<StoreDTO> findAll()
@@ -65,9 +66,12 @@ public class StoreService
             {
                 if (input.equals(userDTO.getUser_id()))
                 {
-                    System.out.println("아이디가 유효하지 않습니다.");
+                    return input;
                 }
             }
+
+            System.out.println("아이디가 유효하지 않습니다.");
+
         }
     }
     private String getStore_Phone(Scanner sc)

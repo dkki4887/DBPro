@@ -25,6 +25,10 @@
         SELECT store_name FROM STORE WHERE store_category = #{store_category}
     </select>
 
+    <select id="selectAllStoreId" resultMap="result">
+        SELECT store_id FROM STORE
+    </select>
+
     <select id="selectStore_id" parameterType="int" resultMap="result">
         SELECT store_name FROM STORE WHERE store_id = #{store_id}
     </select>
