@@ -32,10 +32,10 @@ public class MenuService
         MenuDTO addMenuDTO = new MenuDTO();
 
         int checked_Store_Id = checkStore_id(store_id);
-        String menu_name = getMenu_name(sc);
-        long menu_price = getMenu_price(sc);
-        int menu_quantity = getMenu_quantity(sc);
-        String menu_category = getMenu_category(sc);
+        String menu_name = inputMenu_name(sc);
+        long menu_price = inputMenu_price(sc);
+        int menu_quantity = inputMenu_quantity(sc);
+        String menu_category = inputMenu_category(sc);
 
 
         addMenuDTO.setStore_id(checked_Store_Id);
@@ -58,12 +58,12 @@ public class MenuService
         return store_id;
     }
 
-    private String getMenu_name(Scanner sc)
+    private String inputMenu_name(Scanner sc)
     {
         System.out.println("메뉴 이름을 입력해주세요 : ");
         return sc.nextLine();
     }
-    private long getMenu_price(Scanner sc)
+    private long inputMenu_price(Scanner sc)
     {
         String input;
 
@@ -82,7 +82,7 @@ public class MenuService
 
     }
 
-    private int getMenu_quantity(Scanner sc)
+    private int inputMenu_quantity(Scanner sc)
     {
         String input;
 
@@ -100,8 +100,8 @@ public class MenuService
         }
     }
 
-    private String getMenu_category(Scanner sc)
-        {
+    private String inputMenu_category(Scanner sc)
+    {
             System.out.println("메뉴 카테고리를 입력해주세요 (1: 뭐, 2 : 뭐, 3, 뭐): ");
             return sc.nextLine();
         }
