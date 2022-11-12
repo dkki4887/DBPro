@@ -50,5 +50,10 @@
         DELETE FROM STORE
         WHERE store_id = #{store_id}
     </delete>
+    
+    <select id="selectAllStoreNameAndId" resultMap="result">
+        SELECT store_id, store_name
+        FROM STORE
+    </select>
 
 </mapper>

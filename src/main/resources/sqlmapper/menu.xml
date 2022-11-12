@@ -18,8 +18,10 @@
         SELECT * FROM MENU
     </select>
 
-    <select id="selectMenu_StoreId" resultMap="result">
-        SELECT * FROM MENU WHERE store_id = #{store_id}
+    <select id="selectMenuStoreId" resultMap="result">
+        SELECT *
+        FROM MENU
+        WHERE store_id = #{store_id}
     </select>
 
     <insert id="menuAdd" parameterType="MenuDTO" keyProperty="menu_id">
@@ -41,4 +43,6 @@
         SET menu_quantity = menu_quantity - 1
         WHERE menu_name = #{menu_name}
     </update>
+
+
 </mapper>

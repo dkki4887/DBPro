@@ -26,6 +26,17 @@ public class MyStoreDAO {
         return list;
     }
 
+    public List<StoreDTO> selectAllStoreNameAndId(){
+        List<StoreDTO> list = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            list  = session.selectList("mapper.StoreMapper.selectAllStoreNameAndId");
+        } finally {
+            session.close();
+        }
+        return list;
+    }
+
     public StoreDTO selectById(int id)
     {
         StoreDTO storeDTO;
