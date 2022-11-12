@@ -28,7 +28,7 @@
     </select>
 
     <select id="findReviewWithUserIdLike" resultMap="reviewOMResult">
-        SELECT r.order_id, r.store_id, o.menu_name, o.menu_price, r.review_content, r.review_rate
+        SELECT r.order_id, r.store_id, o.menu_name, r.review_content, r.review_rate
         FROM project.review r
         JOIN project.ordermenu o
         ON r.order_id = o.order_id
