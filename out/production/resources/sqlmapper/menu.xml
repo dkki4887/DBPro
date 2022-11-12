@@ -6,6 +6,7 @@
 <mapper namespace="mapper.MenuMapper">
     <resultMap id="result" type="persistence.dto.MenuDTO">
         <result property="menu_id" column="menu_id"/>
+        <result property="menu_name" column="menu_name"/>
         <result property="store_id" column="store_id"/>
         <result property="menu_name" column="menu_name"/>
         <result property="menu_price" column="menu_price"/>
@@ -14,7 +15,7 @@
     </resultMap>
 
     <select id="selectAll" resultMap="result">
-        SELECT * FROM project.menu
+        SELECT * FROM MENU
     </select>
 
     <select id="selectMenu_StoreId" resultMap="result">
@@ -22,7 +23,7 @@
     </select>
 
     <insert id="menuAdd" parameterType="MenuDTO" keyProperty="menu_id">
-        INSERT INTO project.menu(store_id, menu_name, menu_price, menu_quantity, menu_category)
+        INSERT INTO project.store(store_id, menu_name, menu_price, menu_quantity, menu_category)
         VALUES(#{store_id}, #{menu_name}, #{menu_price}, #{menu_quantity}, #{menu_category})
     </insert>
 

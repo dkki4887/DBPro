@@ -1,7 +1,9 @@
 package service;
 
 import persistence.dao.MyStoreDAO;
+import persistence.dao.MyUserDAO;
 import persistence.dto.StoreDTO;
+import persistence.dto.UserDTO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,11 +13,14 @@ import java.util.Scanner;
 public class StoreService
 {
     private final MyStoreDAO myStoreDAO;
+    private final MyUserDAO myUserDAO;
 
-    public StoreService(MyStoreDAO myStoreDAO)
+    public StoreService(MyStoreDAO myStoreDAO, MyUserDAO myUserDAO)
     {
         this.myStoreDAO = myStoreDAO;
+        this.myUserDAO = myUserDAO;
     }
+
     public List<StoreDTO> findAll()
     {
         List<StoreDTO> all = myStoreDAO.selectAll();
@@ -48,8 +53,22 @@ public class StoreService
 
     private String getUser_id(Scanner sc)
     {
-        System.out.println("사장님 아이디를 입력해주세요 : ");
-        return sc.nextLine();
+        List<UserDTO> userDTOS = myUserDAO.selectAllUserid();
+        String input;
+
+        while(true)
+        {
+            System.out.println("사장님 아이디를 입력해주세요 : ");
+            input = sc.nextLine();
+
+            for(UserDTO userDTO : userDTOS)
+            {
+                if (input.equals(userDTO.getUser_id()))
+                {
+                    System.out.println("아이디가 유효하지 않습니다.");
+                }
+            }
+        }
     }
     private String getStore_Phone(Scanner sc)
     {

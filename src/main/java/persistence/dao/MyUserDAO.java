@@ -39,7 +39,7 @@ public class MyUserDAO {
         SqlSession session = sqlSessionFactory.openSession();
         int result = -1;
         try{
-            result = session.selectOne("mapper.MenuMapper.userAdd", userDTO);
+            result = session.insert("mapper.UserMapper.userAdd", userDTO);
 
             if (result==1){
                 session.commit();
