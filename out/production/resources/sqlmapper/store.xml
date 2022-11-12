@@ -25,6 +25,10 @@
         SELECT store_name FROM STORE WHERE store_category = #{store_category}
     </select>
 
+    <select id="selectAllStoreId" resultMap="result">
+        SELECT store_id FROM STORE
+    </select>
+
     <select id="selectStore_id" parameterType="int" resultMap="result">
         SELECT store_name FROM STORE WHERE store_id = #{store_id}
     </select>
@@ -33,7 +37,7 @@
         INSERT INTO project.store(user_id, store_name, store_phone, store_address, store_category, store_time, store_info, store_state, store_rate)
         VALUES(#{user_id}, #{store_name}, #{store_phone}, #{store_address}, #{store_category}, #{store_time}, #{store_info}, false, 0)
     </insert>
-
+    
     <update id="storeUpdate">
         UPDATE STORE SET store_name = #{store_name},
                          user_id = #{user_id},

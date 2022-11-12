@@ -14,16 +14,5 @@ import java.util.List;
 public class Main {
     public static void main(String args[]){
 
-     /*   *//* Order Test *//*
-        MyOrderDAO myOrderDAO = new MyOrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        OrderService orderService = new OrderService(myOrderDAO);
-        OrderView orderView = new OrderView();
-
-        orderService.selectOrder_store(1);
-        orderView.printMyOrder(orderService.selectOrder_store(1));
-        *//* Order Test End *//*
-*/
-//        for(OrderDTO orderDTO : orderDTOS)
-//            System.out.println("dto.toString() = " + orderDTO.toString());
     }
 }
