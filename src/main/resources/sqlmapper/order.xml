@@ -58,7 +58,7 @@
         INNER JOIN orderoption oo
         ON om.orderMenu_id = oo.orderMenu_id
         WHERE o.user_id = #{user_id}
-        AND (o.order_state = "배달 완료" OR o.order_state = "취소")
+        AND (o.order_state = 2 OR o.order_state = 4)
     </select>
 
 </mapper>

@@ -80,29 +80,6 @@ public class MyOrderDAO {
 
     }//updateMember
 
-    public List<OrderDTO> findOrderWithStoreIdLike(Long store_id)
-    {
-        List<OrderDTO> dtos = null;
-        SqlSession session = sqlSessionFactory.openSession();
-        try{
-            dtos = session.selectList("mapper.OrderMapper.findOrderWithStoreIdLike",store_id);
-        }finally {
-            session.close();
-        }
-        return dtos;
-    }
-
-    public List<OrderDTO> findOrderWithOrderID(Long order_id)
-    {
-        List<OrderDTO> dtos = null;
-        SqlSession session = sqlSessionFactory.openSession();
-        try{
-            dtos = session.selectList("mapper.OrderMapper.findOrderWithStoreIdLike", order_id);
-        }finally {
-            session.close();
-        }
-        return dtos;
-    }
 
     public List<OrderDTO> selectOrder_store(int store_id)
     {
@@ -110,6 +87,18 @@ public class MyOrderDAO {
         SqlSession session = sqlSessionFactory.openSession();
         try{
             dtos = session.selectList("mapper.OrderMapper.selectOrder_store", store_id);
+        }finally {
+            session.close();
+        }
+        return dtos;
+    }
+
+    public List<OrderDTO> selectOrder_customer(String customer_id)
+    {
+        List<OrderDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.OrderMapper.selectOrder_customer", customer_id);
         }finally {
             session.close();
         }
