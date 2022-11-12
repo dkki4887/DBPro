@@ -13,6 +13,7 @@
         <typeAlias alias="OrderOptionDTO" type="persistence.dto.OrderOptionDTO"/>
         <typeAlias alias="ReviewDTO" type="persistence.dto.ReviewDTO"/>
         <typeAlias alias="StoreDTO" type="persistence.dto.StoreDTO"/>
+        <typeAlias alias="Review_omDTO" type="persistence.dto.Review_omDTO"/>
         <typeAlias alias="StoreMenuDTO" type="persistence.dto.StoreMenuDTO"/>
         <typeAlias alias="UserDTO" type="persistence.dto.UserDTO"/>
     </typeAliases>
