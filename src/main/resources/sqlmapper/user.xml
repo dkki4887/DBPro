@@ -14,7 +14,16 @@
     </resultMap>
 
     <select id="selectAll" resultMap="result">
-        SELECT * FROM USER
+        SELECT * FROM project.user
     </select>
+
+    <select id="selectAllUserid" resultMap="result">
+        SELECT user_id FROM project.user
+    </select>
+
+    <insert id="userAdd" parameterType="UserDTO" keyProperty="user_id">
+        INSERT INTO project.user(user_id, user_pw, user_name, user_address, user_phone, user_category)
+        VALUES(#{user_id}, #{user_pw}, #{user_name}, #{user_address}, #{user_phone}, #{user_category})
+    </insert>
 
 </mapper>
