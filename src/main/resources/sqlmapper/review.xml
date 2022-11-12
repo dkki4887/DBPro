@@ -35,8 +35,7 @@
         WHERE r.user_id = #{user_id}
     </select>
 
-    <insert id="insertReview" parameterType="ReviewDTO" useGeneratedKeys="true"
-            keyProperty="review_id">
+    <insert id="insertReview" parameterType="ReviewDTO">
         INSERT INTO project.review (review_id,store_id , user_id , order_id , review_rate , review_content , review_time)
         values(#{review_id},#{store_id},#{user_id},#{order_id},#{review_rate},#{review_content},#{review_time})
     </insert>
