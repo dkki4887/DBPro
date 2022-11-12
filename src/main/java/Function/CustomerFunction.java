@@ -32,7 +32,7 @@ public class CustomerFunction
 
     public void inquireOrder(String user_id)
     {
-        orderView.printMyOrder(orderService.selectOrder_customer(user_id));
+        orderView.printStoreOrder(orderService.selectOrder_customer(user_id));
     }
 
     public void writeReview(int review_id , int store_id , String user_id , int order_id)
