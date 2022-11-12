@@ -16,7 +16,7 @@ public class OrderDTO {
     private int store_id;
     private Long order_price;
     private String order_payment;
-    private int order_state;
+    private String order_state;
     private LocalDateTime order_orderTime;
     private LocalDateTime order_receiveTime;
     private List<OrderMenuDTO> orderMenuList;

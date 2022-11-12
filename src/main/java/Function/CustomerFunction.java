@@ -35,7 +35,6 @@ public class CustomerFunction
 
     public void inquireOrder(String user_id) // 고객 관점 주문조회
     {
-        // order_state >> 1 : 접수대기 , 2 : 취소 , 3 : 배달중 , 4: 배달완료
         orderView.printOrder(orderService.selectOrder_customer(user_id));
     }
 
