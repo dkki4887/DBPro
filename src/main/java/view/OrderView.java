@@ -14,7 +14,7 @@ public class OrderView {
         }
     }
 
-    public void printStoreOrder(List<OrderDTO> od){
+    public void printOrder(List<OrderDTO> od){
         for(OrderDTO ods: od){
             List<OrderMenuDTO> orderMenuList = ods.getOrderMenuList();
             List<OrderOptionDTO> orderOptionList = ods.getOrderOptionList();
