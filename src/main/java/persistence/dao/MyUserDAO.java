@@ -35,6 +35,17 @@ public class MyUserDAO {
         return list;
     }
 
+    public UserDTO selectUserpw(UserDTO useridDTO){
+        UserDTO userDTO = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            userDTO = session.selectOne("mapper.UserMapper.selectUserpw", useridDTO);
+        } finally {
+            session.close();
+        }
+        return userDTO;
+    }
+
     public void userAdd(UserDTO userDTO){
         SqlSession session = sqlSessionFactory.openSession();
         int result = -1;

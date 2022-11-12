@@ -52,7 +52,7 @@ public class MyMenuDAO {
         SqlSession session = sqlSessionFactory.openSession();
         int result = -1;
         try{
-            result = session.selectOne("mapper.MenuMapper.menuAdd", menuDTO);
+            result = session.insert("mapper.MenuMapper.menuAdd", menuDTO);
 
             if (result==1){
                 session.commit();

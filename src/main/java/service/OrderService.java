@@ -27,32 +27,16 @@ public class OrderService {
         return result;
     }
 
-    public List<OrderDTO> findOrderWithCustomerIdLike(Long cust_id )
-    {
-        List<OrderDTO> orderDTOS = orderDAO.findOrderWithCustomerIdLike(cust_id);
-        return orderDTOS;
-    }
-
-    public List<OrderDTO> findOrderWithStoreIdLike(Long store_id )
-    {
-        List<OrderDTO> orderDTOS = orderDAO.findOrderWithCustomerIdLike(store_id);
-        return orderDTOS;
-    }
-
-    public int updateOrder(Long order_id)
-    {
-        List<OrderDTO> dtos= orderDAO.findOrderWithOrderID(order_id);
-        if( dtos == null) return -1;
-        else
-        {
-            OrderDTO orderDTO =dtos.get(0);
-            return orderDAO.updateOrder(orderDTO);
-        }
-    }
-
     public List<OrderDTO> selectOrder_store(int store_id)
     {
         List<OrderDTO> orderDTOS = orderDAO.selectOrder_store(store_id);
+
+        return orderDTOS;
+    }
+
+    public List<OrderDTO> selectOrder_customer(String customer_id)
+    {
+        List<OrderDTO> orderDTOS = orderDAO.selectOrder_customer(customer_id);
 
         return orderDTOS;
     }

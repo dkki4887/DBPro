@@ -20,9 +20,8 @@ public class ReviewDTO {
 
     public ReviewDTO() {}
 
-    public ReviewDTO(int review_id,int store_id , String user_id , int order_id,int review_rate ,String review_content, LocalDateTime review_time)
+    public ReviewDTO(int store_id , String user_id , int order_id,int review_rate ,String review_content, LocalDateTime review_time)
     {
-        this.review_id = review_id;
         this.store_id=store_id;
         this.user_id=user_id;
         this.order_id=order_id;
