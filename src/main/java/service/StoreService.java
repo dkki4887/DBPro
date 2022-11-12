@@ -6,9 +6,7 @@ import persistence.dao.MyUserDAO;
 import persistence.dto.StoreDTO;
 import persistence.dto.UserDTO;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class StoreService
@@ -34,12 +32,12 @@ public class StoreService
         StoreDTO addStoreDTO = new StoreDTO();
 
         String user_id = getUser_id(sc);
-        String store_name = getStore_Name(sc);
-        String store_address = getStore_Address(sc);
-        String store_phone = getStore_Phone(sc);
-        int store_category = getStore_Category(sc);
-        String store_time = getStore_Time(sc);
-        String store_info = getStore_info(sc);
+        String store_name = inputStore_Name(sc);
+        String store_address = inputStore_Address(sc);
+        String store_phone = inputStore_Phone(sc);
+        int store_category = inputStore_Category(sc);
+        String store_time = inputStore_Time(sc);
+        String store_info = inputStore_info(sc);
 
         addStoreDTO.setUser_id(user_id);
         addStoreDTO.setStore_name(store_name);
@@ -54,6 +52,7 @@ public class StoreService
 
     private String getUser_id(Scanner sc)
     {
+        UserService us = new UserService(myUserDAO);
         List<UserDTO> userDTOS = myUserDAO.selectAllUserid();
         String input;
 
@@ -62,19 +61,14 @@ public class StoreService
             System.out.println("사장님 아이디를 입력해주세요 : ");
             input = sc.nextLine();
 
-            for(UserDTO userDTO : userDTOS)
-            {
-                if (input.equals(userDTO.getUser_id()))
-                {
-                    return input;
-                }
-            }
+            if(us.idCheck(input))
+                return input;
 
             System.out.println("아이디가 유효하지 않습니다.");
 
         }
     }
-    private String getStore_Phone(Scanner sc)
+    private String inputStore_Phone(Scanner sc)
     {
         String input = new String();
 
@@ -88,18 +82,18 @@ public class StoreService
         }
     }
 
-    private String getStore_Name(Scanner sc)
+    private String inputStore_Name(Scanner sc)
     {
         System.out.println("가게 이름를 입력해주세요 : ");
         return sc.nextLine();
     }
 
-    private String getStore_Address(Scanner sc)
+    private String inputStore_Address(Scanner sc)
         {
             System.out.println("가게 주소를 입력해주세요 : ");
             return sc.nextLine();
         }
-    private int getStore_Category(Scanner sc)
+    private int inputStore_Category(Scanner sc)
         {
             String input;
             while(true)
@@ -113,7 +107,7 @@ public class StoreService
                     System.out.println("입력 값이 형식에 맞지 않습니다.");
             }
         }
-    private String getStore_Time(Scanner sc)
+    private String inputStore_Time(Scanner sc)
         {
             String store_time = "",open_input, close_input;
             while(true)
@@ -143,7 +137,7 @@ public class StoreService
 
             }
         }
-    private String getStore_info(Scanner sc)
+    private String inputStore_info(Scanner sc)
         {
             System.out.println("가게 한 줄 소개를 입력해주세요 : ");
             return sc.nextLine();

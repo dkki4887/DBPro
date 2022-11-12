@@ -24,6 +24,29 @@ public class UserService
         return all;
     }
 
+    public boolean idCheck(String userid)
+    {
+        List<UserDTO> userDTOS = myUserDAO.selectAllUserid();
+        for(UserDTO userDTO : userDTOS)
+        {
+            if(userid.equals(userDTO.getUser_id()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean pwCheck(String userid, String userpw) {
+        List<UserDTO> userDTOS = myUserDAO.selectAllUserid();
+        for(UserDTO userDTO : userDTOS)
+            if(userid.equals(userDTO.getUser_id()))
+                if(userpw.equals(userDTO.getUser_pw()))
+                    return true;
+
+        return false;
+    }
+
     public void userAdd()
     {
         Scanner sc = new Scanner(System.in);
@@ -65,18 +88,14 @@ public class UserService
             }
             else
             {
-                for(UserDTO userDTO : userDTOS)
+                if(idCheck(input))
                 {
-                    if(input.equals(userDTO.getUser_id()))
-                    {
-                        System.out.println("사용하실 수 없는 아이디입니다. (중복 아이디)");
-                        result = false;
-                    }
+                    System.out.println("사용하실 수 없는 아이디입니다. (중복 아이디)");
+                    result = false;
                 }
-
-                if(result)
-                    return input;
             }
+            if(result)
+                return input;
         }
     }
 
@@ -210,6 +229,7 @@ public class UserService
 
         return false;
     }
+
 
 }
 
