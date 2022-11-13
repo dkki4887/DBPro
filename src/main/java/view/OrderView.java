@@ -28,7 +28,7 @@ public class OrderView {
             {
                 System.out.print(", " + odos.getOption_name());
             }
-            System.out.print(", "+ods.getOrder_price() + ", " + ods.getOrder_state());
+            System.out.println(", "+ods.getOrder_price() + ", " + ods.getOrder_state());
         }
     }
 
@@ -46,7 +46,7 @@ public class OrderView {
             {
                 System.out.print(", " + odos.getOption_name());
             }
-            System.out.print(", "+ods.getOrder_price() + ", " + ods.getOrder_state()+ " | id : " + ods.getOrder_id());
+            System.out.println(", "+ods.getOrder_price() + ", " + ods.getOrder_state()+ " | id : " + ods.getOrder_id());
         }
     }
 }

@@ -26,7 +26,7 @@ public class ReviewView {
             if(inputPage ==1)
             {
                 System.out.println("=============================");
-                for(int i = 0 ; i < reviewCount/2 ; i ++)
+                for(int i = 0 ; i < reviewCount/2+1 ; i ++)
                 {
                     Review_omDTO dto = dtos.get(i);
                     System.out.println("주문번호 :" + dto.getOrder_id());
@@ -40,7 +40,7 @@ public class ReviewView {
             else if ( inputPage ==2)
             {
                 System.out.println("=============================");
-                for(int i = reviewCount/2 ; i < reviewCount ; i ++)
+                for(int i = reviewCount/2+1 ; i < reviewCount ; i ++)
                 {
                     Review_omDTO dto = dtos.get(i);
                     System.out.println("주문번호 :" + dto.getOrder_id());
