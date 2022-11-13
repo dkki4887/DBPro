@@ -18,37 +18,29 @@ import java.util.Scanner;
 
 public class CustomerFunction
 {
-    Scanner sc;
-    private MyReviewDAO myReviewDAO;
-    private ReviewService reviewService;
-    private ReviewView reviewView;
-
-    private MyOrderDAO myOrderDAO;
-    private OrderService orderService;
-    private OrderView orderView;
-
-
     public CustomerFunction()
     {
-        sc = new Scanner(System.in);
-
-        this.myReviewDAO = new MyReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        this.reviewService = new ReviewService(myReviewDAO);
-        this.reviewView = new ReviewView();
-
-        this.myOrderDAO = new MyOrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        this.orderService = new OrderService(myOrderDAO);
-        this.orderView = new OrderView();
     }
 
     public void inquireOrder(String customer_id)
     {
+        MyOrderDAO myOrderDAO = new MyOrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        OrderService orderService = new OrderService(myOrderDAO);
+        OrderView orderView = new OrderView();
         orderView.printOrder( orderService.selectOrder_customer(customer_id) );
     }
 
 
     public void writeReview(String customer_id)
     {
+        MyOrderDAO myOrderDAO = new MyOrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        OrderService orderService = new OrderService(myOrderDAO);
+        OrderView orderView = new OrderView();
+        Scanner sc = new Scanner(System.in);
+        MyReviewDAO myReviewDAO = new MyReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        ReviewService reviewService = new ReviewService(myReviewDAO);
+        ReviewView reviewView = new ReviewView();
+
         orderView.printOrderWithID(orderService.selectOrder_customer(customer_id)); //order_id 포함한 주문출력
         System.out.print("리뷰를 작성할 주문번호를 입력하십시오 : ");
         int input_orderID = sc.nextInt();
@@ -73,11 +65,16 @@ public class CustomerFunction
 
     public void inquireReview(String user_id)
     {
+        MyReviewDAO myReviewDAO = new MyReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        ReviewService reviewService = new ReviewService(myReviewDAO);
+        ReviewView reviewView = new ReviewView();
+
         reviewView.printMyReview( reviewService.findReviewWithUserIdLike( user_id ) );
     }
 
     public void createOrder(String user_id)
     {
+        Scanner sc = new Scanner(System.in);
         MyStoreDAO sDAO = new MyStoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         StoreView sv = new StoreView();
         sv.printAllStore(sDAO.selectAllStoreNameAndId());
