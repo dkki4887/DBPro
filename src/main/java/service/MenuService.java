@@ -27,6 +27,12 @@ public class MenuService
         return all;
     }
 
+    public List<MenuDTO> selectStoreMenu(int store_id)
+    {
+        List<MenuDTO> menu = myMenuDAO.selectStoreMenu(store_id);
+        return menu;
+    }
+
     public void menuAdd(int store_id)
     {
         Scanner sc = new Scanner(System.in);
@@ -52,7 +58,6 @@ public class MenuService
         Scanner sc = new Scanner(System.in);
         MenuDTO addMenuDTO, exMenuDTO;
         addMenuDTO = new MenuDTO();
-        exMenuDTO =
 
         String menu_name = inputMenu_name(sc);
         long menu_price = inputMenu_price(sc);

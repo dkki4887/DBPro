@@ -18,8 +18,8 @@
         SELECT * FROM MENU
     </select>
 
-    <select id="selectMenuStoreId" resultMap="result">
-        SELECT *
+    <select id="selectStoreMenu" resultMap="result">
+        SELECT menu_id, menu_name
         FROM MENU
         WHERE store_id = #{store_id}
     </select>

@@ -18,8 +18,20 @@
         SELECT * FROM MENU
     </select>
 
-    <select id="selectMenu_StoreId" resultMap="result">
-        SELECT * FROM MENU WHERE store_id = #{store_id}
+    <select id="selectStoreMenu" resultMap="result">
+        SELECT menu_id, menu_name
+        FROM MENU
+        WHERE store_id = #{store_id}
+    </select>
+
+    <select id="selectMenu_menu_id" parameterType="MenuDTO" resultMap="result">
+        SELECT *
+        FROM MENU
+        WHERE menu_id = #{menu_id}
+    </select>
+
+    <select id="selectAllMenuId" resultMap="result">
+        SELECT menu_id FROM menu
     </select>
 
     <insert id="menuAdd" parameterType="MenuDTO" keyProperty="menu_id">
@@ -33,7 +45,7 @@
             menu_price = #{menu_price},
             menu_quantity = #{menu_quantity},
             menu_category = #{menu_category}
-        WHERE store_id = #{store_id}  AND  menu_name = #{menu_name}
+        WHERE menu_id = #{menu_id}
     </update>
 
     <update id="updateOrderState">
@@ -41,4 +53,6 @@
         SET menu_quantity = menu_quantity - 1
         WHERE menu_name = #{menu_name}
     </update>
+
+
 </mapper>

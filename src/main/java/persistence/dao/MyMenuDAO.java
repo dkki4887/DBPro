@@ -25,11 +25,11 @@ public class MyMenuDAO {
         return list;
     }
 
-    public List<MenuDTO> selectMenuStoreId(int store_id){
+    public List<MenuDTO> selectStoreMenu(int store_id){
         List<MenuDTO> list = null;
         SqlSession session = sqlSessionFactory.openSession();
         try{
-            list = session.selectList("mapper.MenuMapper.selectMenuStoreId", store_id);
+            list = session.selectList("mapper.MenuMapper.selectStoreMenu", store_id);
         } finally {
             session.close();
         }

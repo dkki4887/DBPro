@@ -14,7 +14,7 @@ public class ReviewView {
 
     }
 
-    public void printMyReview(List<Review_omDTO> dtos){
+     public void printMyReview(List<Review_omDTO> dtos){
         Scanner sc =new Scanner(System.in);
         int reviewCount = dtos.size();
         System.out.println("==========내가 작성한 리뷰==========");

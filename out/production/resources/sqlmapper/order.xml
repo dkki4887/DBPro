@@ -21,17 +21,16 @@
     <resultMap id="orderMenuList" type="persistence.dto.OrderMenuDTO">
         <result property="orderMenu_id" column="orderMenu_id"/>
         <result property="menu_name" column="menu_name"/>
-        <result property="menu_price" column="menu_price"/>
     </resultMap>
 
     <resultMap id="orderOptionList" type="persistence.dto.OrderOptionDTO">
         <result property="orderMenu_id" column="orderMenu_id"/>
         <result property="option_name" column="option_name"/>
-        <result property="option_price" column="option_price"/>
     </resultMap>
 
     <select id="selectAll" resultMap="orderResult">
-        SELECT * FROM project.order
+        SELECT *
+        FROM project.order
     </select>
 
     <insert id="insertOrder" parameterType="OrderDTO" useGeneratedKeys="true"
@@ -41,7 +40,7 @@
     </insert>
 
     <select id="selectOrder_store" resultMap="orderResult">
-        SELECT user_id, menu_name, option_name, order_price, order_state
+        SELECT *
         FROM ordermenu om
         INNER JOIN project.order o
         ON om.order_id = o.order_id
@@ -51,14 +50,14 @@
     </select>
 
     <select id="selectOrder_customer" resultMap="orderResult">
-        SELECT user_id, menu_name, option_name, order_price, order_state
+        SELECT *
         FROM ordermenu om
         INNER JOIN project.order o
         ON om.order_id = o.order_id
         INNER JOIN orderoption oo
         ON om.orderMenu_id = oo.orderMenu_id
         WHERE o.user_id = #{user_id}
-        AND (o.order_state = "배달 완료" OR o.order_state = "취소")
+        AND (o.order_state = "취소" OR o.order_state = "배달 완료")
     </select>
 
 </mapper>

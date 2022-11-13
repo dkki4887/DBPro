@@ -93,12 +93,12 @@ public class MyOrderDAO {
         return dtos;
     }
 
-    public List<OrderDTO> selectOrder_customer(String customer_id)
+    public List<OrderDTO> selectOrder_customer(String user_id)
     {
         List<OrderDTO> dtos = null;
         SqlSession session = sqlSessionFactory.openSession();
         try{
-            dtos = session.selectList("mapper.OrderMapper.selectOrder_customer", customer_id);
+            dtos = session.selectList("mapper.OrderMapper.selectOrder_customer", user_id);
         }finally {
             session.close();
         }

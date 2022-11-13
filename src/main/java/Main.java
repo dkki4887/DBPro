@@ -1,3 +1,4 @@
+import Function.CustomerFunction;
 import persistence.MyBatisConnectionFactory;
 import persistence.dao.MyOrderDAO;
 import persistence.dao.MyReviewDAO;
@@ -25,5 +26,8 @@ public class Main {
 */
 //        for(OrderDTO orderDTO : orderDTOS)
 //            System.out.println("dto.toString() = " + orderDTO.toString());
+
+        CustomerFunction c = new CustomerFunction();
+        c.createOrder("user1");
     }
 }

@@ -34,9 +34,9 @@ public class OrderService {
         return orderDTOS;
     }
 
-    public List<OrderDTO> selectOrder_customer(String customer_id)
+    public List<OrderDTO> selectOrder_customer(String user_id)
     {
-        List<OrderDTO> orderDTOS = orderDAO.selectOrder_customer(customer_id);
+        List<OrderDTO> orderDTOS = orderDAO.selectOrder_customer(user_id);
 
         return orderDTOS;
     }

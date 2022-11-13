@@ -1,6 +1,7 @@
 package service;
 
 import org.apache.ibatis.session.SqlSessionFactory;
+import persistence.MyBatisConnectionFactory;
 import persistence.dao.MyStoreDAO;
 import persistence.dao.MyUserDAO;
 import persistence.dto.StoreDTO;
@@ -14,16 +15,22 @@ public class StoreService
     private final MyStoreDAO myStoreDAO;
     private final MyUserDAO myUserDAO;
 
-    public StoreService(SqlSessionFactory sqlSessionFactory)
+    public StoreService()
     {
-        myStoreDAO = new MyStoreDAO(sqlSessionFactory);
-        myUserDAO = new MyUserDAO(sqlSessionFactory);
+        myStoreDAO = new MyStoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        myUserDAO = new MyUserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
     }
 
     public List<StoreDTO> findAll()
     {
         List<StoreDTO> all = myStoreDAO.selectAll();
         return all;
+    }
+
+    public List<StoreDTO> selectAllStoreNameAndId()
+    {
+        List<StoreDTO> nameAid = myStoreDAO.selectAllStoreNameAndId();
+        return nameAid;
     }
 
     public void storeAdd()

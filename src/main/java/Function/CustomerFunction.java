@@ -1,12 +1,16 @@
 package Function;
 
 import persistence.MyBatisConnectionFactory;
+import persistence.dao.MyMenuDAO;
 import persistence.dao.MyOrderDAO;
 import persistence.dao.MyReviewDAO;
 import persistence.dao.MyStoreDAO;
 import persistence.dto.OrderDTO;
+import service.MenuService;
 import service.OrderService;
 import service.ReviewService;
+import service.StoreService;
+import view.MenuView;
 import view.OrderView;
 import view.ReviewView;
 import view.StoreView;
@@ -72,14 +76,22 @@ public class CustomerFunction
         reviewView.printMyReview( reviewService.findReviewWithUserIdLike( user_id ) );
     }
 
-    public void createOrder(String user_id)
+    public void createOrder(String user_id) //주문 생성 메소드
     {
         Scanner sc = new Scanner(System.in);
         MyStoreDAO sDAO = new MyStoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        StoreService ss = new StoreService();
         StoreView sv = new StoreView();
-        sv.printAllStore(sDAO.selectAllStoreNameAndId());
+
+        MyMenuDAO mDAO = new MyMenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        MenuService ms = new MenuService();
+        MenuView mv = new MenuView();
+
+        sv.printAllStore(ss.selectAllStoreNameAndId());
         System.out.print("주문할 가게의 번호를 선택하세요: ");
-        int store_id = sv.selectStore(sDAO.selectAllStoreNameAndId(), sc.nextInt());
+        int store_id = sv.selectStore(ss.selectAllStoreNameAndId(), sc.nextInt());
+        mv.printStoreAllMenu(ms.selectStoreMenu(store_id));
+        System.out.print("주문할 메뉴의 번호를 선택하세요: ");
     }
 
 

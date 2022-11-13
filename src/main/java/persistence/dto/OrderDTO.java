@@ -21,4 +21,44 @@ public class OrderDTO {
     private LocalDateTime order_receiveTime;
     private List<OrderMenuDTO> orderMenuList;
     private List<OrderOptionDTO> orderOptionList;
+
+    public int getOrder_id() {
+        return order_id;
+    }
+
+    public int getStore_id() {
+        return store_id;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public Long getOrder_price() {
+        return order_price;
+    }
+
+    public String getOrder_payment() {
+        return order_payment;
+    }
+
+    public String getOrder_state() {
+        return order_state;
+    }
+
+    public LocalDateTime getOrder_orderTime() {
+        return order_orderTime;
+    }
+
+    public LocalDateTime getOrder_receiveTime() {
+        return order_receiveTime;
+    }
+
+    public List<OrderMenuDTO> getOrderMenuList() {
+        return orderMenuList;
+    }
+
+    public List<OrderOptionDTO> getOrderOptionList() {
+        return orderOptionList;
+    }
 }
