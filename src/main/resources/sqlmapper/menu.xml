@@ -24,6 +24,16 @@
         WHERE store_id = #{store_id}
     </select>
 
+    <select id="selectMenu_menu_id" parameterType="MenuDTO" resultMap="result">
+        SELECT *
+        FROM MENU
+        WHERE menu_id = #{menu_id}
+    </select>
+
+    <select id="selectAllMenuId" resultMap="result">
+        SELECT menu_id FROM menu
+    </select>
+
     <insert id="menuAdd" parameterType="MenuDTO" keyProperty="menu_id">
         INSERT INTO project.menu(store_id, menu_name, menu_price, menu_quantity, menu_category)
         VALUES(#{store_id}, #{menu_name}, #{menu_price}, #{menu_quantity}, #{menu_category})
@@ -35,7 +45,7 @@
             menu_price = #{menu_price},
             menu_quantity = #{menu_quantity},
             menu_category = #{menu_category}
-        WHERE store_id = #{store_id}  AND  menu_name = #{menu_name}
+        WHERE menu_id = #{menu_id}
     </update>
 
     <update id="updateOrderState">

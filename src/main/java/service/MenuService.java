@@ -1,6 +1,7 @@
 package service;
 
 import org.apache.ibatis.session.SqlSessionFactory;
+import persistence.MyBatisConnectionFactory;
 import persistence.dao.MyMenuDAO;
 import persistence.dao.MyStoreDAO;
 import persistence.dto.MenuDTO;
@@ -14,10 +15,10 @@ public class MenuService
     private final MyMenuDAO myMenuDAO;
     private final MyStoreDAO myStoreDAO;
 
-    public MenuService(SqlSessionFactory sqlSessionFactory)
+    public MenuService()
     {
-        myMenuDAO = new MyMenuDAO(sqlSessionFactory);
-        myStoreDAO = new MyStoreDAO(sqlSessionFactory);
+        myMenuDAO = new MyMenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        myStoreDAO = new MyStoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
     }
 
     public List<MenuDTO> findAll()
@@ -37,7 +38,6 @@ public class MenuService
         int menu_quantity = inputMenu_quantity(sc);
         String menu_category = inputMenu_category(sc);
 
-
         addMenuDTO.setStore_id(checked_Store_Id);
         addMenuDTO.setMenu_name(menu_name);
         addMenuDTO.setMenu_price(menu_price);
@@ -47,7 +47,29 @@ public class MenuService
         myMenuDAO.menuAdd(addMenuDTO);
     }
 
-    private int checkStore_id(int store_id) {
+    public void menuUpdate(int menu_id)
+    {
+        Scanner sc = new Scanner(System.in);
+        MenuDTO addMenuDTO, exMenuDTO;
+        addMenuDTO = new MenuDTO();
+        exMenuDTO =
+
+        String menu_name = inputMenu_name(sc);
+        long menu_price = inputMenu_price(sc);
+        int menu_quantity = inputMenu_quantity(sc);
+        String menu_category = inputMenu_category(sc);
+
+        addMenuDTO.setMenu_id(checkMenu_id(menu_id));
+        addMenuDTO.setMenu_name(menu_name);
+        addMenuDTO.setMenu_price(menu_price);
+        addMenuDTO.setMenu_quantity(menu_quantity);
+        addMenuDTO.setMenu_category(menu_category);
+
+        myMenuDAO.menuAdd(addMenuDTO);
+    }
+
+    private int checkStore_id(int store_id)
+    {
         List<StoreDTO> storeDTOS = myStoreDAO.selectAllStoreId();
         for(StoreDTO storeDTO: storeDTOS) {
             if (store_id == storeDTO.getStore_id())
@@ -56,6 +78,18 @@ public class MenuService
 
         System.out.println("메장 아이디가 잘못됨.");
         return store_id;
+    }
+
+    private int checkMenu_id(int menu_id)
+    {
+        List<MenuDTO> menuDTOS = myMenuDAO.selectAllMenuId();
+        for(MenuDTO menuDTO: menuDTOS) {
+            if (menu_id == menuDTO.getMenu_id())
+                return menu_id;
+        }
+
+        System.out.println("메뉴 아이디가 잘못됨.");
+        return menu_id;
     }
 
     private String inputMenu_name(Scanner sc)
