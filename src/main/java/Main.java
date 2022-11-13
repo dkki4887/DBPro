@@ -1,4 +1,5 @@
 import Function.CustomerFunction;
+import Function.LoginFunction;
 import persistence.MyBatisConnectionFactory;
 import persistence.dao.MyOrderDAO;
 import persistence.dao.MyReviewDAO;
@@ -11,10 +12,11 @@ import view.OrderView;
 import view.ReviewView;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String args[]){
-
+        Scanner sc = new Scanner(System.in);
      /*   *//* Order Test *//*
         MyOrderDAO myOrderDAO = new MyOrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         OrderService orderService = new OrderService(myOrderDAO);
@@ -27,7 +29,9 @@ public class Main {
 //        for(OrderDTO orderDTO : orderDTOS)
 //            System.out.println("dto.toString() = " + orderDTO.toString());
 
-        CustomerFunction c = new CustomerFunction();
-        c.createOrder("user1");
+//        CustomerFunction c = new CustomerFunction();
+//        c.createOrder("user1");
+        LoginFunction lf = new LoginFunction();
+        lf.Login(sc);
     }
 }

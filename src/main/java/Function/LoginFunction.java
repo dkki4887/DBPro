@@ -28,7 +28,7 @@ public class LoginFunction
             System.out.print("아이디를 입력하세요. (프로그램 종료 : -1):");
             id = sc.nextLine();
 
-            if(Integer.parseInt(id) == -1)
+            if(id.equals("-1"))
                 return null;
             else if(us.idCheck(id))
             {
@@ -37,9 +37,9 @@ public class LoginFunction
                     System.out.print("비밀번호를 입력하세요.(아이디 입력으로 : 0, 프로그램 종료 : -1) :");
                     pw = sc.nextLine();
 
-                    if(Integer.parseInt(pw) == 0)
+                    if(pw.equals("0"))
                         break;
-                    else if(Integer.parseInt(pw) == -1)
+                    else if(pw.equals("-1"))
                         return null;
                     else if (us.pwCheck(id, pw)) {
                         this.userid = id;
