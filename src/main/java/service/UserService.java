@@ -1,9 +1,6 @@
 package service;
 
-import persistence.MyBatisConnectionFactory;
-import persistence.dao.MyMenuDAO;
 import persistence.dao.MyUserDAO;
-import persistence.dto.MenuDTO;
 import persistence.dto.UserDTO;
 
 import java.util.List;
@@ -16,7 +13,7 @@ public class UserService
 
     public UserService()
     {
-        myUserDAO = new MyUserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        myUserDAO = new MyUserDAO();
     }
 
     public List<UserDTO> findAll()

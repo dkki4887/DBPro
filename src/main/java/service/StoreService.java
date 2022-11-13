@@ -17,8 +17,8 @@ public class StoreService
 
     public StoreService()
     {
-        myStoreDAO = new MyStoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        myUserDAO = new MyUserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        myStoreDAO = new MyStoreDAO();
+        myUserDAO = new MyUserDAO();
     }
 
     public List<StoreDTO> findAll()

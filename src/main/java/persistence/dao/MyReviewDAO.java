@@ -1,9 +1,8 @@
 package persistence.dao;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import persistence.MyBatisConnectionFactory;
 import persistence.dto.ReviewDTO;
 import persistence.dto.Review_omDTO;
 
@@ -13,11 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MyReviewDAO {
-    private final SqlSessionFactory sqlSessionFactory;
-
-    public MyReviewDAO(SqlSessionFactory sqlSessionFactory) {
-        this.sqlSessionFactory = sqlSessionFactory;
-    }
+    private final SqlSessionFactory sqlSessionFactory = MyBatisConnectionFactory.getSqlSessionFactory();
 
     public List<ReviewDTO> selectAll(){
         List<ReviewDTO> list = null;

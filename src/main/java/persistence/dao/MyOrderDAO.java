@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import persistence.MyBatisConnectionFactory;
 import persistence.dto.OrderDTO;
 
 import java.sql.Date;
@@ -12,11 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MyOrderDAO {
-    private final SqlSessionFactory sqlSessionFactory;
-
-    public MyOrderDAO(SqlSessionFactory sqlSessionFactory) {
-        this.sqlSessionFactory = sqlSessionFactory;
-    }
+    private final SqlSessionFactory sqlSessionFactory = MyBatisConnectionFactory.getSqlSessionFactory();
 
     public List<OrderDTO> selectAll(){
         List<OrderDTO> list = null;

@@ -17,8 +17,8 @@ public class MenuService
 
     public MenuService()
     {
-        myMenuDAO = new MyMenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        myStoreDAO = new MyStoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        myMenuDAO = new MyMenuDAO();
+        myStoreDAO = new MyStoreDAO();
     }
 
     public List<MenuDTO> findAll()
@@ -30,6 +30,12 @@ public class MenuService
     public List<MenuDTO> selectStoreMenu(int store_id)
     {
         List<MenuDTO> menu = myMenuDAO.selectStoreMenu(store_id);
+        return menu;
+    }
+
+    public List<MenuDTO> selectMenuPrice(int menu_id)
+    {
+        List<MenuDTO> menu = myMenuDAO.selectMenuPrice(menu_id);
         return menu;
     }
 
@@ -102,6 +108,7 @@ public class MenuService
         System.out.println("메뉴 이름을 입력해주세요 : ");
         return sc.nextLine();
     }
+
     private long inputMenu_price(Scanner sc)
     {
         String input;
@@ -118,7 +125,6 @@ public class MenuService
             else
                 System.out.println("입력 형식에 맞지 않습니다. ");
         }
-
     }
 
     private int inputMenu_quantity(Scanner sc)
@@ -143,8 +149,7 @@ public class MenuService
     {
             System.out.println("메뉴 카테고리를 입력해주세요 (1: 뭐, 2 : 뭐, 3, 뭐): ");
             return sc.nextLine();
-        }
-
+    }
 
     private boolean isdigit(String input)
     {

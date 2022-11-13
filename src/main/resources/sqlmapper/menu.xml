@@ -19,9 +19,15 @@
     </select>
 
     <select id="selectStoreMenu" resultMap="result">
-        SELECT menu_id, menu_name
+        SELECT menu_id, menu_name, menu_quantity, menu_price
         FROM MENU
         WHERE store_id = #{store_id}
+    </select>
+
+    <select id="selectMenuPrice" resultMap="result">
+        SELECT menu_price
+        FROM MENU
+        WHERE menu_id = #{menu_id}
     </select>
 
     <select id="selectMenu_menu_id" parameterType="MenuDTO" resultMap="result">

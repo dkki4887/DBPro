@@ -2,16 +2,14 @@ package persistence.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import persistence.MyBatisConnectionFactory;
 import persistence.dto.OrderMenuDTO;
 
 import java.util.List;
 
 public class MyOrderMenuDAO {
-    private SqlSessionFactory sqlSessionFactory = null;
+    private SqlSessionFactory sqlSessionFactory = MyBatisConnectionFactory.getSqlSessionFactory();
 
-    public MyOrderMenuDAO(SqlSessionFactory sqlSessionFactory){
-        this.sqlSessionFactory = sqlSessionFactory;
-    }
     public List<OrderMenuDTO> selectAll(){
         List<OrderMenuDTO> list = null;
         SqlSession session = sqlSessionFactory.openSession();

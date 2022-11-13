@@ -2,17 +2,14 @@ package persistence.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import persistence.MyBatisConnectionFactory;
 import persistence.dto.MenuDTO;
 import persistence.dto.StoreDTO;
 
 import java.util.List;
 
 public class MyMenuDAO {
-    private SqlSessionFactory sqlSessionFactory = null;
-
-    public MyMenuDAO(SqlSessionFactory sqlSessionFactory){
-        this.sqlSessionFactory = sqlSessionFactory;
-    }
+    private SqlSessionFactory sqlSessionFactory = MyBatisConnectionFactory.getSqlSessionFactory();
 
     public List<MenuDTO> selectAll(){
         List<MenuDTO> list = null;
@@ -36,6 +33,17 @@ public class MyMenuDAO {
         return list;
     }
 
+    public List<MenuDTO> selectMenuPrice(int menu_id) {
+        List<MenuDTO> list = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            list = session.selectList("mapper.MenuMapper.selectMenuPrice", menu_id);
+        } finally {
+            session.close();
+        }
+        return list;
+    }
+
     public MenuDTO selectByStoreId(String id){
         MenuDTO menuDTO = new MenuDTO();
         SqlSession session = sqlSessionFactory.openSession();
@@ -45,7 +53,6 @@ public class MyMenuDAO {
         } finally {
             session.close();
         }
-
         return null;
     }
 

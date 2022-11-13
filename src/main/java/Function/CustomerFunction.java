@@ -1,10 +1,5 @@
 package Function;
 
-import persistence.MyBatisConnectionFactory;
-import persistence.dao.MyMenuDAO;
-import persistence.dao.MyOrderDAO;
-import persistence.dao.MyReviewDAO;
-import persistence.dao.MyStoreDAO;
 import persistence.dto.OrderDTO;
 import service.MenuService;
 import service.OrderService;
@@ -16,9 +11,7 @@ import view.ReviewView;
 import view.StoreView;
 
 import java.util.Scanner;
-
 import java.util.List;
-import java.util.Scanner;
 
 public class CustomerFunction
 {
@@ -75,13 +68,19 @@ public class CustomerFunction
 
         OrderService os = new OrderService();
 
+        long order_price = 0;
+
         sv.printAllStore(ss.selectAllStoreNameAndId());
         System.out.print("주문할 가게의 번호를 선택하세요: ");
         int store_id = sv.selectStore(ss.selectAllStoreNameAndId(), sc.nextInt());
-        os.insertOrder(user_id, store_id);
+        System.out.println();
 
         mv.printStoreAllMenu(ms.selectStoreMenu(store_id));
         System.out.print("주문할 메뉴의 번호를 선택하세요(1개 선택): ");
+        int menu_id = mv.selectMenu(ms.selectStoreMenu(store_id), sc.nextInt());
+        order_price = order_price + mv.getMenuPrice(ms.selectMenuPrice(menu_id)); //메뉴 가격 더하기...
+        System.out.println();
+        //os.insertOrder(user_id, store_id);
     }
 
 

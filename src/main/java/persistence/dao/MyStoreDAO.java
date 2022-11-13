@@ -2,6 +2,7 @@ package persistence.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import persistence.MyBatisConnectionFactory;
 import persistence.dto.StoreDTO;
 
 import java.util.HashMap;
@@ -9,11 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MyStoreDAO {
-    private SqlSessionFactory sqlSessionFactory = null;
-
-    public MyStoreDAO(SqlSessionFactory sqlSessionFactory){
-        this.sqlSessionFactory = sqlSessionFactory;
-    }
+    private SqlSessionFactory sqlSessionFactory = MyBatisConnectionFactory.getSqlSessionFactory();
 
     public List<StoreDTO> selectAll(){
         List<StoreDTO> list = null;
@@ -25,6 +22,7 @@ public class MyStoreDAO {
         }
         return list;
     }
+
     public List<StoreDTO> selectAllStoreId(){
         List<StoreDTO> list = null;
         SqlSession session = sqlSessionFactory.openSession();

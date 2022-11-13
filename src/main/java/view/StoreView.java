@@ -19,7 +19,7 @@ public class StoreView {
     {
         if(dtos.size() < selectNum || selectNum < 1)
         {
-            System.out.println("잘못된 선택입니다.");
+            System.out.println("잘못된 가게번호입니다.");
             return -1;
         }
         else

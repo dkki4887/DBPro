@@ -1,7 +1,5 @@
 package service;
 
-import org.apache.ibatis.session.SqlSession;
-import persistence.MyBatisConnectionFactory;
 import persistence.dao.MyOrderDAO;
 import persistence.dto.OrderDTO;
 
@@ -12,8 +10,9 @@ import java.util.Locale;
 public class OrderService {
     private final MyOrderDAO orderDAO;
 
-    public OrderService() {
-        orderDAO = new MyOrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+    public OrderService()
+    {
+        orderDAO = new MyOrderDAO();
     }
 
     public List<OrderDTO> selectAll()

@@ -2,17 +2,15 @@ package persistence.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import persistence.MyBatisConnectionFactory;
 import persistence.dto.MenuDTO;
 import persistence.dto.UserDTO;
 
 import java.util.List;
 
 public class MyUserDAO {
-    private SqlSessionFactory sqlSessionFactory = null;
+    private SqlSessionFactory sqlSessionFactory = MyBatisConnectionFactory.getSqlSessionFactory();
 
-    public MyUserDAO(SqlSessionFactory sqlSessionFactory){
-        this.sqlSessionFactory = sqlSessionFactory;
-    }
     public List<UserDTO> selectAll(){
         List<UserDTO> list = null;
         SqlSession session = sqlSessionFactory.openSession();
