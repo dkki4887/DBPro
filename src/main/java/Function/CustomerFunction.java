@@ -1,8 +1,11 @@
 package Function;
 
 import persistence.MyBatisConnectionFactory;
+import persistence.dao.MyOrderDAO;
 import persistence.dao.MyReviewDAO;
 import persistence.dao.MyStoreDAO;
+import persistence.dto.OrderDTO;
+import service.OrderService;
 import service.ReviewService;
 import view.OrderView;
 import view.ReviewView;
@@ -15,13 +18,6 @@ import java.util.Scanner;
 
 public class CustomerFunction
 {
-    private MyReviewDAO myReviewDAO = new MyReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-    private ReviewService reviewService = new ReviewService(myReviewDAO);
-    private ReviewView reviewView = new ReviewView();
-    Scanner sc = new Scanner(System.in);
-
-    public CustomerFunction(){}
-    Scanner sc;
     private MyReviewDAO myReviewDAO;
     private ReviewService reviewService;
     private ReviewView reviewView;
@@ -29,6 +25,7 @@ public class CustomerFunction
     private MyOrderDAO myOrderDAO;
     private OrderService orderService;
     private OrderView orderView;
+    private Scanner sc;
 
     public CustomerFunction()
     {
