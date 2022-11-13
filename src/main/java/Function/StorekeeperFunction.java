@@ -18,5 +18,4 @@ public class StorekeeperFunction {
         orderView.printOrder(orderService.selectOrder_store(store_id));
     }
 
-    public void selectOrder_customer(String user_id){orderView.printOrder(orderService.selectOrder_customer(user_id));}
 }

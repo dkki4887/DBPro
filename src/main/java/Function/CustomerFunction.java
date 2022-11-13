@@ -20,17 +20,14 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.Scanner;
 
-public class CustomerFunction
-{
+public class CustomerFunction {
     Scanner sc = new Scanner(System.in);
 
-    public void inquireOrder(String customer_id)
-    {
+    public void inquireOrder(String customer_id) {
     }
 
 
-    public void writeReview(String customer_id)
-    {
+    public void writeReview(String customer_id) {
         OrderService orderService = new OrderService();
         OrderView orderView = new OrderView();
         ReviewService reviewService = new ReviewService();
@@ -41,28 +38,25 @@ public class CustomerFunction
 
         int store_id = -1;
         List<OrderDTO> custOrder_List = orderService.selectOrder_customer(customer_id);
-        for(OrderDTO ods: custOrder_List) // 입력한 order_id와 일치하는 주문의 store_id 받아옴
+        for (OrderDTO ods : custOrder_List) // 입력한 order_id와 일치하는 주문의 store_id 받아옴
         {
-           if(ods.getOrder_id() == input_orderID)
-           {
-               store_id = ods.getStore_id();
-           }
+            if (ods.getOrder_id() == input_orderID) {
+                store_id = ods.getStore_id();
+            }
         }
-        if(store_id==-1) System.out.println("해당하는 주문번호가 없습니다.");
-        else
-        {
-            int reviewResult=reviewService.insertReview(store_id,customer_id,input_orderID);
-            if(reviewResult ==1) System.out.println("리뷰 작성 성공");
+        if (store_id == -1) System.out.println("해당하는 주문번호가 없습니다.");
+        else {
+            int reviewResult = reviewService.insertReview(store_id, customer_id, input_orderID);
+            if (reviewResult == 1) System.out.println("리뷰 작성 성공");
             else System.out.println("리뷰 작성 실패");
         }
     }
 
-    public void inquireReview(String user_id)
-    {
+    public void inquireReview(String user_id) {
         ReviewService reviewService = new ReviewService();
         ReviewView reviewView = new ReviewView();
 
-        reviewView.printMyReview( reviewService.findReviewWithUserIdLike( user_id ) );
+        reviewView.printMyReview(reviewService.findReviewWithUserIdLike(user_id));
     }
 
     public void createOrder(String user_id) //주문 생성 메소드
@@ -84,7 +78,12 @@ public class CustomerFunction
         System.out.print("주문할 메뉴의 번호를 선택하세요(1개 선택): ");
     }
 
+    public void selectOrder_customer(String user_id) {
+        OrderService orderService = new OrderService();
+        OrderView orderView = new OrderView();
 
+        orderView.printOrder(orderService.selectOrder_customer(user_id));
+    }
 
 
 }
