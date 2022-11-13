@@ -1,6 +1,7 @@
 package service;
 
 import org.apache.ibatis.session.SqlSession;
+import persistence.MyBatisConnectionFactory;
 import persistence.dao.MyOrderDAO;
 import persistence.dto.OrderDTO;
 
@@ -9,9 +10,10 @@ import java.util.List;
 import java.util.Locale;
 
 public class OrderService {
-    private final MyOrderDAO orderDAO ;
-    public OrderService(MyOrderDAO orderDAO) {
-        this.orderDAO = orderDAO;
+    private final MyOrderDAO orderDAO;
+
+    public OrderService() {
+        orderDAO = new MyOrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
     }
 
     public List<OrderDTO> selectAll()
@@ -20,9 +22,9 @@ public class OrderService {
         return orderDTOS;
     }
 
-    public int insertOrder(Long order_id , Long customer_id , Long store_id , Long price, String type )
+    public int insertOrder(String user_id , int store_id)
     {
-        OrderDTO orderDTO = new OrderDTO(/*order_id,customer_id,store_id,price,type,LocalDateTime.now(),null,"접수대기"*/);
+        OrderDTO orderDTO = new OrderDTO(user_id, store_id);
         int result =orderDAO.insertOrder(orderDTO);
         return result;
     }

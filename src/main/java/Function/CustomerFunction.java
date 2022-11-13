@@ -22,28 +22,18 @@ import java.util.Scanner;
 
 public class CustomerFunction
 {
-    public CustomerFunction()
-    {
-    }
+    Scanner sc = new Scanner(System.in);
 
     public void inquireOrder(String customer_id)
     {
-        MyOrderDAO myOrderDAO = new MyOrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        OrderService orderService = new OrderService(myOrderDAO);
-        OrderView orderView = new OrderView();
-        orderView.printOrder( orderService.selectOrder_customer(customer_id) );
     }
 
 
     public void writeReview(String customer_id)
     {
-        MyOrderDAO myOrderDAO = new MyOrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        OrderService orderService = new OrderService(myOrderDAO);
+        OrderService orderService = new OrderService();
         OrderView orderView = new OrderView();
-        Scanner sc = new Scanner(System.in);
-        MyReviewDAO myReviewDAO = new MyReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        ReviewService reviewService = new ReviewService(myReviewDAO);
-        ReviewView reviewView = new ReviewView();
+        ReviewService reviewService = new ReviewService();
 
         orderView.printOrderWithID(orderService.selectOrder_customer(customer_id)); //order_id 포함한 주문출력
         System.out.print("리뷰를 작성할 주문번호를 입력하십시오 : ");
@@ -69,8 +59,7 @@ public class CustomerFunction
 
     public void inquireReview(String user_id)
     {
-        MyReviewDAO myReviewDAO = new MyReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        ReviewService reviewService = new ReviewService(myReviewDAO);
+        ReviewService reviewService = new ReviewService();
         ReviewView reviewView = new ReviewView();
 
         reviewView.printMyReview( reviewService.findReviewWithUserIdLike( user_id ) );
@@ -78,20 +67,21 @@ public class CustomerFunction
 
     public void createOrder(String user_id) //주문 생성 메소드
     {
-        Scanner sc = new Scanner(System.in);
-        MyStoreDAO sDAO = new MyStoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         StoreService ss = new StoreService();
         StoreView sv = new StoreView();
 
-        MyMenuDAO mDAO = new MyMenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         MenuService ms = new MenuService();
         MenuView mv = new MenuView();
+
+        OrderService os = new OrderService();
 
         sv.printAllStore(ss.selectAllStoreNameAndId());
         System.out.print("주문할 가게의 번호를 선택하세요: ");
         int store_id = sv.selectStore(ss.selectAllStoreNameAndId(), sc.nextInt());
+        os.insertOrder(user_id, store_id);
+
         mv.printStoreAllMenu(ms.selectStoreMenu(store_id));
-        System.out.print("주문할 메뉴의 번호를 선택하세요: ");
+        System.out.print("주문할 메뉴의 번호를 선택하세요(1개 선택): ");
     }
 
 

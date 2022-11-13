@@ -22,6 +22,12 @@ public class OrderDTO {
     private List<OrderMenuDTO> orderMenuList;
     private List<OrderOptionDTO> orderOptionList;
 
+    public OrderDTO(String user_id, int store_id) {
+        this.user_id = user_id;
+        this.store_id = store_id;
+        this.order_state = "접수 대기";
+    }
+
     public int getOrder_id() {
         return order_id;
     }

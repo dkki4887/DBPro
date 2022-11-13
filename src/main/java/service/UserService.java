@@ -1,5 +1,6 @@
 package service;
 
+import persistence.MyBatisConnectionFactory;
 import persistence.dao.MyMenuDAO;
 import persistence.dao.MyUserDAO;
 import persistence.dto.MenuDTO;
@@ -13,9 +14,9 @@ public class UserService
     private final int ID_AND_PW_MIN_LENGTH = 3;
     private final MyUserDAO myUserDAO;
 
-    public UserService(MyUserDAO myUserDAO)
+    public UserService()
     {
-        this.myUserDAO = myUserDAO;
+        myUserDAO = new MyUserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
     }
 
     public List<UserDTO> findAll()

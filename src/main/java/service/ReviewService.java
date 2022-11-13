@@ -1,5 +1,7 @@
 package service;
 
+import persistence.MyBatisConnectionFactory;
+import persistence.dao.MyOrderDAO;
 import persistence.dao.MyReviewDAO;
 import persistence.dto.ReviewDTO;
 import persistence.dto.Review_omDTO;
@@ -9,11 +11,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ReviewService {
-    private final MyReviewDAO reviewDAO ;// = new ReviewDAO();   or   constuct
+    private final MyReviewDAO reviewDAO;// = new ReviewDAO();   or   constuct
 
 
-    public ReviewService(MyReviewDAO reviewDAO) {
-        this.reviewDAO = reviewDAO;
+    public ReviewService() {
+        reviewDAO = new MyReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
     }
 
     //    public List<ReviewDTO> findAll(){

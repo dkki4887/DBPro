@@ -29,12 +29,11 @@ public class MyOrderDAO {
         return list;
     }
 
-    @Options(useGeneratedKeys = true, keyProperty = "id")
-    public int insertOrder(OrderDTO orderDTO) {
+    public int insertOrder(OrderDTO od) {
         SqlSession session = sqlSessionFactory.openSession();
         int result = -1;
         try{
-            result =session.insert("mapper.OrderMapper.insertOrder" , orderDTO);
+            result = session.insert("mapper.OrderMapper.insertOrder", od);
 
             if (result==1){
                 session.commit();
@@ -53,7 +52,7 @@ public class MyOrderDAO {
         List<OrderDTO> dtos = null;
         SqlSession session = sqlSessionFactory.openSession();
         try{
-            dtos = session.selectList("mapper.OrderMapper.findOrderWithCustomerIdLike",customer_id);
+            dtos = session.selectList("mapper.OrderMapper.findOrderWithCustomerIdLike", customer_id);
         }finally {
             session.close();
         }

@@ -13,21 +13,11 @@ import java.util.Scanner;
 
 public class LoginFunction
 {
-    private final MyMenuDAO myMenuDAO;
-    private final MyUserDAO myUserDAO;
-    private final MyStoreDAO myStoreDAO;
     private String userid;
-
-    public LoginFunction()
-    {
-        this.myMenuDAO = new MyMenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        this.myUserDAO = new MyUserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        this.myStoreDAO = new MyStoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-    }
 
     public String Login(Scanner sc)
     {
-        UserService us = new UserService(myUserDAO);
+        UserService us = new UserService();
         String id, pw;
 
         System.out.println("===================================");

@@ -6,13 +6,11 @@ import service.OrderService;
 import view.OrderView;
 
 public class StorekeeperFunction {
-    private MyOrderDAO myOrderDAO;
     private OrderService orderService;
     private OrderView orderView;
 
     public StorekeeperFunction() {
-        this.myOrderDAO = new MyOrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        this.orderService = new OrderService(myOrderDAO);
+        this.orderService = new OrderService();
         this.orderView = new OrderView();
     }
 

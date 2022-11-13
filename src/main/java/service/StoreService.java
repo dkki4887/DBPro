@@ -59,7 +59,7 @@ public class StoreService
 
     private String getUser_id(Scanner sc)
     {
-        UserService us = new UserService(myUserDAO);
+        UserService us = new UserService();
         List<UserDTO> userDTOS = myUserDAO.selectAllUserid();
         String input;
 

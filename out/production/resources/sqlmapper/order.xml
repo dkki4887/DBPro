@@ -33,10 +33,9 @@
         FROM project.order
     </select>
 
-    <insert id="insertOrder" parameterType="OrderDTO" useGeneratedKeys="true"
-            keyProperty="order_id">
-        INSERT INTO project.order (order_id , user_id , store_id , order_price , order_payment , order_state , order_orderTime , order_receiveTime)
-        VALUES (#{order_id},#{user_id},#{store_id},#{order_price},#{order_payment},#{order_state},#{order_orderTime},#{order_receiveTime})
+    <insert id="insertOrder">
+        INSERT INTO project.order (order_id , user_id , store_id, order_state)
+        VALUES (#{order_id}, #{user_id}, #{store_id}, "접수 대기")
     </insert>
 
     <select id="selectOrder_store" resultMap="orderResult">
