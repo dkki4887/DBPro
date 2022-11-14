@@ -1,9 +1,7 @@
 package service;
 
 import persistence.MyBatisConnectionFactory;
-import persistence.dao.MyMenuDAO;
 import persistence.dao.MyUserDAO;
-import persistence.dto.MenuDTO;
 import persistence.dto.UserDTO;
 
 import java.util.List;
@@ -23,6 +21,11 @@ public class UserService
     {
         List<UserDTO> all = myUserDAO.selectAll();
         return all;
+    }
+
+    public UserDTO findUser(String user_id)
+    {
+        return myUserDAO.selectUserById(user_id);
     }
 
     public boolean idCheck(String userid)
@@ -54,12 +57,12 @@ public class UserService
         Scanner sc = new Scanner(System.in);
         UserDTO addUserDTO = new UserDTO();
 
-        String user_id = getUser_id(sc, myUserDAO);
-        String user_pw = getUser_pw(sc);
-        String user_name = getUser_name(sc);
-        String user_address = getUser_address(sc);
-        String user_phone = getUser_phone(sc);
-        int user_category = getUser_category(sc);
+        String user_id = inputUser_id(sc, myUserDAO);
+        String user_pw = inputUser_pw(sc);
+        String user_name = inputUser_name(sc);
+        String user_address = inputUser_address(sc);
+        String user_phone = inputUser_phone(sc);
+        int user_category = inputUser_category(sc);
 
 
         addUserDTO.setUser_id(user_id);
@@ -72,7 +75,7 @@ public class UserService
         myUserDAO.userAdd(addUserDTO);
     }
 
-    private String getUser_id(Scanner sc, MyUserDAO myUserDAO) {
+    private String inputUser_id(Scanner sc, MyUserDAO myUserDAO) {
         String input = null;
         boolean result = true;
         List<UserDTO> userDTOS = myUserDAO.selectAllUserid();
@@ -101,7 +104,7 @@ public class UserService
         }
     }
 
-    private String getUser_pw(Scanner sc)
+    private String inputUser_pw(Scanner sc)
     {
         String input = null;
 
@@ -117,7 +120,7 @@ public class UserService
 
         }
     }
-    private String getUser_name(Scanner sc)
+    private String inputUser_name(Scanner sc)
     {
         String input;
 
@@ -136,7 +139,7 @@ public class UserService
 
     }
 
-    private String getUser_address(Scanner sc)
+    private String inputUser_address(Scanner sc)
     {
         String input;
 
@@ -154,7 +157,7 @@ public class UserService
         }
     }
 
-    private String getUser_phone(Scanner sc)
+    private String inputUser_phone(Scanner sc)
     {
         String input = null;
         while(true)
@@ -170,7 +173,7 @@ public class UserService
 
     }
 
-    private int getUser_category(Scanner sc)
+    private int inputUser_category(Scanner sc)
     {
         int input;
         while(true)
@@ -200,38 +203,5 @@ public class UserService
 
         return true;
     }
-
-    private boolean isTime(String input)
-    {
-        String[] temp = input.split(":");
-        for(int i = 0; i < temp.length; i++)
-        {
-            if(!(isdigit(temp[i]) && temp[i].length() == 2))
-                return false;
-        }
-        if(0 <= Integer.parseInt(temp[0]) && Integer.parseInt(temp[0]) <= 24)
-            if(0 <= Integer.parseInt(temp[1]) && Integer.parseInt(temp[1]) < 60)
-                return true;
-
-        return false;
-    }
-
-    private boolean compareTime(String open, String close)
-    {
-        String[] open_temp = open.split(":");
-        String[] close_temp = close.split(":");
-
-        if(Integer.parseInt(open_temp[0]) < Integer.parseInt(close_temp[0]))
-            return true;
-        else if(Integer.parseInt(open_temp[0]) == Integer.parseInt(close_temp[0]))
-        {
-            if(Integer.parseInt(open_temp[1]) <= Integer.parseInt(close_temp[1]))
-                return true;
-        }
-
-        return false;
-    }
-
-
 }
 

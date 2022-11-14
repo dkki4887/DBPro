@@ -40,8 +40,6 @@
     </insert>
 
     <update id="menuUpdate" parameterType="MenuDTO" keyProperty="menu_id">
-                /*MenuDTO를 파라미터로 받는데 이게 수정을 원치 않은 값은 문자열 값은 "" 다른 값들은 null이 들어가있음
-                                         각자 값이 ""이거나 null이 아닐 때 수정하는 값 SET으로 추가 해서 파라미터 값 받아 넣으면 됨*/
         UPDATE project.menu
             <set>
                 <if test='menu_name!=null'>

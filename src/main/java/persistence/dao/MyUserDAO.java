@@ -61,6 +61,16 @@ public class MyUserDAO {
             session.close();
         }
     }
-    public UserDTO selectById(Long id){return null;}
+    public UserDTO selectUserById(String user_id)
+    {
+        UserDTO userDTO = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            userDTO = session.selectOne("mapper.UserMapper.selectUserById", user_id);
+        } finally {
+            session.close();
+        }
+        return userDTO;
+    }
 }
 
