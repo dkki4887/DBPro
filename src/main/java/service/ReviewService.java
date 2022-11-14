@@ -14,7 +14,7 @@ public class ReviewService {
     private final MyReviewDAO reviewDAO;// = new ReviewDAO();   or   constuct
 
     public ReviewService() {
-        reviewDAO = new MyReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        reviewDAO = new MyReviewDAO();
     }
 
     //    public List<ReviewDTO> findAll(){

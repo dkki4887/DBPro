@@ -33,17 +33,6 @@ public class MyMenuDAO {
         return list;
     }
 
-    public List<MenuDTO> selectMenuPrice(int menu_id) {
-        List<MenuDTO> list = null;
-        SqlSession session = sqlSessionFactory.openSession();
-        try{
-            list = session.selectList("mapper.MenuMapper.selectMenuPrice", menu_id);
-        } finally {
-            session.close();
-        }
-        return list;
-    }
-
     public MenuDTO selectByStoreId(String id){
         MenuDTO menuDTO = new MenuDTO();
         SqlSession session = sqlSessionFactory.openSession();

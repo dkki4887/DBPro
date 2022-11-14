@@ -11,6 +11,7 @@ public class OptionDTO {
     private int option_id;
     private long option_price;
     private String option_name;
+    private int store_id;
 
     public int getOption_id() {
         return option_id;

@@ -1,7 +1,5 @@
 package service;
 
-import org.apache.ibatis.session.SqlSessionFactory;
-import persistence.MyBatisConnectionFactory;
 import persistence.dao.MyMenuDAO;
 import persistence.dao.MyStoreDAO;
 import persistence.dto.MenuDTO;
@@ -33,10 +31,9 @@ public class MenuService
         return menu;
     }
 
-    public List<MenuDTO> selectMenuPrice(int menu_id)
+    public long getMenuPrice(List<MenuDTO> dtos, int selectMenuNum)
     {
-        List<MenuDTO> menu = myMenuDAO.selectMenuPrice(menu_id);
-        return menu;
+        return dtos.get(selectMenuNum - 1).getMenu_price();
     }
 
     public void menuAdd(int store_id)

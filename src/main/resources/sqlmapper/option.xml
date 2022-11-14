@@ -15,15 +15,9 @@
         SELECT * FROM project.option
     </select>
 
-    <select id = "selectMenuOption" resultMap="result">
+    <select id = "selectMenuOption" parameterType="int" resultMap="result">
         SELECT option_id, option_name, option_price
-        FROM OPTION
-        WHERE menu_id = #{menu_id}
-    </select>
-
-    <select id="selectOptionPrice" resultMap="result">
-        SELECT option_price
-        FROM OPTION
+        FROM project.OPTION
         WHERE option_id = #{option_id}
     </select>
 

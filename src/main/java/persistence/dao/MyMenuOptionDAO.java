@@ -20,6 +20,16 @@ public class MyMenuOptionDAO {
         }
         return list;
     }
-    public MenuOptionDTO selectById(Long id){return null;}
+
+    public List<MenuOptionDTO> selectMenuOptionId(int menu_id) {
+        List<MenuOptionDTO> list = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            list = session.selectList("mapper.MenuOptionMapper.selectMenuOptionId", menu_id);
+        } finally {
+            session.close();
+        }
+        return list;
+    }
 }
 

@@ -1,30 +1,16 @@
 package Function;
 
-import com.mysql.cj.x.protobuf.MysqlxCrud;
-import persistence.MyBatisConnectionFactory;
-import persistence.dao.MyMenuDAO;
-import persistence.dao.MyOrderDAO;
-import persistence.dao.MyReviewDAO;
-import persistence.dao.MyStoreDAO;
-import persistence.dto.OrderDTO;
-import service.MenuService;
-import service.OrderService;
-import service.ReviewService;
-import service.StoreService;
-import view.MenuView;
-import view.OrderView;
-import view.ReviewView;
-import view.StoreView;
+import persistence.dto.*;
+import service.*;
+import view.*;
 
 import java.util.Scanner;
-
 import java.util.List;
-import java.util.Scanner;
 
 public class CustomerFunction {
     Scanner sc = new Scanner(System.in);
 
-    public void writeReview(String customer_id) {
+    public void writeReview(String customer_id) { //리뷰작성 메소드
         //완성
         OrderService orderService = new OrderService();
         OrderView orderView = new OrderView();
@@ -71,26 +57,38 @@ public class CustomerFunction {
 
     public void createOrder(String user_id) //주문 생성 메소드
     {
-        StoreService ss = new StoreService();
-        StoreView sv = new StoreView();
+        StoreService storeS = new StoreService();
+        StoreView storeV = new StoreView();
 
-        MenuService ms = new MenuService();
-        MenuView mv = new MenuView();
+        MenuService menuS = new MenuService();
+        MenuView menuV = new MenuView();
 
-        OrderService os = new OrderService();
+        OptionService optionS = new OptionService();
+        OptionView optionV = new OptionView();
+
+        OrderService orderS = new OrderService();
 
         long order_price = 0;
 
-        sv.printAllStore(ss.selectAllStoreNameAndId());
+        List<StoreDTO> sDtos = storeV.printAllStore(storeS.selectAllStoreNameAndId());
         System.out.print("주문할 가게의 번호를 선택하세요: ");
-        int store_id = sv.selectStore(ss.selectAllStoreNameAndId(), sc.nextInt());
+        int store_id = storeV.selectStore(sDtos, sc.nextInt());
         System.out.println();
 
-        mv.printStoreAllMenu(ms.selectStoreMenu(store_id));
+        List<MenuDTO> mDtos = menuV.printStoreAllMenu(menuS.selectStoreMenu(store_id));
         System.out.print("주문할 메뉴의 번호를 선택하세요(1개 선택): ");
-        int menu_id = mv.selectMenu(ms.selectStoreMenu(store_id), sc.nextInt());
-        order_price = order_price + mv.getMenuPrice(ms.selectMenuPrice(menu_id)); //메뉴 가격 더하기...
+        int selectMenuNum = sc.nextInt();
+        int menu_id = menuV.selectMenuAndGetPrice(mDtos, selectMenuNum);
+        order_price = order_price + menuS.getMenuPrice(mDtos, selectMenuNum);
         System.out.println();
+
+        List<OptionDTO> oDtos = optionV.printMenuAllOption(optionS.selectMenuOption(menu_id));
+        if(oDtos.size() == 0)
+            System.out.println("해당 메뉴에 옵션이 없습니다.");
+        else
+        {
+            System.out.print("주문할 메뉴의 옵션을 선택하세요(여러 개 선택, 띄어쓰기로 구분): ");
+        }
         //os.insertOrder(user_id, store_id);
     }
 
@@ -123,7 +121,7 @@ public class CustomerFunction {
         {
             int order_id = od.get(inputNumber-1).getOrder_id();
             int result =odService.updateOrderState_Cancle(order_id);
-            if(result ==1) System.out.println("주문 취소 성공");
+            if(result == 1) System.out.println("주문 취소 성공");
             else System.out.println("주문 취소 실패");
         }
     }

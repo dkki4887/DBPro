@@ -6,13 +6,14 @@ import java.util.List;
 
 public class StoreView {
 
-    public void printAllStore(List<StoreDTO> dtos)
+    public List<StoreDTO> printAllStore(List<StoreDTO> dtos)
     {
         int i = 0;
         for(StoreDTO dto: dtos) {
             System.out.println((i + 1) + ". " + dto.getStore_name());
             i++;
         }
+        return dtos;
     }
 
     public int selectStore(List<StoreDTO> dtos, int selectNum)

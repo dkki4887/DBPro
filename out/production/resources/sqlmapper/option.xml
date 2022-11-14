@@ -14,4 +14,11 @@
     <select id="selectAll" resultMap="result">
         SELECT * FROM project.option
     </select>
+
+    <select id = "selectMenuOption" parameterType="int" resultMap="result">
+        SELECT option_id, option_name, option_price
+        FROM project.OPTION
+        WHERE option_id = #{option_id}
+    </select>
+
 </mapper>

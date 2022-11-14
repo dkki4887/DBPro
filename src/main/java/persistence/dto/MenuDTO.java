@@ -11,7 +11,7 @@ public class MenuDTO {
     private int menu_id;
     private String menu_name;
     private int store_id;
-    private Long menu_price;
+    private long menu_price;
     private int menu_quantity;
     private String menu_category;
 
@@ -39,7 +39,7 @@ public class MenuDTO {
         this.store_id = store_id;
     }
 
-    public Long getMenu_price() {
+    public long getMenu_price() {
         return menu_price;
     }
 

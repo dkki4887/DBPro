@@ -31,10 +31,10 @@ public class Main {
 //            System.out.println("dto.toString() = " + orderDTO.toString());
 
         CustomerFunction c = new CustomerFunction();
-//        c.createOrder("user1");
+        c.createOrder("user1");
 //        LoginFunction lf = new LoginFunction();
 //        lf.Login(sc);
-        StorekeeperFunction s = new StorekeeperFunction();
-        c.inquireReview("user1");
+        //StorekeeperFunction s = new StorekeeperFunction();
+        //c.inquireReview("user1");
     }
 }
