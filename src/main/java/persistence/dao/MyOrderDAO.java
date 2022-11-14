@@ -48,6 +48,8 @@ public class MyOrderDAO {
         return result;
     }
 
+
+
     public List<OrderDTO> findOrderWithCustomerIdLike(Long customer_id)
     {
         List<OrderDTO> dtos = null;
@@ -79,7 +81,46 @@ public class MyOrderDAO {
         }
         return result;
 
-    }//updateMember
+    }
+    public int updateOrderState_Cancle(int order_id) {
+
+        SqlSession session = sqlSessionFactory.openSession();
+        int result = -1;
+        try{
+            result =session.update("mapper.OrderMapper.updateOrderState_Cancle",order_id);
+
+            if (result==1){
+                session.commit();
+            }else {
+                session.rollback();
+            }
+
+        }finally {
+            session.close();
+        }
+        return result;
+
+    }
+
+    public int updateOrderState_Delivery(int order_id) {
+
+        SqlSession session = sqlSessionFactory.openSession();
+        int result = -1;
+        try{
+            result =session.update("mapper.OrderMapper.updateOrderState_Delivery",order_id);
+
+            if (result==1){
+                session.commit();
+            }else {
+                session.rollback();
+            }
+
+        }finally {
+            session.close();
+        }
+        return result;
+
+    }
 
 
     public List<OrderDTO> selectOrder_store(int store_id)

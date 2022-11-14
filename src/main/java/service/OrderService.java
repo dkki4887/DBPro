@@ -50,6 +50,21 @@ public class OrderService {
         return result;
     }
 
+    public int updateOrderState_Cancle(int order_id)
+    {
+        OrderDTO orderDTO = new OrderDTO(order_id);
+        int result =orderDAO.updateOrderState_Cancle(order_id);
+        return result;
+    }
+
+    public int updateOrderState_Delivery(int order_id)
+    {
+        OrderDTO orderDTO = new OrderDTO(order_id);
+        int result =orderDAO.updateOrderState_Cancle(order_id);
+        return result;
+    }
+
+
 
 
 }

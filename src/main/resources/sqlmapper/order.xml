@@ -65,4 +65,17 @@
         WHERE order_id = #{order_id}
     </update>
 
+    <update id="updateOrderState_Cancle">
+        UPDATE project.order
+        SET order_state = "배달 완료"
+        WHERE order_id = #{order_id}
+    </update>
+
+    <update id="updateOrderState_Delivery">
+        UPDATE project.order
+        SET order_state = "배달 완료"
+        WHERE order_id = #{order_id}
+    </update>
+
+
 </mapper>

@@ -94,6 +94,10 @@ public class CustomerFunction {
         System.out.print("취소할 주문의 번호를 입력하세요 : ");
         int order_id = sc.nextInt();
 
+        // 배달중인지 확인하고 조건문으로 경우 분리하는 코드 필요
+
+        odService.updateOrderState_Cancle(order_id);
+
     }
 
 
