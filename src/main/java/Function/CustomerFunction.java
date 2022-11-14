@@ -1,5 +1,6 @@
 package Function;
 
+import com.mysql.cj.x.protobuf.MysqlxCrud;
 import persistence.MyBatisConnectionFactory;
 import persistence.dao.MyMenuDAO;
 import persistence.dao.MyOrderDAO;
@@ -84,6 +85,17 @@ public class CustomerFunction {
 
         orderView.printOrder(orderService.selectOrder_customer(user_id));
     }
+
+    public void cancleOrder(int user_id)
+    {
+        OrderService odService = new OrderService();
+        OrderView odView = new OrderView();
+
+        System.out.print("취소할 주문의 번호를 입력하세요 : ");
+        int order_id = sc.nextInt();
+
+    }
+
 
 
 }

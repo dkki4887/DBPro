@@ -46,7 +46,7 @@ public class OrderService {
     public int updateOrderState_Complete(int order_id)
     {
         OrderDTO orderDTO = new OrderDTO(order_id);
-        int result =orderDAO.insertOrder(orderDTO);
+        int result =orderDAO.updateOrderState_Complete(order_id);
         return result;
     }
 

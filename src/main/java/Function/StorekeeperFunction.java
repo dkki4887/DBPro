@@ -8,10 +8,12 @@ import view.OrderView;
 import java.util.Scanner;
 
 public class StorekeeperFunction {
+    private Scanner sc ;
     private OrderService orderService;
     private OrderView orderView;
 
     public StorekeeperFunction() {
+        this.sc = new Scanner(System.in);
         this.orderService = new OrderService();
         this.orderView = new OrderView();
     }
@@ -20,19 +22,8 @@ public class StorekeeperFunction {
         orderView.printOrder(orderService.selectOrder_store(store_id));
     }
 
-
-    public void deliveryFinish()
+    public void deliveryFinish(int order_id)
     {
-        Scanner sc= new Scanner(System.in);
-
-        System.out.print("조회할 가게번호를 입력하시오. : ");
-        int store_id = sc.nextInt();
-
-        orderView.printOrderWithID(orderService.selectOrder_store(store_id));
-
-        System.out.print("배달완료할 주문 번호를 입력하시오 : ");
-        int order_id = sc.nextInt();
-
         orderService.updateOrderState_Complete(order_id);
     }
 

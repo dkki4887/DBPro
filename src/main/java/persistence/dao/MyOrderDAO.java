@@ -2,6 +2,7 @@ package persistence.dao;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import persistence.dto.OrderDTO;
@@ -59,12 +60,13 @@ public class MyOrderDAO {
         return dtos;
     }
 
-    public int updateOrderState_Complete(OrderDTO orderDTO) {
+
+    public int updateOrderState_Complete(int order_id) {
 
         SqlSession session = sqlSessionFactory.openSession();
         int result = -1;
         try{
-            result =session.update("mapper.OrderMapper.updateOrderState_Complete",orderDTO);
+            result =session.update("mapper.OrderMapper.updateOrderState_Complete",order_id);
 
             if (result==1){
                 session.commit();
