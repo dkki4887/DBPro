@@ -13,6 +13,7 @@ public class StorekeeperFunction {
     private Scanner sc ;
     private OrderService orderService;
     private OrderView orderView;
+    private int store_id;
 
     public StorekeeperFunction() {
         this.sc = new Scanner(System.in);
@@ -60,5 +61,10 @@ public class StorekeeperFunction {
             if( result == 1) System.out.println("주문 거절 완료");
             else System.out.println("주문 거절 실패");
         }
+    }
+
+    public void menuUpdate()
+    {
+
     }
 }

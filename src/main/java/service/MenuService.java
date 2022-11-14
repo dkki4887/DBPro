@@ -1,5 +1,7 @@
 package service;
 
+import org.apache.ibatis.session.SqlSessionFactory;
+import persistence.MyBatisConnectionFactory;
 import persistence.dao.MyMenuDAO;
 import persistence.dao.MyStoreDAO;
 import persistence.dto.MenuDTO;
@@ -59,7 +61,7 @@ public class MenuService
     public void menuUpdate(int menu_id)
     {
         Scanner sc = new Scanner(System.in);
-        MenuDTO addMenuDTO, exMenuDTO;
+        MenuDTO addMenuDTO;
         addMenuDTO = new MenuDTO();
 
         String menu_name = inputMenu_name(sc);
@@ -67,13 +69,16 @@ public class MenuService
         int menu_quantity = inputMenu_quantity(sc);
         String menu_category = inputMenu_category(sc);
 
+        addMenuDTO.setStore_id(2);
         addMenuDTO.setMenu_id(checkMenu_id(menu_id));
         addMenuDTO.setMenu_name(menu_name);
-        addMenuDTO.setMenu_price(menu_price);
-        addMenuDTO.setMenu_quantity(menu_quantity);
+        if(menu_price != -1)
+            addMenuDTO.setMenu_price(menu_price);
+        if(menu_quantity != -1)
+            addMenuDTO.setMenu_quantity(menu_quantity);
         addMenuDTO.setMenu_category(menu_category);
 
-        myMenuDAO.menuAdd(addMenuDTO);
+        myMenuDAO.menuUpdate(addMenuDTO);
     }
 
     private int checkStore_id(int store_id)
@@ -84,7 +89,7 @@ public class MenuService
                 return store_id;
         }
 
-        System.out.println("메장 아이디가 잘못됨.");
+        System.out.println("매장 아이디가 잘못됨.");
         return store_id;
     }
 
@@ -102,26 +107,32 @@ public class MenuService
 
     private String inputMenu_name(Scanner sc)
     {
-        System.out.println("메뉴 이름을 입력해주세요 : ");
-        return sc.nextLine();
+        String input;
+        System.out.println("메뉴 이름을 입력해주세요.(변경하지 않는다면 enter) : ");
+        input = sc.nextLine();
+        return input;
     }
-
     private long inputMenu_price(Scanner sc)
     {
         String input;
 
         while(true)
         {
-            System.out.println("메뉴 가격을 입력해주세요 : ");
+            System.out.println("메뉴 가격을 입력해주세요. (변경하지 않는다면 enter) : ");
             input = sc.nextLine();
+
+            if(input.equals(""))
+                return -1;
 
             if(isdigit(input))
             {
                 return Long.parseLong(input);
             }
+
             else
                 System.out.println("입력 형식에 맞지 않습니다. ");
         }
+
     }
 
     private int inputMenu_quantity(Scanner sc)
@@ -130,13 +141,17 @@ public class MenuService
 
         while(true)
         {
-            System.out.println("메뉴 제고를 입력해주세요 : ");
+            System.out.println("메뉴 제고를 입력해주세요.(변경하지 않는다면 -1) : ");
             input = sc.nextLine();
+
+            if(input.equals(""))
+                return -1;
 
             if(isdigit(input))
             {
                 return Integer.parseInt(input);
             }
+
             else
                 System.out.println("입력 형식에 맞지 않습니다. ");
         }
@@ -144,9 +159,12 @@ public class MenuService
 
     private String inputMenu_category(Scanner sc)
     {
-            System.out.println("메뉴 카테고리를 입력해주세요 (1: 뭐, 2 : 뭐, 3, 뭐): ");
-            return sc.nextLine();
+        String input;
+        System.out.println("메뉴 카테고리를 입력해주세요.\n (변경하지 않는다면 enter): ");
+        input = sc.nextLine();
+        return input;
     }
+
 
     private boolean isdigit(String input)
     {
