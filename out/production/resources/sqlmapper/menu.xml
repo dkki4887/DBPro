@@ -39,13 +39,26 @@
         VALUES(#{store_id}, #{menu_name}, #{menu_price}, #{menu_quantity}, #{menu_category})
     </insert>
 
-    <update id="menuUpdate" parameterType="MenuDTO">
-        UPDATE menu
-        SET menu_name = #{menu_name},
-            menu_price = #{menu_price},
-            menu_quantity = #{menu_quantity},
-            menu_category = #{menu_category}
-        WHERE menu_id = #{menu_id}
+    <update id="menuUpdate" parameterType="MenuDTO" keyProperty="menu_id">
+        SET FOREIGN_KEY_CHECKS=0;
+
+            <if test='menu_name !=""'>
+                menu_name = #{menu_name}
+            </if>
+            <if test='menu_price!=null'>
+                menu_price = #{menu_price}
+            </if>
+            <if test='menu_quantity!=null'>
+                UPDATE project.menu
+                SET
+                menu_quantity = #{menu_quantity}
+                WHERE menu_id = #{menu_id} AND store_id = #{store_id};
+            </if>
+            <if test='menu_category!=""'>
+                menu_category = #{menu_category}
+            </if>
+
+        SET FOREIGN_KEY_CHECKS=1;
     </update>
 
     <update id="updateOrderState">
@@ -53,6 +66,4 @@
         SET menu_quantity = menu_quantity - 1
         WHERE menu_name = #{menu_name}
     </update>
-
-
 </mapper>
