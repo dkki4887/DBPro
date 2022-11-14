@@ -37,7 +37,7 @@ public class MyUserDAO {
         UserDTO userDTO = null;
         SqlSession session = sqlSessionFactory.openSession();
         try{
-            userDTO = session.selectOne("mapper.UserMapper.selectUserpw", useridDTO);
+            userDTO = session.selectOne("mapper.UserMapper.selectUserpw", useridDTO.getUser_id());
         } finally {
             session.close();
         }

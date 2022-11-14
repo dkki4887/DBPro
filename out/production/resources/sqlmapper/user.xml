@@ -21,12 +21,10 @@
         SELECT user_id FROM project.user
     </select>
 
-    <select id="selectUserpw" parameterType="UserDTO" resultMap="result">
-        SELECT user_pw FROM project.user WHERE user_id = #{user_id}
-    </select>
-
-    <select id="selectUserpw" parameterType="UserDTO" resultMap="result">
-        SELECT user_id FROM project.user WHERE user_id = #{user_id}
+    <select id="selectUserpw" parameterType="String" resultMap="result">
+        SELECT user_pw
+        FROM project.user
+        WHERE user_id = #{user_id}
     </select>
 
     <insert id="userAdd" parameterType="UserDTO" keyProperty="user_id">

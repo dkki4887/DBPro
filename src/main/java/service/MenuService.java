@@ -1,7 +1,5 @@
 package service;
 
-import org.apache.ibatis.session.SqlSessionFactory;
-import persistence.MyBatisConnectionFactory;
 import persistence.dao.MyMenuDAO;
 import persistence.dao.MyStoreDAO;
 import persistence.dto.MenuDTO;

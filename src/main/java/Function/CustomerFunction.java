@@ -70,12 +70,12 @@ public class CustomerFunction {
 
         long order_price = 0;
 
-        List<StoreDTO> sDtos = storeV.printAllStore(storeS.selectAllStoreNameAndId());
+        /* List<StoreDTO> sDtos = storeV.printAllStore(storeS.selectAllStoreNameAndId());
         System.out.print("주문할 가게의 번호를 선택하세요: ");
         int store_id = storeV.selectStore(sDtos, sc.nextInt());
-        System.out.println();
+        System.out.println(); */
 
-        List<MenuDTO> mDtos = menuV.printStoreAllMenu(menuS.selectStoreMenu(store_id));
+        List<MenuDTO> mDtos = menuV.printStoreAllMenu(menuS.selectStoreMenu(1));
         System.out.print("주문할 메뉴의 번호를 선택하세요(1개 선택): ");
         int selectMenuNum = sc.nextInt();
         int menu_id = menuV.selectMenuAndGetPrice(mDtos, selectMenuNum);
@@ -87,7 +87,15 @@ public class CustomerFunction {
             System.out.println("해당 메뉴에 옵션이 없습니다.");
         else
         {
-            System.out.print("주문할 메뉴의 옵션을 선택하세요(여러 개 선택, 띄어쓰기로 구분): ");
+            System.out.print("주문할 메뉴의 옵션을 선택하세요(여러 개 선택, 띄어쓰기로 구분, 옵션 선택 종료: 0): ");
+            int[] options = new int[10];
+            int i = 0;
+            do {
+                int selectOptionNum = sc.nextInt();
+                options[i++] = selectOptionNum;
+            } while(selectMenuNum != 0);
+            order_price = order_price + optionS.getOptionPrice(oDtos, options);
+            System.out.println(order_price);
         }
         //os.insertOrder(user_id, store_id);
     }

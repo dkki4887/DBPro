@@ -24,9 +24,9 @@
     <!--  connecting to Local MySql -->
     <dataSource type="POOLED">
         <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost/project?&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC&amp;useSSL=false&amp;allowPublic"/>
+        <property name="url" value="jdbc:mysql://localhost/project?characterEncoding=utf8&amp;serverTimezone=UTC&amp;useSSL=false"/>
         <property name="username" value="root"/>
-        <property name="password" value="1234"/>
+        <property name="password" value="021105"/>
     </dataSource>
 
 </environment>
@@ -39,5 +39,6 @@
     <mapper resource="sqlmapper/review.xml"/>
     <mapper resource="sqlmapper/storemenu.xml"/>
     <mapper resource="sqlmapper/user.xml"/>
+    <mapper resource="sqlmapper/menuoption.xml"/>
 </mappers>
         </configuration>
