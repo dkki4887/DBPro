@@ -26,6 +26,10 @@
         FROM project.user
         WHERE user_id = #{user_id}
     </select>
+    <select id="selectUserById" parameterType="string" resultMap="result">
+        SELECT * FROM project.user WHERE user_id = #{user_id}
+    </select>
+
 
     <insert id="userAdd" parameterType="UserDTO" keyProperty="user_id">
         INSERT INTO project.user(user_id, user_pw, user_name, user_address, user_phone, user_category)

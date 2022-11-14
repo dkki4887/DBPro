@@ -1,6 +1,8 @@
 package service;
 
+import persistence.MyBatisConnectionFactory;
 import persistence.dao.MyUserDAO;
+import persistence.dto.MenuDTO;
 import persistence.dto.UserDTO;
 
 import java.util.List;
@@ -13,13 +15,18 @@ public class UserService
 
     public UserService()
     {
-        myUserDAO = new MyUserDAO();
+        myUserDAO = new MyUserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
     }
 
     public List<UserDTO> findAll()
     {
         List<UserDTO> all = myUserDAO.selectAll();
         return all;
+    }
+
+    public UserDTO findUser(String user_id)
+    {
+        return myUserDAO.selectUserById(user_id);
     }
 
     public boolean idCheck(String userid)
@@ -51,12 +58,12 @@ public class UserService
         Scanner sc = new Scanner(System.in);
         UserDTO addUserDTO = new UserDTO();
 
-        String user_id = getUser_id(sc, myUserDAO);
-        String user_pw = getUser_pw(sc);
-        String user_name = getUser_name(sc);
-        String user_address = getUser_address(sc);
-        String user_phone = getUser_phone(sc);
-        int user_category = getUser_category(sc);
+        String user_id = inputUser_id(sc, myUserDAO);
+        String user_pw = inputUser_pw(sc);
+        String user_name = inputUser_name(sc);
+        String user_address = inputUser_address(sc);
+        String user_phone = inputUser_phone(sc);
+        int user_category = inputUser_category(sc);
 
 
         addUserDTO.setUser_id(user_id);
@@ -69,7 +76,7 @@ public class UserService
         myUserDAO.userAdd(addUserDTO);
     }
 
-    private String getUser_id(Scanner sc, MyUserDAO myUserDAO) {
+    private String inputUser_id(Scanner sc, MyUserDAO myUserDAO) {
         String input = null;
         boolean result = true;
         List<UserDTO> userDTOS = myUserDAO.selectAllUserid();
@@ -98,7 +105,7 @@ public class UserService
         }
     }
 
-    private String getUser_pw(Scanner sc)
+    private String inputUser_pw(Scanner sc)
     {
         String input = null;
 
@@ -114,7 +121,7 @@ public class UserService
 
         }
     }
-    private String getUser_name(Scanner sc)
+    private String inputUser_name(Scanner sc)
     {
         String input;
 
@@ -133,7 +140,7 @@ public class UserService
 
     }
 
-    private String getUser_address(Scanner sc)
+    private String inputUser_address(Scanner sc)
     {
         String input;
 
@@ -151,7 +158,7 @@ public class UserService
         }
     }
 
-    private String getUser_phone(Scanner sc)
+    private String inputUser_phone(Scanner sc)
     {
         String input = null;
         while(true)
@@ -167,7 +174,7 @@ public class UserService
 
     }
 
-    private int getUser_category(Scanner sc)
+    private int inputUser_category(Scanner sc)
     {
         int input;
         while(true)
