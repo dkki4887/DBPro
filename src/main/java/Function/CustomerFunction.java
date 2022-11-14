@@ -24,7 +24,11 @@ import java.util.Scanner;
 public class CustomerFunction {
     Scanner sc = new Scanner(System.in);
 
-    public void inquireOrder(String customer_id) {
+    public void inquireOrder(String customer_id)
+    {
+        OrderService orderService = new OrderService();
+        OrderView orderView = new OrderView();
+        orderView.printOrderWithID(orderService.selectOrder_customer(customer_id));
     }
 
 
