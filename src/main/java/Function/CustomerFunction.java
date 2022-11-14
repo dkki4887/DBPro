@@ -24,21 +24,14 @@ import java.util.Scanner;
 public class CustomerFunction {
     Scanner sc = new Scanner(System.in);
 
-    public void inquireOrder(String customer_id)
-    {
-        OrderService orderService = new OrderService();
-        OrderView orderView = new OrderView();
-        orderView.printOrderWithID(orderService.selectOrder_customer(customer_id));
-    }
-
-
     public void writeReview(String customer_id) {
+        //완성
         OrderService orderService = new OrderService();
         OrderView orderView = new OrderView();
         ReviewService reviewService = new ReviewService();
 
         orderView.printOrderWithID(orderService.selectOrder_customer(customer_id)); //order_id 포함한 주문출력
-        System.out.print("리뷰를 작성할 주문번호를 입력하십시오 : ");
+        System.out.print("리뷰를 작성할 주문의 주문번호를 입력하십시오 : ");
         int input_orderID = sc.nextInt();
 
         int store_id = -1;
@@ -58,6 +51,7 @@ public class CustomerFunction {
     }
 
     public void inquireReview(String user_id) {
+        //완성
         ReviewService reviewService = new ReviewService();
         ReviewView reviewView = new ReviewView();
 

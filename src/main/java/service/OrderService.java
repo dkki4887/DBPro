@@ -36,6 +36,13 @@ public class OrderService {
         return orderDTOS;
     }
 
+    public List<OrderDTO> selectOrder_store_Waiting(int store_id)
+    {
+        List<OrderDTO> orderDTOS = orderDAO.selectOrder_store_Waiting(store_id);
+
+        return orderDTOS;
+    }
+
     public List<OrderDTO> selectOrder_customer(String user_id)
     {
         List<OrderDTO> orderDTOS = orderDAO.selectOrder_customer(user_id);
@@ -60,7 +67,7 @@ public class OrderService {
     public int updateOrderState_Delivery(int order_id)
     {
         OrderDTO orderDTO = new OrderDTO(order_id);
-        int result =orderDAO.updateOrderState_Cancle(order_id);
+        int result =orderDAO.updateOrderState_Delivery(order_id);
         return result;
     }
 

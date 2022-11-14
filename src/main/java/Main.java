@@ -1,5 +1,6 @@
 import Function.CustomerFunction;
 import Function.LoginFunction;
+import Function.StorekeeperFunction;
 import persistence.MyBatisConnectionFactory;
 import persistence.dao.MyOrderDAO;
 import persistence.dao.MyReviewDAO;
@@ -29,9 +30,11 @@ public class Main {
 //        for(OrderDTO orderDTO : orderDTOS)
 //            System.out.println("dto.toString() = " + orderDTO.toString());
 
-//        CustomerFunction c = new CustomerFunction();
+        CustomerFunction c = new CustomerFunction();
 //        c.createOrder("user1");
-        LoginFunction lf = new LoginFunction();
-        lf.Login(sc);
+//        LoginFunction lf = new LoginFunction();
+//        lf.Login(sc);
+        StorekeeperFunction s = new StorekeeperFunction();
+        s.deliveryFinish(1);
     }
 }

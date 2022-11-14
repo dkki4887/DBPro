@@ -2,9 +2,11 @@ package Function;
 
 import persistence.MyBatisConnectionFactory;
 import persistence.dao.MyOrderDAO;
+import persistence.dto.OrderDTO;
 import service.OrderService;
 import view.OrderView;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class StorekeeperFunction {
@@ -23,10 +25,17 @@ public class StorekeeperFunction {
         orderView.printOrder(orderService.selectOrder_store(store_id));
     }
 
-    public void deliveryFinish(int order_id)
+    public void deliveryFinish(int store_id)
     {
-        //해당하는 주문이 배달중 상태인지 확인하는 코드 추가해야함
-        orderService.updateOrderState_Complete(order_id);
+        List<OrderDTO> od= orderService.selectOrder_store_Waiting(store_id);
+        System.out.println("==접수 대기중인 주문 목록==");
+        orderView.printOrderForStore(od);
+        System.out.print("접수할 주문번호를 선택해 주세요 : ");
+        int inputNum = sc.nextInt();
+        int order_id =od.get(inputNum-1).getOrder_id();
+        int result = orderService.updateOrderState_Complete(order_id);
+        if( result == 1) System.out.println("주문 접수 완료");
+        else System.out.println("주문 접수 실패");
     }
 
     public void acceptOrder(int order_id)
@@ -40,7 +49,7 @@ public class StorekeeperFunction {
         {
             orderService.updateOrderState_Delivery(order_id);
         }
-        else
+        else if(inputNum == 2)
         {
             orderService.updateOrderState_Cancle(order_id);
         }
