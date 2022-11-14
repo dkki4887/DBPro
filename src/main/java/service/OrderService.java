@@ -43,6 +43,13 @@ public class OrderService {
         return orderDTOS;
     }
 
+    public int updateOrderState_Complete(int order_id)
+    {
+        OrderDTO orderDTO = new OrderDTO(order_id);
+        int result =orderDAO.insertOrder(orderDTO);
+        return result;
+    }
+
 
 
 }

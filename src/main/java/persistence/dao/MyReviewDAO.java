@@ -19,17 +19,6 @@ public class MyReviewDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public List<ReviewDTO> selectAll(){
-        List<ReviewDTO> list = null;
-        SqlSession session = sqlSessionFactory.openSession();
-        try{
-            list = session.selectList("mapper.ReviewMapper.selectAll");
-        }finally {
-            session.close();
-        }
-        return list;
-    }
-
     public int insertReview(ReviewDTO reviewDTO) {
         SqlSession session = sqlSessionFactory.openSession();
         int result = -1;

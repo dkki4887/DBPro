@@ -13,19 +13,8 @@ import java.util.Scanner;
 public class ReviewService {
     private final MyReviewDAO reviewDAO;// = new ReviewDAO();   or   constuct
 
-
     public ReviewService() {
         reviewDAO = new MyReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-    }
-
-    //    public List<ReviewDTO> findAll(){
-//        List<ReviewDTO> reviewDTOS = reviewDAO.findAll();
-//        return reviewDTOS;
-//    }
-    public List<ReviewDTO> selectAll()
-    {
-        List<ReviewDTO> reviewDTOS = reviewDAO.selectAll();
-        return reviewDTOS;
     }
 
     public int insertReview(int store_id , String user_id , int order_id)

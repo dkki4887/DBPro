@@ -59,12 +59,12 @@ public class MyOrderDAO {
         return dtos;
     }
 
-    public int updateOrder(OrderDTO orderDTO) {
+    public int updateOrderState_Complete(OrderDTO orderDTO) {
 
         SqlSession session = sqlSessionFactory.openSession();
         int result = -1;
         try{
-            result =session.update("mapper.OrderMapper.updateOrder",orderDTO);
+            result =session.update("mapper.OrderMapper.updateOrderState_Complete",orderDTO);
 
             if (result==1){
                 session.commit();

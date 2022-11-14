@@ -59,4 +59,10 @@
         AND (o.order_state = "취소" OR o.order_state = "배달 완료")
     </select>
 
+    <update id="updateOrderState_Complete" parameterType="OrderDTO">
+        UPDATE project.order
+        SET order_state = "배달 완료"
+        WHERE order_id = #{order_id}
+    </update>
+
 </mapper>
