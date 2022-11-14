@@ -58,6 +58,16 @@
         WHERE o.store_id = #{store_id} AND o.order_state = "접수대기"
     </select>
 
+    <select id="selectOrder_store_Delivery" resultMap="orderResult">
+        SELECT *
+        FROM ordermenu om
+        INNER JOIN project.order o
+        ON om.order_id = o.order_id
+        INNER JOIN orderoption oo
+        ON om.orderMenu_id = oo.orderMenu_id
+        WHERE o.store_id = #{store_id} AND o.order_state = "배달중"
+    </select>
+
     <select id="selectOrder_customer" resultMap="orderResult">
         SELECT *
         FROM project.ordermenu om

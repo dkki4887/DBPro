@@ -43,6 +43,13 @@ public class OrderService {
         return orderDTOS;
     }
 
+    public List<OrderDTO> selectOrder_store_Delivery(int store_id)
+    {
+        List<OrderDTO> orderDTOS = orderDAO.selectOrder_store_Delivery(store_id);
+
+        return orderDTOS;
+    }
+
     public List<OrderDTO> selectOrder_customer(String user_id)
     {
         List<OrderDTO> orderDTOS = orderDAO.selectOrder_customer(user_id);

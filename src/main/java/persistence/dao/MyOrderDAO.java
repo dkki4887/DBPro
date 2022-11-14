@@ -146,6 +146,17 @@ public class MyOrderDAO {
         }
         return dtos;
     }
+    public List<OrderDTO> selectOrder_store_Delivery(int store_id)
+    {
+        List<OrderDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.OrderMapper.selectOrder_store_Delivery", store_id);
+        }finally {
+            session.close();
+        }
+        return dtos;
+    }
 
     public List<OrderDTO> selectOrder_customer(String user_id)
     {
