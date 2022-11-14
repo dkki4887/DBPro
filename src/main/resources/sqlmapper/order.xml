@@ -48,9 +48,29 @@
         WHERE o.store_id = #{store_id}
     </select>
 
-    <select id="selectOrder_customer" resultMap="orderResult">
+    <select id="selectOrder_store_Waiting" resultMap="orderResult">
         SELECT *
         FROM ordermenu om
+        INNER JOIN project.order o
+        ON om.order_id = o.order_id
+        INNER JOIN orderoption oo
+        ON om.orderMenu_id = oo.orderMenu_id
+        WHERE o.store_id = #{store_id} AND o.order_state = "접수대기"
+    </select>
+
+    <select id="selectOrder_store_Delivery" resultMap="orderResult">
+        SELECT *
+        FROM ordermenu om
+        INNER JOIN project.order o
+        ON om.order_id = o.order_id
+        INNER JOIN orderoption oo
+        ON om.orderMenu_id = oo.orderMenu_id
+        WHERE o.store_id = #{store_id} AND o.order_state = "배달중"
+    </select>
+
+    <select id="selectOrder_customer" resultMap="orderResult">
+        SELECT *
+        FROM project.ordermenu om
         INNER JOIN project.order o
         ON om.order_id = o.order_id
         INNER JOIN orderoption oo
@@ -58,5 +78,34 @@
         WHERE o.user_id = #{user_id}
         AND (o.order_state = "취소" OR o.order_state = "배달 완료")
     </select>
+
+    <select id="selectAllOrder_customer" resultMap="orderResult">
+        SELECT *
+        FROM project.ordermenu om
+        INNER JOIN project.order o
+        ON om.order_id = o.order_id
+        INNER JOIN orderoption oo
+        ON om.orderMenu_id = oo.orderMenu_id
+        WHERE o.user_id = #{user_id}
+    </select>
+
+    <update id="updateOrderState_Complete">
+        UPDATE project.order
+        SET order_state = "배달 완료"
+        WHERE order_id = #{order_id}
+    </update>
+
+    <update id="updateOrderState_Cancle">
+        UPDATE project.order
+        SET order_state = "취소"
+        WHERE order_id = #{order_id}
+    </update>
+
+    <update id="updateOrderState_Delivery">
+        UPDATE project.order
+        SET order_state = "배달중"
+        WHERE order_id = #{order_id}
+    </update>
+
 
 </mapper>

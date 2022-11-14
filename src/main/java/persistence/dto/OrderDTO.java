@@ -28,6 +28,12 @@ public class OrderDTO {
         this.order_state = "접수 대기";
     }
 
+    public OrderDTO(int order_id) {
+        this.order_id=order_id;
+    }
+
+    public OrderDTO(){};
+
     public int getOrder_id() {
         return order_id;
     }

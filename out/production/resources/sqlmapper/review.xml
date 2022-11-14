@@ -23,10 +23,6 @@
         <result property="review_rate" column="review_rate"/>
     </resultMap>
 
-    <select id="selectAll" resultMap="result">
-        SELECT * FROM project.review
-    </select>
-
     <select id="findReviewWithUserIdLike" resultMap="reviewOMResult">
         SELECT r.order_id, r.store_id, o.menu_name, r.review_content, r.review_rate
         FROM project.review r
