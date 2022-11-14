@@ -56,7 +56,7 @@ public class MenuService
         myMenuDAO.menuAdd(addMenuDTO);
     }
 
-    public void menuUpdate(int menu_id)
+    public void menuUpdate(int menu_id, int store_id)
     {
         Scanner sc = new Scanner(System.in);
         MenuDTO addMenuDTO;
@@ -67,14 +67,16 @@ public class MenuService
         int menu_quantity = inputMenu_quantity(sc);
         String menu_category = inputMenu_category(sc);
 
-        addMenuDTO.setStore_id(2);
+        addMenuDTO.setStore_id(store_id);
         addMenuDTO.setMenu_id(checkMenu_id(menu_id));
-        addMenuDTO.setMenu_name(menu_name);
+        if(menu_name != "")
+            addMenuDTO.setMenu_name(menu_name);
         if(menu_price != -1)
             addMenuDTO.setMenu_price(menu_price);
         if(menu_quantity != -1)
             addMenuDTO.setMenu_quantity(menu_quantity);
-        addMenuDTO.setMenu_category(menu_category);
+        if(menu_category != "")
+            addMenuDTO.setMenu_category(menu_category);
 
         myMenuDAO.menuUpdate(addMenuDTO);
     }
@@ -87,19 +89,19 @@ public class MenuService
                 return store_id;
         }
 
-        System.out.println("매장 아이디가 잘못됨.");
+        System.out.println("매장이 존재하지 않음.");
         return store_id;
     }
 
     private int checkMenu_id(int menu_id)
     {
-        List<MenuDTO> menuDTOS = myMenuDAO.selectAllMenuId();
+        List<MenuDTO> menuDTOS = myMenuDAO.selectStoreMenu(menu_id);
         for(MenuDTO menuDTO: menuDTOS) {
             if (menu_id == menuDTO.getMenu_id())
                 return menu_id;
         }
 
-        System.out.println("메뉴 아이디가 잘못됨.");
+        System.out.println("해당 가게에 다음과 같은 메뉴가 존재하지 않음.");
         return menu_id;
     }
 
@@ -139,7 +141,7 @@ public class MenuService
 
         while(true)
         {
-            System.out.println("메뉴 제고를 입력해주세요.(변경하지 않는다면 -1) : ");
+            System.out.println("메뉴 제고를 입력해주세요.(변경하지 않는다면 enter) : ");
             input = sc.nextLine();
 
             if(input.equals(""))

@@ -6,6 +6,7 @@ import persistence.dao.MyOrderDAO;
 import persistence.dao.MyReviewDAO;
 import persistence.dto.OrderDTO;
 import persistence.dto.OrderMenuDTO;
+import service.MenuService;
 import service.OrderService;
 import service.ReviewService;
 import service.StoreService;
@@ -17,6 +18,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String args[]){
+        MenuService ms = new MenuService();
+        ms.menuUpdate(1, 1);
 
      /*   *//* Order Test *//*
         MyOrderDAO myOrderDAO = new MyOrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
