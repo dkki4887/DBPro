@@ -47,7 +47,7 @@ public class OrderView {
             System.out.println(", "+ods.getOrder_price() + ", " + ods.getOrder_state()+ " | id : " + ods.getOrder_id());
         }
     }
-    public void printOrderForStore(List<OrderDTO> od){
+    public void printOrderWithNumber(List<OrderDTO> od){
         int i= 1;
         for(OrderDTO ods: od){
             List<OrderMenuDTO> orderMenuList = ods.getOrderMenuList();

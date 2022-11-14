@@ -79,6 +79,16 @@
         AND (o.order_state = "취소" OR o.order_state = "배달 완료")
     </select>
 
+    <select id="selectAllOrder_customer" resultMap="orderResult">
+        SELECT *
+        FROM project.ordermenu om
+        INNER JOIN project.order o
+        ON om.order_id = o.order_id
+        INNER JOIN orderoption oo
+        ON om.orderMenu_id = oo.orderMenu_id
+        WHERE o.user_id = #{user_id}
+    </select>
+
     <update id="updateOrderState_Complete">
         UPDATE project.order
         SET order_state = "배달 완료"
@@ -87,13 +97,13 @@
 
     <update id="updateOrderState_Cancle">
         UPDATE project.order
-        SET order_state = "배달 완료"
+        SET order_state = "취소"
         WHERE order_id = #{order_id}
     </update>
 
     <update id="updateOrderState_Delivery">
         UPDATE project.order
-        SET order_state = "배달 완료"
+        SET order_state = "배달중"
         WHERE order_id = #{order_id}
     </update>
 

@@ -57,6 +57,13 @@ public class OrderService {
         return orderDTOS;
     }
 
+    public List<OrderDTO> selectAllOrder_customer(String user_id)
+    {
+        List<OrderDTO> orderDTOS = orderDAO.selectAllOrder_customer(user_id);
+
+        return orderDTOS;
+    }
+
     public int updateOrderState_Complete(int order_id)
     {
         OrderDTO orderDTO = new OrderDTO(order_id);

@@ -169,4 +169,16 @@ public class MyOrderDAO {
         }
         return dtos;
     }
+    public List<OrderDTO> selectAllOrder_customer(String user_id)
+    {
+        List<OrderDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.OrderMapper.selectAllOrder_customer", user_id);
+        }finally {
+            session.close();
+        }
+        return dtos;
+    }
 }
+

@@ -84,18 +84,31 @@ public class CustomerFunction {
         orderView.printOrder(orderService.selectOrder_customer(user_id));
     }
 
-    public void cancleOrder(int user_id)
+    public void cancleOrder(String user_id)
     {
         OrderService odService = new OrderService();
         OrderView odView = new OrderView();
 
-        System.out.print("취소할 주문의 번호를 입력하세요 : ");
-        int order_id = sc.nextInt();
-
-        // 배달중인지 확인하고 조건문으로 경우 분리하는 코드 필요
-
-        odService.updateOrderState_Cancle(order_id);
-
+        List<OrderDTO> od =odService.selectAllOrder_customer(user_id);
+        odView.printOrderWithNumber(od);
+        System.out.print("취소할 주문 번호를 입력하세요 : ");
+        int inputNumber = sc.nextInt();
+        String current_state = od.get(inputNumber-1).getOrder_state();
+        if( current_state.equals("배달 완료") || current_state.equals("배달중"))
+        {
+            System.out.println("배달중이거나 완료된 주문은 취소할 수 없습니다.");
+        }
+        else if(current_state.equals("취소"))
+        {
+            System.out.println("이미 취소된 주문입니다.");
+        }
+        else
+        {
+            int order_id = od.get(inputNumber-1).getOrder_id();
+            int result =odService.updateOrderState_Cancle(order_id);
+            if(result ==1) System.out.println("주문 취소 성공");
+            else System.out.println("주문 취소 실패");
+        }
     }
 
 

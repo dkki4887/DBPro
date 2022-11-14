@@ -35,6 +35,6 @@ public class Main {
 //        LoginFunction lf = new LoginFunction();
 //        lf.Login(sc);
         StorekeeperFunction s = new StorekeeperFunction();
-        s.deliveryFinish(1);
+        c.cancleOrder("user1");
     }
 }
