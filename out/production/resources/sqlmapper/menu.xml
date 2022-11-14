@@ -19,7 +19,7 @@
     </select>
 
     <select id="selectStoreMenu" resultMap="result">
-        SELECT menu_id, menu_name
+        SELECT *
         FROM MENU
         WHERE store_id = #{store_id}
     </select>
@@ -40,25 +40,25 @@
     </insert>
 
     <update id="menuUpdate" parameterType="MenuDTO" keyProperty="menu_id">
-        SET FOREIGN_KEY_CHECKS=0;
+                /*MenuDTO를 파라미터로 받는데 이게 수정을 원치 않은 값은 문자열 값은 "" 다른 값들은 null이 들어가있음
+                                         각자 값이 ""이거나 null이 아닐 때 수정하는 값 SET으로 추가 해서 파라미터 값 받아 넣으면 됨*/
+        UPDATE project.menu
+            <set>
+                <if test='menu_name!=null'>
+                    menu_name = #{menu_name},
+                </if>
+                <if test='menu_price!=null'>
+                    menu_price = #{menu_price},
+                </if>
+                <if test='menu_quantity!=null'>
+                    menu_quantity = #{menu_quantity},
+                </if>
+                <if test='menu_category!=null'>
+                    menu_category = #{menu_category},
+                </if>
+            </set>
+        WHERE menu_id = #{menu_id} AND store_id = #{store_id};
 
-            <if test='menu_name !=""'>
-                menu_name = #{menu_name}
-            </if>
-            <if test='menu_price!=null'>
-                menu_price = #{menu_price}
-            </if>
-            <if test='menu_quantity!=null'>
-                UPDATE project.menu
-                SET
-                menu_quantity = #{menu_quantity}
-                WHERE menu_id = #{menu_id} AND store_id = #{store_id};
-            </if>
-            <if test='menu_category!=""'>
-                menu_category = #{menu_category}
-            </if>
-
-        SET FOREIGN_KEY_CHECKS=1;
     </update>
 
     <update id="updateOrderState">
@@ -66,4 +66,6 @@
         SET menu_quantity = menu_quantity - 1
         WHERE menu_name = #{menu_name}
     </update>
+
+
 </mapper>
