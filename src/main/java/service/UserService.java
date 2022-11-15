@@ -15,7 +15,7 @@ public class UserService
 
     public UserService()
     {
-        myUserDAO = new MyUserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        myUserDAO = new MyUserDAO();
     }
 
     public List<UserDTO> findAll()

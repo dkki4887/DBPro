@@ -22,10 +22,18 @@ public class OptionService {
         return dtos;
     }
 
-    public long getOptionPrice(List<OptionDTO> dtos, int[] options)
+    public int[] getOptionIds(List<OptionDTO> dtos, int[] options, int size)
+    {
+        int[] optionIds = new int[size];
+        for(int i = 0; i < size; i++)
+            optionIds[i] = dtos.get(options[i] - 1).getOption_id();
+        return optionIds;
+    }
+
+    public long getOptionPrice(List<OptionDTO> dtos, int[] options, int size)
     {
         long resultOptionPrice = 0;
-        for(int i = 0; i < options.length; i++)
+        for(int i = 0; i < size; i++)
             resultOptionPrice = resultOptionPrice + dtos.get(options[i] - 1).getOption_price();
         return resultOptionPrice;
     }

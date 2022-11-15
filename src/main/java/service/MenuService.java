@@ -31,9 +31,35 @@ public class MenuService
         return menu;
     }
 
+    public int getMenuId(List<MenuDTO> dtos, int selectNum)
+    {
+        if(dtos.size() < selectNum || selectNum < 1)
+        {
+            System.out.println("잘못된 메뉴번호 선택입니다.");
+            return -1;
+        }
+
+        if(dtos.get(selectNum - 1).getMenu_quantity() == 0)
+        {
+            System.out.println("선택하신 메뉴의 수량이 소진되어 주문이 불가합니다.");
+            return -1;
+        }
+        return dtos.get(selectNum - 1).getMenu_id();
+    }
+
+    public void updateMenuQuantity(int menu_id)
+    {
+        myMenuDAO.updateMenuQuantity(menu_id);
+    }
+
     public long getMenuPrice(List<MenuDTO> dtos, int selectMenuNum)
     {
         return dtos.get(selectMenuNum - 1).getMenu_price();
+    }
+
+    public String getMenuName(List<MenuDTO> dtos, int selectMenuNum)
+    {
+        return dtos.get(selectMenuNum - 1).getMenu_name();
     }
 
     public void menuAdd(int store_id)
@@ -164,7 +190,6 @@ public class MenuService
         input = sc.nextLine();
         return input;
     }
-
 
     private boolean isdigit(String input)
     {

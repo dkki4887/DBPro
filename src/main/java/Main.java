@@ -18,8 +18,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String args[]){
-        MenuService ms = new MenuService();
-        ms.menuUpdate(1, 1);
+        //MenuService ms = new MenuService();
+        //ms.menuUpdate(1, 1);
 
      /*   *//* Order Test *//*
         MyOrderDAO myOrderDAO = new MyOrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());

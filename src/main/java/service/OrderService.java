@@ -1,7 +1,10 @@
 package service;
 
+import persistence.dao.MyMenuOptionDAO;
 import persistence.dao.MyOrderDAO;
+import persistence.dao.MyOrderMenuDAO;
 import persistence.dto.OrderDTO;
+import persistence.dto.OrderMenuDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -9,10 +12,12 @@ import java.util.Locale;
 
 public class OrderService {
     private final MyOrderDAO orderDAO;
+    private final MyOrderMenuDAO orderMenuDAO;
 
     public OrderService()
     {
         orderDAO = new MyOrderDAO();
+        orderMenuDAO = new MyOrderMenuDAO();
     }
 
     public List<OrderDTO> selectAll()
@@ -21,11 +26,31 @@ public class OrderService {
         return orderDTOS;
     }
 
-    public int insertOrder(String user_id , int store_id)
+    public int insertOrder(String user_id , int store_id, long order_price, LocalDateTime order_orderTime)
     {
-        OrderDTO orderDTO = new OrderDTO(user_id, store_id);
-        int result =orderDAO.insertOrder(orderDTO);
-        return result;
+        OrderDTO orderDTO = new OrderDTO(user_id, store_id, order_price, order_orderTime);
+        orderDAO.insertOrder(orderDTO); //오더테이블에 주문 넣기
+        int order_id = findOrderId(user_id, order_orderTime);
+        System.out.println(order_id);
+        return order_id;
+    }
+
+    public int findOrderId(String user_id, LocalDateTime order_orderTime)
+    {
+        return orderDAO.findOrderId(user_id, order_orderTime).get(0).getOrder_id();
+    }
+
+    public int insertOrderMenu(int order_id, String menu_name)
+    {
+        int orderMenu_id = order_id + 100;
+        OrderMenuDTO orderMenuDTO = new OrderMenuDTO(orderMenu_id, order_id, menu_name);
+        orderMenuDAO.insertOrderMenu(orderMenuDTO); //오더메뉴 테이블에 메뉴명 넣기
+        return orderMenu_id;
+    }
+
+    public List<OrderMenuDTO> findOrderMenuId(int order_id)
+    {
+        return orderMenuDAO.findOrderMenuId(order_id);
     }
 
     public List<OrderDTO> selectOrder_store(int store_id)

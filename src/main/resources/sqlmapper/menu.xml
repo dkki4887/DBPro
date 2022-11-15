@@ -59,10 +59,10 @@
 
     </update>
 
-    <update id="updateOrderState">
+    <update id="updateMenuQuantity">
         UPDATE menu
         SET menu_quantity = menu_quantity - 1
-        WHERE menu_name = #{menu_name}
+        WHERE menu_id = #{menu_id}
     </update>
 
 

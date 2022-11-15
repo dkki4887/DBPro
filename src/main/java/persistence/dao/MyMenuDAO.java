@@ -87,5 +87,22 @@ public class MyMenuDAO {
             session.close();
         }
     }
+
+    public void updateMenuQuantity(int menu_id)
+    {
+        SqlSession session = sqlSessionFactory.openSession();
+        int result = -1;
+        try{
+            result = session.insert("mapper.MenuMapper.updateMenuQuantity", menu_id);
+
+            if (result == 1){
+                session.commit();
+            }else {
+                session.rollback();
+            }
+        } finally {
+            session.close();
+        }
+    }
 }
 
