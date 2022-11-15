@@ -1,5 +1,6 @@
 import Function.CustomerFunction;
 import Function.LoginFunction;
+import Function.ManagerFunction;
 import Function.StorekeeperFunction;
 import persistence.MyBatisConnectionFactory;
 import persistence.dao.MyOrderDAO;
@@ -17,27 +18,42 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String args[]){
-        MenuService ms = new MenuService();
-        ms.menuUpdate(1, 1);
+    public static void main(String args[]) {
+        CustomerFunction customer = new CustomerFunction();
+        LoginFunction login = new LoginFunction();
+        ManagerFunction manager = new ManagerFunction();
+        StorekeeperFunction keeper = new StorekeeperFunction();
+        int store_id=1;
+        String user_id="user1";
+        //매장등록
 
-     /*   *//* Order Test *//*
-        MyOrderDAO myOrderDAO = new MyOrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        OrderService orderService = new OrderService(myOrderDAO);
-        OrderView orderView = new OrderView();
+        //매장승인
 
-        orderService.selectOrder_store(1);
-        orderView.printMyOrder(orderService.selectOrder_store(1));
-        *//* Order Test End *//*
-*/
-//        for(OrderDTO orderDTO : orderDTOS)
-//            System.out.println("dto.toString() = " + orderDTO.toString());
+        //옵션등록
+        해야함
+        //메뉴등록 =>limit 1짜리 하나 있어야함(재료소진)
 
-        CustomerFunction c = new CustomerFunction();
-        c.createOrder("user1");
-//        LoginFunction lf = new LoginFunction();
-//        lf.Login(sc);
-        //StorekeeperFunction s = new StorekeeperFunction();
-        //c.inquireReview("user1");
+        //가능한 옵션 등록 menuoption 테이블 사용
+
+        //메뉴조회 (사장)
+
+        //메뉴수정
+        keeper.menuUpdate(store_id);
+        //주문생성 +재료소진
+
+        //주문조회
+        keeper.selectOrder_store(store_id);
+        //주문접수 (승인, 거절)
+        keeper.acceptOrder(store_id);
+        //주문취소
+        customer.cancleOrder(user_id);
+        //주문상태 변경(배달완료)
+        keeper.deliveryFinish(store_id);
+        //고객 주문이력조회 (취소, 배달완료 출력)
+        customer.selectOrder_customer(user_id);
+        //리뷰작성
+        customer.writeReview(user_id);
+        //리뷰조회
+        customer.inquireReview(user_id);
     }
 }
