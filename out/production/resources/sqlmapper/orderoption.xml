@@ -9,6 +9,9 @@
         <result property="option_name" column="option_name"/>
     </resultMap>
 
-
+    <insert id="insertOrderOption">
+        INSERT INTO project.orderoption (orderMenu_id, option_name)
+        VALUES (#{orderMenu_id}, #{option_name})
+    </insert>
 
 </mapper>

@@ -42,12 +42,14 @@ public class MenuService
         if(dtos.size() < selectNum || selectNum < 1)
         {
             System.out.println("잘못된 메뉴번호 선택입니다.");
+            System.out.println();
             return -1;
         }
 
         if(dtos.get(selectNum - 1).getMenu_quantity() == 0)
         {
             System.out.println("선택하신 메뉴의 수량이 소진되어 주문이 불가합니다.");
+            System.out.println();
             return -1;
         }
         return dtos.get(selectNum - 1).getMenu_id();
@@ -307,14 +309,10 @@ public class MenuService
     {
         String input;
 
-        while(true)
-        {
-            System.out.print("메뉴 이름을 입력해주세요.: ");
-            input = sc.nextLine();
+        System.out.print("메뉴 이름을 입력해주세요.: ");
+        input = sc.nextLine();
 
-            if(input!="")
-                return input;
-        }
+        return input;
     }
 
     private long inputMenu_price(Scanner sc)
@@ -346,7 +344,7 @@ public class MenuService
 
         while(true)
         {
-            System.out.print("메뉴 제고를 입력해주세요.: ");
+            System.out.print("메뉴 재고를 입력해주세요.: ");
             input = sc.nextLine();
 
             if(input.equals(""))

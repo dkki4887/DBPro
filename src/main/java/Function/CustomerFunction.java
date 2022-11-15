@@ -69,56 +69,67 @@ public class CustomerFunction {
 
         OrderService orderS = new OrderService();
 
-        long order_price = 0;
-        int store_id = -1;
-        int menu_id = -1;
+        long order_price = 0; int store_id = -1; int menu_id = -1;
 
         while(store_id == -1)
         {
             List<StoreDTO> sDtos = storeV.printAllStore(storeS.selectAllStoreNameAndId());
-            System.out.print("주문할 가게의 번호를 선택하세요. (주문종료: 0): ");
+            System.out.print("주문할 가게의 번호를 선택하세요.(주문종료: 0): ");
             int selectStoreNum = sc.nextInt();
+
             if(selectStoreNum == 0)
-                return -1;
+            {
+             System.out.println("주문이 종료되었습니다.");
+             return -1;
+            }
 
             store_id = storeV.selectStore(sDtos, selectStoreNum);
             System.out.println();
-        }
 
-        while(store_id != -1 && menu_id == -1) {
-            List<MenuDTO> mDtos = menuV.printStoreAllMenu(menuS.selectStoreMenu(store_id), store_id);
-            System.out.print("주문할 메뉴의 번호를 선택하세요(1개 선택, 주문종료: 0): ");
-            System.out.println();
-            int selectMenuNum = sc.nextInt();
-            menu_id = menuS.getMenuId(mDtos, selectMenuNum);
-            order_price = order_price + menuS.getMenuPrice(mDtos, selectMenuNum);
+            while(store_id != -1 && menu_id == -1)
+            {
+                List<MenuDTO> mDtos = menuV.printStoreAllMenu(menuS.selectStoreMenu(store_id), store_id);
+                int selectMenuNum = 1;
 
-            List<OptionDTO> oDtos = optionV.printMenuAllOption(optionS.selectMenuOption(menu_id));
-            if (oDtos.size() != 0) {
-                System.out.print("주문할 메뉴의 옵션을 선택하세요(여러 개 선택, 띄어쓰기로 구분, 옵션 선택 종료: -1, 주문종료: 0): ");
-                int[] options = new int[10];
-                int selectOptionNum = -2, size = 0;
+                if(menu_id == -1)
+                {
+                    System.out.print("주문할 메뉴의 번호를 선택하세요.(1개 선택): ");
+                    selectMenuNum = sc.nextInt();
+                    menu_id = menuS.getMenuId(mDtos, selectMenuNum);
+                }
 
-                do {
-                    selectOptionNum = sc.nextInt();
+                if(menu_id != -1)
+                {
+                    order_price = order_price + menuS.getMenuPrice(mDtos, selectMenuNum);
+                    System.out.println();
+                    
+                    List<OptionDTO> oDtos = optionV.printMenuAllOption(optionS.selectMenuOption(menu_id));
+                    if (oDtos.size() != 0)
+                    {
+                        System.out.print("메뉴의 옵션을 선택하세요(여러개 선택가능, 띄어쓰기로 구분, 옵션선택종료: 0): ");
+                        int[] options = new int[10];
+                        int selectOptionNum = -1, size = 0;
 
-                    if (selectOptionNum == 0)
-                        return -1;
+                        do {
+                            selectOptionNum = sc.nextInt();
+                            if (selectOptionNum != 0)
+                                options[size++] = selectOptionNum;
+                        } while (selectOptionNum != 0);
 
-                    if (selectOptionNum != -1)
-                        options[size++] = selectOptionNum;
+                        String[] optionNames = optionS.getOptionNames(oDtos, options, size);
+                        order_price = order_price + optionS.getOptionPrice(oDtos, options, size);
 
-                } while (selectOptionNum != -1);
+                        LocalDateTime time = LocalDateTime.now();
+                        String order_num = time.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss-")) + user_id;
 
-                String[] optionNames = optionS.getOptionNames(oDtos, options, size);
-                order_price = order_price + optionS.getOptionPrice(oDtos, options, size);
-
-                LocalDateTime time = LocalDateTime.now();
-                String order_num = time.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss-")) + user_id;
-
-                orderS.insertOrder(user_id, 1, order_price, time, menu_id, order_num); //주문 생성 & 오더아이디 찾기
-                orderS.insertOrderMenuAndOption(order_num, menuS.getMenuName(mDtos, selectMenuNum), 1, optionNames);
+                        orderS.insertOrder(user_id, 1, order_price, time, menu_id, order_num); //주문 생성 & 오더아이디 찾기
+                        orderS.insertOrderMenuAndOption(order_num, menuS.getMenuName(mDtos, selectMenuNum), 1, optionNames);
+                        System.out.println("주문이 완료되었습니다."); System.out.println(); System.out.println();
+                    }
+                }
             }
+            store_id = -1;
+            menu_id = -1;
         }
         return -1;
     }

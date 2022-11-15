@@ -81,7 +81,7 @@ public class OptionService {
     private String inputOption_name(Scanner sc)
     {
         String input;
-        System.out.println("옵션 이름을 입력해주세요.: ");
+        System.out.print("옵션 이름을 입력해주세요.: ");
         input = sc.nextLine();
         return input;
     }
@@ -91,7 +91,7 @@ public class OptionService {
 
         while(true)
         {
-            System.out.println("옵션 가격을 입력해주세요.: ");
+            System.out.print("옵션 가격을 입력해주세요.: ");
             input = sc.nextLine();
 
             if(input.equals(""))

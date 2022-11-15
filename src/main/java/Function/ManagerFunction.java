@@ -28,7 +28,7 @@ public class ManagerFunction {
         int inputNum = sc.nextInt();
         int store_id = storeDTOS.get(inputNum-1).getStore_id();
 
-        System.out.println("승인(1), 거절(2) : ");
+        System.out.print("승인(1), 거절(2) : ");
         int selectNum = sc.nextInt();
 
         if(selectNum ==1)

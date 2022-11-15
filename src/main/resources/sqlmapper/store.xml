@@ -56,7 +56,7 @@
     </delete>
 
     <select id="selectAllStoreNameAndId" resultMap="result">
-        SELECT store_id, store_name
+        SELECT *
         FROM STORE
     </select>
 

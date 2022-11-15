@@ -8,7 +8,7 @@ public class OptionView {
 
     public List<OptionDTO> printMenuAllOption(List<OptionDTO> dtos) //이거 그냥 printAllOption으로 바꿔도 될듯
     {
-        System.out.println("======================================================");
+        System.out.println("=================옵션 목록===================");
         if(dtos.size() == 0)
             System.out.println("해당 메뉴에 옵션이 없습니다.");
 
@@ -20,7 +20,7 @@ public class OptionView {
                 i++;
             }
         }
-        System.out.println("======================================================");
+        System.out.println("============================================");
         return dtos;
     }
 

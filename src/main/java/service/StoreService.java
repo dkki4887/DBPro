@@ -113,7 +113,7 @@ public class StoreService
 
             while(true)
             {
-                System.out.println("가게 주소를 입력해주세요 : ");
+                System.out.print("가게 주소를 입력해주세요 : ");
                 input = sc.nextLine();
 
                 if (!input.equals(""))
@@ -125,13 +125,13 @@ public class StoreService
             String input;
             while(true)
             {
-                System.out.println("가게 카테고리를 입력해주세요. : ");
+                System.out.print("가게 카테고리를 입력해주세요. : ");
                 input = sc.nextLine();
 
                 if (isdigit(input))
                     return Integer.parseInt(input);
                 else
-                    System.out.println("입력 값이 형식에 맞지 않습니다.");
+                    System.out.print("입력 값이 형식에 맞지 않습니다.");
             }
         }
     private String inputStore_Time(Scanner sc)
@@ -139,13 +139,13 @@ public class StoreService
             String store_time = "",open_input, close_input;
             while(true)
             {
-                System.out.println("가게 오픈시간을 입력해주세요(00:00): ");
+                System.out.print("가게 오픈시간을 입력해주세요(00:00): ");
                 open_input = sc.nextLine();
 
                 if (isTime(open_input)) {
                     while(true)
                     {
-                        System.out.println("가게 마감시간을 입력해주세요(00:00): ");
+                        System.out.print("가게 마감시간을 입력해주세요(00:00): ");
                         close_input = sc.nextLine();
                         if(isTime(close_input) && compareTime(open_input, close_input)) {
                             store_time += open_input + "~" + close_input;
@@ -166,7 +166,7 @@ public class StoreService
         }
     private String inputStore_info(Scanner sc)
         {
-            System.out.println("가게 한 줄 소개를 입력해주세요 : ");
+            System.out.print("가게 한 줄 소개를 입력해주세요 : ");
             return sc.nextLine();
         }
 

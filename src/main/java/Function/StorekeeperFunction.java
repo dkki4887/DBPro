@@ -57,7 +57,7 @@ public class StorekeeperFunction {
         System.out.print("접수할 주문번호를 선택해 주세요 : ");
         int inputNum = sc.nextInt();
         int order_id =od.get(inputNum-1).getOrder_id();
-        System.out.println("주문 접수(1) , 거절(2) : ");
+        System.out.print("주문 접수(1) , 거절(2) : ");
         int inputSelect = sc.nextInt();
         if( inputSelect ==1)
         {
