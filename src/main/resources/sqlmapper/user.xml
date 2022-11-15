@@ -26,6 +26,7 @@
         FROM project.user
         WHERE user_id = #{user_id}
     </select>
+
     <select id="selectUserById" parameterType="String" resultMap="result">
         SELECT * FROM project.user WHERE user_id = #{user_id}
     </select>

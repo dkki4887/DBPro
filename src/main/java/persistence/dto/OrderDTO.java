@@ -16,6 +16,7 @@ public class OrderDTO {
     private String order_state;
     private LocalDateTime order_orderTime;
     private String order_num;
+
     private List<OrderMenuDTO> orderMenuList;
     private List<OrderOptionDTO> orderOptionList;
 
