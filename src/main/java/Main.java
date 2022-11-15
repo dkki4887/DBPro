@@ -18,11 +18,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         CustomerFunction customer = new CustomerFunction();
         LoginFunction login = new LoginFunction();
         ManagerFunction manager = new ManagerFunction();
+
         StorekeeperFunction keeper = new StorekeeperFunction();
         int store_id=1;
         String user1_id="user1";
