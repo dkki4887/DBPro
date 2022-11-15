@@ -33,7 +33,13 @@ public class MenuService
 
     public MenuDTO selectMenuById(int menu_id)
     {
-        return myMenuDAO.selectByStoreId(menu_id);
+        return myMenuDAO.selectMenuById(menu_id);
+    }
+
+    public List<MenuDTO> selectMenuCategoryList(int store_id)
+    {
+        List<MenuDTO> menuCategory = myMenuDAO.selectMenuCategoryList(store_id);
+        return menuCategory;
     }
 
     public long getMenuPrice(List<MenuDTO> dtos, int selectMenuNum)

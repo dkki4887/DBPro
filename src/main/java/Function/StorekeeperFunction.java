@@ -66,27 +66,29 @@ public class StorekeeperFunction {
         }
     }
 
+
     public void menuUpdate(int store_id)
     {
         MenuService ms = new MenuService();
         MenuView mv = new MenuView();
         List<MenuDTO> menuDTOS = ms.selectStoreMenu(store_id);
-        int inputNum, menu_id, result = 1;
+        int inputNum, menu_id;
 
-        while(result != 0)
+        while(true)
         {
-            mv.printStoreAllMenu_Keeper(menuDTOS);
+            mv.printStoreAllMenu_Keeper(menuDTOS, store_id);
             System.out.print("수정 할 메뉴를 선택해 주세요. (종료 시 0): ");
             inputNum = sc.nextInt();
 
-            if(result == 0)
-                return;
+            if(inputNum == 0)
+                break;
+            else {
+                menu_id = menuDTOS.get(inputNum - 1).getMenu_id();
 
-            menu_id = menuDTOS.get(inputNum - 1).getMenu_id();
+                ms.menuUpdate(menu_id, store_id);
 
-            ms.menuUpdate(menu_id, store_id);
-
-            mv.printOneMenu(ms.selectMenuById(menu_id));
+                mv.printOneMenu(ms.selectMenuById(menu_id));
+            }
         }
     }
 }

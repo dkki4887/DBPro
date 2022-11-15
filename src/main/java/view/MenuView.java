@@ -1,6 +1,7 @@
 package view;
 
 import persistence.dto.MenuDTO;
+import service.MenuService;
 
 import java.awt.*;
 import java.util.List;
@@ -17,15 +18,48 @@ public class MenuView {
         return dtos;
     }
 
-    public List<MenuDTO> printStoreAllMenu_Keeper(List<MenuDTO> dtos)
+    public List<MenuDTO> printStoreAllMenu(List<MenuDTO> dtos, int store_id)
     {
+        MenuService ms = new MenuService();
+        List<MenuDTO> menuCategory = ms.selectMenuCategoryList(store_id);
         int i = 0;
 
         System.out.println("================메뉴 목록================");
 
-        for(MenuDTO dto: dtos) {
-            System.out.println((i + 1) + ". " + dto.getMenu_name() + " | 카테고리 : " + dto.getMenu_category() + " | " + dto.getMenu_price() + "원" + " | 재고 : " + dto.getMenu_quantity());
-            i++;
+        for(MenuDTO menuCat : menuCategory)
+        {
+            System.out.println(menuCat.getMenu_category());
+            for(MenuDTO dto: dtos) {
+                if(dto.getMenu_category().equals(menuCat.getMenu_category())) {
+                    System.out.println((i + 1) + ". " + dto.getMenu_name() + " | " + dto.getMenu_price() + "원");
+                    i++;
+                }
+            }
+        }
+
+        System.out.println("========================================");
+
+        return dtos;
+    }
+
+    public List<MenuDTO> printStoreAllMenu_Keeper(List<MenuDTO> dtos, int store_id)
+    {
+        MenuService ms = new MenuService();
+        List<MenuDTO> menuCategory = ms.selectMenuCategoryList(store_id);
+        int i = 0;
+
+        System.out.println("================메뉴 목록================");
+
+        for(MenuDTO menuCat : menuCategory)
+        {
+            i = 0;
+            System.out.println(menuCat.getMenu_category());
+            for(MenuDTO dto: dtos) {
+                if(dto.getMenu_category().equals(menuCat.getMenu_category())) {
+                    System.out.println((i + 1) + ". " + dto.getMenu_name() + " | " + dto.getMenu_price() + "원" + " | 재고 : " + dto.getMenu_quantity());
+                    i++;
+                }
+            }
         }
 
         System.out.println("========================================");
