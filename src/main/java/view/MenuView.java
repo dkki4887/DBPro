@@ -27,8 +27,7 @@ public class MenuView {
                     i++;
                 }
             }
-
-            System.out.println("---------------------------------------");
+            System.out.println("---------------------------------------\n");
 
         }
 
@@ -49,12 +48,14 @@ public class MenuView {
         {
             i = 0;
             System.out.println(menuCat.getMenu_category());
+            System.out.println("---------------------------------------");
             for(MenuDTO dto: dtos) {
                 if(dto.getMenu_category().equals(menuCat.getMenu_category())) {
                     System.out.println((i + 1) + ". " + dto.getMenu_name() + " | " + dto.getMenu_price() + "원" + " | 재고 : " + dto.getMenu_quantity());
                     i++;
                 }
             }
+            System.out.println("---------------------------------------\n");
         }
 
         System.out.println("========================================");
