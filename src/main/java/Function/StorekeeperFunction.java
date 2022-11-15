@@ -33,8 +33,12 @@ public class StorekeeperFunction {
     public void deliveryFinish(int store_id)
     {
         List<OrderDTO> od= orderService.selectOrder_store_Delivery(store_id);
-        System.out.println("==배달중인 주문 목록==");
         orderView.printOrderWithNumber(od);
+        if(od.size()==0)
+        {
+            System.out.println("배달중인 주문이 없습니다.");
+        }
+        System.out.println("==배달중인 주문 목록==");
         System.out.print("배달완료할 주문번호를 선택해 주세요 : ");
         int inputNum = sc.nextInt();
         int order_id =od.get(inputNum-1).getOrder_id();
