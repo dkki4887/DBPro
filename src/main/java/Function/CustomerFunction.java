@@ -133,6 +133,16 @@ public class CustomerFunction {
         }
     }
 
+    public void printAllStore()
+    {
+        StoreService ss = new StoreService();
+        StoreView sv = new StoreView();
 
+        System.out.println("================가게 목록================");
 
+        sv.printAllStore(ss.findAll());
+
+        System.out.println("========================================");
+
+    }
 }

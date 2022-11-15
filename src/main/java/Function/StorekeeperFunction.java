@@ -6,6 +6,7 @@ import persistence.dto.MenuDTO;
 import persistence.dto.OrderDTO;
 import service.MenuService;
 import service.OrderService;
+import service.StoreService;
 import view.MenuView;
 import view.OrderView;
 
@@ -64,6 +65,20 @@ public class StorekeeperFunction {
             if( result == 1) System.out.println("주문 거절 완료");
             else System.out.println("주문 거절 실패");
         }
+    }
+
+    public void requestStoreAdd()
+    {
+        StoreService ss = new StoreService();
+
+    }
+
+    public void viewStoreAllMenu(int store_id)
+    {
+        MenuService ms = new MenuService();
+        MenuView mv = new MenuView();
+        List<MenuDTO> menuDTOS = ms.selectStoreMenu(store_id);
+        mv.printStoreAllMenu_Keeper(menuDTOS, store_id);
     }
 
 
