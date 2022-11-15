@@ -15,6 +15,11 @@ public class LoginFunction
 {
     private String userid;
 
+    public void userAdd(){
+        UserService us = new UserService();
+        us.userAdd();
+    }
+
     public String Login(Scanner sc)
     {
         UserService us = new UserService();
