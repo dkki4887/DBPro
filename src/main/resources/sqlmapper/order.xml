@@ -9,10 +9,8 @@
         <result property="user_id" column="user_id"/>
         <result property="store_id" column="store_id"/>
         <result property="order_price" column="order_price"/>
-        <result property="order_payment" column="order_payment"/>
         <result property="order_state" column="order_state"/>
         <result property="order_orderTime" column="order_orderTime"/>
-        <result property="order_receiveTime" column="order_receiveTime"/>
         
         <collection property="orderMenuList" resultMap="orderMenuList"/>
         <collection property="orderOptionList" resultMap="orderOptionList"/>
@@ -34,9 +32,15 @@
     </select>
 
     <insert id="insertOrder">
-        INSERT INTO project.order (order_id , user_id , store_id, order_state)
-        VALUES (#{order_id}, #{user_id}, #{store_id}, "접수 대기")
+        INSERT INTO project.order (user_id , store_id, order_price, order_state, order_orderTime)
+        VALUES (#{user_id}, #{store_id}, #{order_price}, "접수 대기", #{order_orderTime})
     </insert>
+
+    <select id="findOrderId" parameterType="OrderDTO" resultMap="orderResult">
+        SELECT *
+        FROM project.order
+        WHERE user_id = #{user_id} AND order_orderTime = #{order_orderTime}
+    </select>
 
     <select id="selectOrder_store" resultMap="orderResult">
         SELECT *
@@ -55,7 +59,7 @@
         ON om.order_id = o.order_id
         INNER JOIN orderoption oo
         ON om.orderMenu_id = oo.orderMenu_id
-        WHERE o.store_id = #{store_id} AND o.order_state = "접수대기"
+        WHERE o.store_id = #{store_id} AND o.order_state = "접수 대기"
     </select>
 
     <select id="selectOrder_store_Delivery" resultMap="orderResult">

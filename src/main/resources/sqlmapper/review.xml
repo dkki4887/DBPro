@@ -32,9 +32,6 @@
     </select>
 
     <insert id="insertReview" parameterType="ReviewDTO">
-        <selectKey keyProperty="review_id" resultType="int" order="BEFORE">
-            SELECT MAX(review_id) + 1 FROM project.review
-        </selectKey>
         INSERT INTO project.review (review_id,store_id , user_id , order_id , review_rate , review_content , review_time)
         values(#{review_id},#{store_id},#{user_id},#{order_id},#{review_rate},#{review_content},#{review_time})
     </insert>

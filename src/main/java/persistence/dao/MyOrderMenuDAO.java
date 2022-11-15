@@ -20,6 +20,36 @@ public class MyOrderMenuDAO {
         }
         return list;
     }
-    public OrderMenuDTO selectById(Long id){return null;}
+
+    public int insertOrderMenu(OrderMenuDTO omd)
+    {
+        SqlSession session = sqlSessionFactory.openSession();
+        int result = -1;
+        try{
+            result = session.insert("mapper.OrderMenuMapper.insertOrderMenu", omd);
+
+            if (result==1){
+                session.commit();
+            }else {
+                session.rollback();
+            }
+
+        }finally {
+            session.close();
+        }
+        return result;
+    }
+
+    public List<OrderMenuDTO> findOrderMenuId(int order_id)
+    {
+        List<OrderMenuDTO> list = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            list = session.selectList("mapper.OrderMenuMapper.findOrderMenuId", order_id);
+        } finally {
+            session.close();
+        }
+        return list;
+    }
 }
 

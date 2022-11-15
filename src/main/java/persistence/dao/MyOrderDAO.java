@@ -33,7 +33,7 @@ public class MyOrderDAO {
         try{
             result = session.insert("mapper.OrderMapper.insertOrder", od);
 
-            if (result==1){
+            if (result == 1){
                 session.commit();
             }else {
                 session.rollback();
@@ -45,7 +45,17 @@ public class MyOrderDAO {
         return result;
     }
 
-
+    public List<OrderDTO> findOrderId(String user_id, LocalDateTime order_orderTime) {
+        OrderDTO insert = new OrderDTO(user_id, order_orderTime);
+        List<OrderDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.OrderMapper.findOrderId", insert);
+        }finally {
+            session.close();
+        }
+        return dtos;
+    }
 
     public List<OrderDTO> findOrderWithCustomerIdLike(Long customer_id)
     {

@@ -40,5 +40,7 @@
     <mapper resource="sqlmapper/storemenu.xml"/>
     <mapper resource="sqlmapper/user.xml"/>
     <mapper resource="sqlmapper/menuoption.xml"/>
+    <mapper resource="sqlmapper/ordermenu.xml"/>
+    <mapper resource="sqlmapper/orderoption.xml"/>
 </mappers>
         </configuration>

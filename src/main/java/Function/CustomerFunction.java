@@ -4,6 +4,7 @@ import persistence.dto.*;
 import service.*;
 import view.*;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.List;
 
@@ -77,26 +78,33 @@ public class CustomerFunction {
         List<MenuDTO> mDtos = menuV.printStoreAllMenu(menuS.selectStoreMenu(1));
         System.out.print("주문할 메뉴의 번호를 선택하세요(1개 선택): ");
         int selectMenuNum = sc.nextInt();
-        int menu_id = menuV.selectMenuAndGetPrice(mDtos, selectMenuNum);
+        int menu_id = menuS.getMenuId(mDtos, selectMenuNum);
         order_price = order_price + menuS.getMenuPrice(mDtos, selectMenuNum);
         System.out.println();
 
         List<OptionDTO> oDtos = optionV.printMenuAllOption(optionS.selectMenuOption(menu_id));
-        if(oDtos.size() == 0)
-            System.out.println("해당 메뉴에 옵션이 없습니다.");
-        else
+        if(oDtos.size() != 0)
         {
             System.out.print("주문할 메뉴의 옵션을 선택하세요(여러 개 선택, 띄어쓰기로 구분, 옵션 선택 종료: 0): ");
             int[] options = new int[10];
-            int i = 0;
+            int selectOptionNum = -1, size = 0;
+
             do {
-                int selectOptionNum = sc.nextInt();
-                options[i++] = selectOptionNum;
-            } while(selectMenuNum != 0);
-            order_price = order_price + optionS.getOptionPrice(oDtos, options);
-            System.out.println(order_price);
+                selectOptionNum = sc.nextInt();
+                if(selectOptionNum != 0)
+                    options[size++] = selectOptionNum;
+            } while(selectOptionNum != 0);
+
+            int[] optionIds = optionS.getOptionIds(oDtos, options, size);
+            order_price = order_price + optionS.getOptionPrice(oDtos, options, size);
+
+            LocalDateTime time = LocalDateTime.now();
+            int order_id = orderS.insertOrder(user_id, 1, order_price, time); //주문 생성 & 오더아이디 찾기
+            //menuS.updateMenuQuantity(menu_id);
+            //System.out.println(order_id);
+           // int orderMenu_id = orderS.insertOrderMenu(order_id, menuS.getMenuName(mDtos, selectMenuNum));
+           // System.out.println(orderMenu_id);
         }
-        //os.insertOrder(user_id, store_id);
     }
 
     public void selectOrder_customer(String user_id) {
@@ -133,6 +141,16 @@ public class CustomerFunction {
         }
     }
 
+    public void printAllStore()
+    {
+        StoreService ss = new StoreService();
+        StoreView sv = new StoreView();
 
+        System.out.println("================가게 목록================");
 
+        sv.printAllStore(ss.findAll());
+
+        System.out.println("========================================");
+
+    }
 }

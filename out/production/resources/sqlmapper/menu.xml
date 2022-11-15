@@ -18,7 +18,7 @@
         SELECT * FROM MENU
     </select>
 
-    <select id="selectStoreMenu" parameterType="int" resultMap="result">
+    <select id="selectStoreMenu" resultMap="result">
         SELECT *
         FROM MENU
         WHERE store_id = #{store_id}
@@ -66,10 +66,10 @@
 
     </update>
 
-    <update id="updateOrderState">
+    <update id="updateMenuQuantity">
         UPDATE menu
         SET menu_quantity = menu_quantity - 1
-        WHERE menu_name = #{menu_name}
+        WHERE menu_id = #{menu_id}
     </update>
 
 
