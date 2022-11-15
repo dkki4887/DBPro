@@ -18,10 +18,9 @@ public class MenuView {
 
         for(MenuDTO menuCat : menuCategory)
         {
-            System.out.println("---------------------------------------");
 
             System.out.println(menuCat.getMenu_category());
-
+            System.out.println("---------------------------------------");
             for(MenuDTO dto: dtos) {
                 if(dto.getMenu_category().equals(menuCat.getMenu_category())) {
                     System.out.println((i + 1) + ". " + dto.getMenu_name() + " | " + dto.getMenu_price() + "원");
