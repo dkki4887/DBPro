@@ -38,13 +38,15 @@ public class StorekeeperFunction {
         {
             System.out.println("배달중인 주문이 없습니다.");
         }
-        System.out.println("==배달중인 주문 목록==");
-        System.out.print("배달완료할 주문번호를 선택해 주세요 : ");
-        int inputNum = sc.nextInt();
-        int order_id =od.get(inputNum-1).getOrder_id();
-        int result = orderService.updateOrderState_Complete(order_id);
-        if( result == 1) System.out.println("배달 완료");
-        else System.out.println("배달완료 실패");
+        else {
+            System.out.println("==배달중인 주문 목록==");
+            System.out.print("배달완료할 주문번호를 선택해 주세요 : ");
+            int inputNum = sc.nextInt();
+            int order_id =od.get(inputNum-1).getOrder_id();
+            int result = orderService.updateOrderState_Complete(order_id);
+            if( result == 1) System.out.println("배달 완료");
+            else System.out.println("배달완료 실패");
+        }
     }
 
     public void acceptOrder(int store_id)
