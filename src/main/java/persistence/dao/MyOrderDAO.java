@@ -1,8 +1,5 @@
 package persistence.dao;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import persistence.MyBatisConnectionFactory;
@@ -45,13 +42,11 @@ public class MyOrderDAO {
         return result;
     }
 
-    public List<OrderDTO> findOrderId(String user_id, LocalDateTime order_orderTime) {
-        OrderDTO insert = new OrderDTO(user_id, order_orderTime);
+    public List<OrderDTO> findOrderId(OrderDTO od) {
         List<OrderDTO> dtos = null;
         SqlSession session = sqlSessionFactory.openSession();
         try{
-            System.out.println("찾는중 ㅋㅋ");
-            dtos = session.selectList("mapper.OrderMapper.findOrderId", insert);
+            dtos = session.selectList("mapper.OrderMapper.findOrderId", od);
         }finally {
             session.close();
         }
