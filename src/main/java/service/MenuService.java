@@ -52,6 +52,17 @@ public class MenuService
         myMenuDAO.updateMenuQuantity(menu_id);
     }
 
+    public MenuDTO selectMenuById(int menu_id)
+    {
+        return myMenuDAO.selectMenuById(menu_id);
+    }
+
+    public List<MenuDTO> selectMenuCategoryList(int store_id)
+    {
+        List<MenuDTO> menuCategory = myMenuDAO.selectMenuCategoryList(store_id);
+        return menuCategory;
+    }
+
     public long getMenuPrice(List<MenuDTO> dtos, int selectMenuNum)
     {
         return dtos.get(selectMenuNum - 1).getMenu_price();
@@ -88,10 +99,15 @@ public class MenuService
         MenuDTO addMenuDTO;
         addMenuDTO = new MenuDTO();
 
+        System.out.println("================메뉴 수정================");
+
         String menu_name = inputMenu_name(sc);
         long menu_price = inputMenu_price(sc);
         int menu_quantity = inputMenu_quantity(sc);
         String menu_category = inputMenu_category(sc);
+
+        System.out.println("========================================");
+
 
         addMenuDTO.setStore_id(store_id);
         addMenuDTO.setMenu_id(checkMenu_id(menu_id));
@@ -190,6 +206,7 @@ public class MenuService
         input = sc.nextLine();
         return input;
     }
+
 
     private boolean isdigit(String input)
     {

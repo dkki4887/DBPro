@@ -18,13 +18,20 @@
         SELECT * FROM MENU
     </select>
 
-    <select id="selectStoreMenu" resultMap="result">
+    <select id="selectStoreMenu" parameterType="int" resultMap="result">
         SELECT *
         FROM MENU
         WHERE store_id = #{store_id}
     </select>
 
-    <select id="selectMenu_menu_id" parameterType="MenuDTO" resultMap="result">
+    <select id="selectMenuCategoryList" parameterType="int"  resultMap="result" >
+        SELECT menu_category
+        FROM MENU
+        WHERE store_id = #{store_id}
+        GROUP BY menu_category
+    </select>
+
+    <select id="selectMenuById" parameterType="int" resultMap="result">
         SELECT *
         FROM MENU
         WHERE menu_id = #{menu_id}

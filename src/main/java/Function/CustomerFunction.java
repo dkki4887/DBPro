@@ -12,7 +12,6 @@ public class CustomerFunction {
     Scanner sc = new Scanner(System.in);
 
     public void writeReview(String customer_id) { //리뷰작성 메소드
-        //완성
         OrderService orderService = new OrderService();
         OrderView orderView = new OrderView();
         ReviewService reviewService = new ReviewService();
@@ -142,6 +141,16 @@ public class CustomerFunction {
         }
     }
 
+    public void printAllStore()
+    {
+        StoreService ss = new StoreService();
+        StoreView sv = new StoreView();
 
+        System.out.println("================가게 목록================");
 
+        sv.printAllStore(ss.findAll());
+
+        System.out.println("========================================");
+
+    }
 }

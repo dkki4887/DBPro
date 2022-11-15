@@ -37,7 +37,7 @@
         INSERT INTO project.store(user_id, store_name, store_phone, store_address, store_category, store_time, store_info, store_state, store_rate)
         VALUES(#{user_id}, #{store_name}, #{store_phone}, #{store_address}, #{store_category}, #{store_time}, #{store_info}, false, 0)
     </insert>
-    
+
     <update id="storeUpdate">
         UPDATE STORE SET store_name = #{store_name},
                          user_id = #{user_id},
@@ -54,10 +54,24 @@
         DELETE FROM STORE
         WHERE store_id = #{store_id}
     </delete>
-    
+
     <select id="selectAllStoreNameAndId" resultMap="result">
         SELECT store_id, store_name
         FROM STORE
     </select>
+
+    <select id="selectStore_WaitingAccept" resultMap="result">
+        SELECT * FROM STORE WHERE store_ack = false;
+    </select>
+
+    <select id="selectStore_Accepted" resultMap="result">
+        SELECT * FROM STORE WHERE store_ack = true;
+    </select>
+
+    <update id="updateStore_Accept">
+    UPDATE project.store
+    SET store_ack = true
+    WHERE store_id = #{store_id}
+    </update>
 
 </mapper>

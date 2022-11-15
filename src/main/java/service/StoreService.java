@@ -1,7 +1,5 @@
 package service;
 
-import org.apache.ibatis.session.SqlSessionFactory;
-import persistence.MyBatisConnectionFactory;
 import persistence.dao.MyStoreDAO;
 import persistence.dao.MyUserDAO;
 import persistence.dto.StoreDTO;
@@ -33,18 +31,22 @@ public class StoreService
         return nameAid;
     }
 
-    public void storeAdd()
+    public void storeAdd(String keeper_id)
     {
         Scanner sc = new Scanner(System.in);
         StoreDTO addStoreDTO = new StoreDTO();
 
-        String user_id = getUser_id(sc);
+        System.out.println("================가게 요청================");
+
+        String user_id = checkUser_id(sc, keeper_id);
         String store_name = inputStore_Name(sc);
         String store_address = inputStore_Address(sc);
         String store_phone = inputStore_Phone(sc);
         int store_category = inputStore_Category(sc);
         String store_time = inputStore_Time(sc);
         String store_info = inputStore_info(sc);
+
+        System.out.println("=======================================");
 
         addStoreDTO.setUser_id(user_id);
         addStoreDTO.setStore_name(store_name);
@@ -57,7 +59,7 @@ public class StoreService
         myStoreDAO.storeAdd(addStoreDTO);
     }
 
-    private String getUser_id(Scanner sc)
+    private String checkUser_id(Scanner sc, String keeper_id)
     {
         UserService us = new UserService();
         List<UserDTO> userDTOS = myUserDAO.selectAllUserid();
@@ -68,7 +70,7 @@ public class StoreService
             System.out.println("사장님 아이디를 입력해주세요 : ");
             input = sc.nextLine();
 
-            if(us.idCheck(input))
+            if(us.idCheck(input) && input.equals(keeper_id))
                 return input;
 
             System.out.println("아이디가 유효하지 않습니다.");
@@ -193,5 +195,28 @@ public class StoreService
         }
 
         return false;
+    }
+    public List<StoreDTO> selectStore_WaitingAccept()
+    {
+        List<StoreDTO> list = myStoreDAO.selectStore_WaitingAccept();
+        return list;
+    }
+
+    public List<StoreDTO> selectStore_Accepted()
+    {
+        List<StoreDTO> list = myStoreDAO.selectStore_Accepted();
+        return list;
+    }
+
+    public int updateStore_Accept(int store_id)
+    {
+        int result =myStoreDAO.updateStore_Accept(store_id);
+        return result;
+    }
+
+    public int deleteStore(int store_id)
+    {
+        int result =myStoreDAO.deleteStore(store_id);
+        return result;
     }
 }
