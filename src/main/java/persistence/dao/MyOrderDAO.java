@@ -40,17 +40,17 @@ public class MyOrderDAO {
         return result;
     }
 
-    public List<OrderDTO> findOrderId(String order_num) {
-        List<OrderDTO> dtos = null;
+    public List<OrderDTO> selectOrderId(String order_num) {
+        List<OrderDTO> list = null;
         SqlSession session = sqlSessionFactory.openSession();
         try{
             System.out.println("찾는 중 ㅋㅋ");
-            dtos = session.selectList("mapper.OrderMapper.findOrderId", order_num);
+            list = session.selectList("mapper.OrderMapper.selectOrderId", order_num);
         }finally {
             session.close();
         }
-        System.out.println("찾았음 ㅋㅋ");
-        return dtos;
+        System.out.println("찾음 ㅋㅋ");
+        return list;
     }
 
     public List<OrderDTO> findOrderWithCustomerIdLike(Long customer_id)
@@ -64,7 +64,6 @@ public class MyOrderDAO {
         }
         return dtos;
     }
-
 
     public int updateOrderState_Complete(int order_id) {
 

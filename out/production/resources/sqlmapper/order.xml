@@ -19,6 +19,7 @@
 
     <resultMap id="orderMenuList" type="persistence.dto.OrderMenuDTO">
         <result property="orderMenu_id" column="orderMenu_id"/>
+        <result property="order_id" column="order_id"/>
         <result property="menu_name" column="menu_name"/>
     </resultMap>
 
@@ -37,10 +38,10 @@
         VALUES (#{user_id}, #{store_id}, #{order_price}, "접수 대기", #{order_orderTime}, #{order_num})
     </insert>
 
-    <select id="findOrderId" resultMap="orderResult">
-        SELECT order_id
-        FROM project.order o
-        WHERE o.order_num = #{order_num}
+    <select id="selectOrderId" resultMap="orderResult">
+        SELECT *
+        FROM project.order
+        WHERE order_num = #{order_num}
     </select>
 
     <select id="selectOrder_store" resultMap="orderResult">
@@ -111,6 +112,5 @@
         SET order_state = "배달중"
         WHERE order_id = #{order_id}
     </update>
-
 
 </mapper>

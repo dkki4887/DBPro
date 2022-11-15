@@ -7,7 +7,6 @@ import persistence.dto.OrderDTO;
 import persistence.dto.OrderMenuDTO;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
@@ -36,9 +35,9 @@ public class OrderService {
         menuS.updateMenuQuantity(menu_id); //메뉴 개수 수정
     }
 
-    public int findOrderId(String order_num)
+    public int selectOrderId(String order_num)
     {
-        System.out.println(orderDAO.findOrderId(order_num).size());
+        System.out.println(orderDAO.selectOrderId(order_num).size());
         return -1;
     }
 

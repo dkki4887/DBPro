@@ -3,12 +3,10 @@ package persistence.dto;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@Getter
-@Setter
 @ToString
+@NoArgsConstructor
 @AllArgsConstructor
 public class OrderDTO {
     private int order_id;
@@ -21,8 +19,6 @@ public class OrderDTO {
     private List<OrderMenuDTO> orderMenuList;
     private List<OrderOptionDTO> orderOptionList;
 
-    public OrderDTO(){};
-
     public OrderDTO(String user_id, int store_id, long order_price, LocalDateTime order_orderTime, String order_num) {
         this.user_id = user_id;
         this.store_id = store_id;
@@ -33,7 +29,7 @@ public class OrderDTO {
     }
 
     public OrderDTO(int order_id) {
-        this.order_id=order_id;
+        this.order_id = order_id;
     }
 
     public int getOrder_id() {
@@ -66,5 +62,45 @@ public class OrderDTO {
 
     public List<OrderOptionDTO> getOrderOptionList() {
         return orderOptionList;
+    }
+
+    public void setOrder_id(int order_id) {
+        this.order_id = order_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public void setStore_id(int store_id) {
+        this.store_id = store_id;
+    }
+
+    public void setOrder_price(long order_price) {
+        this.order_price = order_price;
+    }
+
+    public void setOrder_state(String order_state) {
+        this.order_state = order_state;
+    }
+
+    public void setOrder_orderTime(LocalDateTime order_orderTime) {
+        this.order_orderTime = order_orderTime;
+    }
+
+    public String getOrder_num() {
+        return order_num;
+    }
+
+    public void setOrder_num(String order_num) {
+        this.order_num = order_num;
+    }
+
+    public void setOrderMenuList(List<OrderMenuDTO> orderMenuList) {
+        this.orderMenuList = orderMenuList;
+    }
+
+    public void setOrderOptionList(List<OrderOptionDTO> orderOptionList) {
+        this.orderOptionList = orderOptionList;
     }
 }
