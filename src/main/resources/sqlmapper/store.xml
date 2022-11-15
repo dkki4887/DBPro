@@ -72,5 +72,6 @@
     UPDATE project.store
     SET store_ack = true
     WHERE store_id = #{store_id}
+    </update>
 
 </mapper>
