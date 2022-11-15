@@ -55,7 +55,7 @@
         ON om.order_id = o.order_id
         INNER JOIN orderoption oo
         ON om.orderMenu_id = oo.orderMenu_id
-        WHERE o.store_id = #{store_id} AND o.order_state = "접수대기"
+        WHERE o.store_id = #{store_id} AND o.order_state = "접수 대기"
     </select>
 
     <select id="selectOrder_store_Delivery" resultMap="orderResult">
