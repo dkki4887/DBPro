@@ -12,6 +12,7 @@
         <result property="review_rate" column="review_rate"/>
         <result property="review_content" column="review_content"/>
         <result property="review_time" column="review_time"/>
+        <result property="order_num" column="order_num"/>
     </resultMap>
 
     <resultMap id="reviewOMResult" type="persistence.dto.Review_omDTO">
@@ -27,13 +28,13 @@
         SELECT r.order_id, r.store_id, o.menu_name, r.review_content, r.review_rate
         FROM project.review r
         JOIN project.ordermenu o
-        ON r.order_id = o.order_id
+        ON r.order_num = o.order_num
         WHERE r.user_id = #{user_id}
     </select>
 
     <insert id="insertReview" parameterType="ReviewDTO">
-        INSERT INTO project.review (review_id,store_id , user_id , order_id , review_rate , review_content , review_time)
-        values(#{review_id},#{store_id},#{user_id},#{order_id},#{review_rate},#{review_content},#{review_time})
+        INSERT INTO project.review (review_id,store_id , user_id , order_id , review_rate , review_content , review_time , order_num)
+        values(#{review_id},#{store_id},#{user_id},#{order_id},#{review_rate},#{review_content},#{review_time},#{order_num})
     </insert>
 
 </mapper>
