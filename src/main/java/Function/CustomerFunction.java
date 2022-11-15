@@ -11,7 +11,6 @@ public class CustomerFunction {
     Scanner sc = new Scanner(System.in);
 
     public void writeReview(String customer_id) { //리뷰작성 메소드
-        //완성
         OrderService orderService = new OrderService();
         OrderView orderView = new OrderView();
         ReviewService reviewService = new ReviewService();

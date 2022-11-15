@@ -194,4 +194,27 @@ public class StoreService
 
         return false;
     }
+    public List<StoreDTO> selectStore_WaitingAccept()
+    {
+        List<StoreDTO> list = myStoreDAO.selectStore_WaitingAccept();
+        return list;
+    }
+
+    public List<StoreDTO> selectStore_Accepted()
+    {
+        List<StoreDTO> list = myStoreDAO.selectStore_Accepted();
+        return list;
+    }
+
+    public int updateStore_Accept(int store_id)
+    {
+        int result =myStoreDAO.updateStore_Accept(store_id);
+        return result;
+    }
+
+    public int deleteStore(int store_id)
+    {
+        int result =myStoreDAO.deleteStore(store_id);
+        return result;
+    }
 }

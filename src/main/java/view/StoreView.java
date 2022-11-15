@@ -51,4 +51,20 @@ public class StoreView {
             return dtos.get(selectNum - 1).getStore_id();
     }
 
+    public void printStoreWithNumber(List<StoreDTO> store){
+        int i= 1;
+        System.out.println("====================================");
+        for(StoreDTO stores: store){
+            System.out.println("("+i+")");
+            System.out.println("가게명 : "+stores.getStore_name() );
+            System.out.println("가게주 : "+stores.getUser_id() );
+            System.out.println("휴대폰번호 : "+stores.getStore_phone() );
+            System.out.println("주소 : "+stores.getStore_address() );
+            System.out.println("영업시간 : "+stores.getStore_time() );
+            System.out.println("코멘트 : "+stores.getStore_info() );
+            System.out.println("====================================");
+            i++;
+        }
+    }
+
 }
