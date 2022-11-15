@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import persistence.MyBatisConnectionFactory;
 import persistence.dto.MenuOptionDTO;
+import persistence.dto.OptionDTO;
 
 import java.util.List;
 
@@ -30,6 +31,41 @@ public class MyMenuOptionDAO {
             session.close();
         }
         return list;
+    }
+
+    public void menuOptionAdd(List<MenuOptionDTO> menuOptionDTOs){
+        SqlSession session = sqlSessionFactory.openSession();
+        int result = -1;
+        try{
+            for(MenuOptionDTO addMenuOption : menuOptionDTOs) {
+                result = session.insert("mapper.MenuOptionMapper.menuOptionAdd", addMenuOption);
+            }
+            if (result==1){
+                session.commit();
+            }else {
+                session.rollback();
+            }
+        } finally {
+            session.close();
+        }
+    }
+
+    public int deleteMenuOption(MenuOptionDTO menuOptionDTO)
+    {
+        SqlSession session = sqlSessionFactory.openSession();
+        int result = -1;
+        try{
+            result = session.delete("mapper.MenuOptionMapper.deleteMenuOption", menuOptionDTO);
+            if (result==1){
+                session.commit();
+            }else {
+                session.rollback();
+            }
+
+        } finally {
+            session.close();
+        }
+        return result;
     }
 }
 

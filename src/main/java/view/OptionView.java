@@ -6,7 +6,7 @@ import java.util.List;
 
 public class OptionView {
 
-    public List<OptionDTO> printMenuAllOption(List<OptionDTO> dtos)
+    public List<OptionDTO> printMenuAllOption(List<OptionDTO> dtos) //이거 그냥 printAllOption으로 바꿔도 될듯
     {
         System.out.println("======================================================");
         if(dtos.size() == 0)

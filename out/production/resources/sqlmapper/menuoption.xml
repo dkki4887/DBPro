@@ -15,9 +15,21 @@
     </select>
 
     <select id = "selectMenuOptionId" resultMap="result">
-        SELECT option_id
-        FROM menuoption
+        SELECT *
+        FROM project.menuoption
         WHERE menu_id = #{menu_id}
+        GROUP BY option_id
+        ORDER BY option_id
     </select>
+
+    <insert id="menuOptionAdd" parameterType="MenuOptionDTO" keyProperty="menuOption_id">
+        INSERT INTO project.menuoption( menu_id, option_id)
+        VALUES( #{menu_id}, #{option_id})
+    </insert>
+
+    <delete id="deleteMenuOption" parameterType="MenuOptionDTO">
+        DELETE FROM project.menuoption
+        WHERE  menu_id = #{menu_id} AND option_id = #{option_id}
+    </delete>
 
 </mapper>

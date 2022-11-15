@@ -67,7 +67,19 @@ public class MyMenuDAO {
         return list;
     }
 
-    public void menuAdd(MenuDTO menuDTO){
+    public int selectStoreMenuNum(int store_id)
+    {
+        int storeMenuNum = 0;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            storeMenuNum = session.selectOne("mapper.MenuMapper.selectStoreMenuNum", store_id);
+        } finally {
+            session.close();
+        }
+        return storeMenuNum;
+    }
+
+    public int menuAdd(MenuDTO menuDTO){
         SqlSession session = sqlSessionFactory.openSession();
         int result = -1;
         try{
@@ -81,13 +93,14 @@ public class MyMenuDAO {
         } finally {
             session.close();
         }
+        return menuDTO.getMenu_id();
     }
 
     public void menuUpdate(MenuDTO menuDTO){
         SqlSession session = sqlSessionFactory.openSession();
         int result = -1;
         try{
-            result = session.insert("mapper.MenuMapper.menuUpdate", menuDTO);
+            result = session.update("mapper.MenuMapper.menuUpdate", menuDTO);
 
             if (result==1){
                 session.commit();

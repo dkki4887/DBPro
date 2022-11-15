@@ -84,11 +84,13 @@ public class StoreService
 
         while(true)
         {
-            System.out.print("가게 전화번호를 입력해주세요 : ");
+            System.out.print("가게 전화번호를 입력해주세요.(형식 : 01012345678) : ");
             input = sc.nextLine();
             System.out.println();
             if(isdigit(input))
                 return input;
+            else
+                System.out.println("입력 형식에 맞지 않습니다.");
         }
     }
 
@@ -123,7 +125,7 @@ public class StoreService
             String input;
             while(true)
             {
-                System.out.println("가게 카테고리를 입력해주세요 (1: 뭐, 2 : 뭐, 3, 뭐): ");
+                System.out.println("가게 카테고리를 입력해주세요. : ");
                 input = sc.nextLine();
 
                 if (isdigit(input))

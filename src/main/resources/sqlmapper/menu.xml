@@ -22,6 +22,14 @@
         SELECT *
         FROM MENU
         WHERE store_id = #{store_id}
+        ORDER BY menu_category
+    </select>
+
+    <select id="selectStoreMenuNum" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM MENU
+        WHERE store_id = #{store_id}
+        GROUP BY store_id;
     </select>
 
     <select id="selectMenuCategoryList" parameterType="int"  resultMap="result" >
@@ -29,6 +37,7 @@
         FROM MENU
         WHERE store_id = #{store_id}
         GROUP BY menu_category
+        ORDER BY menu_category
     </select>
 
     <select id="selectMenuById" parameterType="int" resultMap="result">
@@ -41,7 +50,7 @@
         SELECT menu_id FROM menu
     </select>
 
-    <insert id="menuAdd" parameterType="MenuDTO" keyProperty="menu_id">
+    <insert id="menuAdd" parameterType="MenuDTO" useGeneratedKeys="true" keyProperty="menu_id">
         INSERT INTO project.menu(store_id, menu_name, menu_price, menu_quantity, menu_category)
         VALUES(#{store_id}, #{menu_name}, #{menu_price}, #{menu_quantity}, #{menu_category})
     </insert>

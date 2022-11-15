@@ -15,10 +15,25 @@
         SELECT * FROM project.option
     </select>
 
-    <select id = "selectMenuOption" parameterType="int" resultMap="result">
-        SELECT option_id, option_name, option_price
-        FROM project.OPTION
-        WHERE option_id = #{option_id}
+    <select id="selectAllByStoreId" parameterType="int" resultMap="result">
+        SELECT * FROM project.option WHERE store_id = #{store_id}
     </select>
+
+    <select id = "selectMenuOption" parameterType="int" resultMap="result">
+        SELECT *
+        FROM project.option
+        WHERE option_id = #{option_id}
+        ORDER BY option_name
+    </select>
+
+    <insert id="optionAdd" parameterType="OptionDTO" keyProperty="option_id">
+        INSERT INTO project.option(option_id, store_id, option_price, option_name)
+        VALUES(#{option_id}, #{store_id}, #{option_price}, #{option_name})
+    </insert>
+
+    <delete id="deleteOption" parameterType="int">
+        DELETE FROM project.option
+        WHERE  option_id = #{option_id}
+    </delete>
 
 </mapper>

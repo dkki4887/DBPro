@@ -46,7 +46,6 @@ public class MenuView {
 
         for(MenuDTO menuCat : menuCategory)
         {
-            i = 0;
             System.out.println(menuCat.getMenu_category());
             System.out.println("---------------------------------------");
             for(MenuDTO dto: dtos) {
