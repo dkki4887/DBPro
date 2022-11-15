@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.OrderMenuMapper">
+    <resultMap id="result" type="persistence.dto.OrderMenuDTO">
+        <result property="orderMenu_id" column="orderMenu_id"/>
+        <result property="order_id" column="order_id"/>
+        <result property="menu_name" column="menu_name"/>
+    </resultMap>
+
+    <insert id="insertOrderMenu">
+        INSERT INTO project.ordermenu (orderMenu_id, order_id , menu_name)
+        VALUES (#{orderMenu_id}, #{order_id}, #{menu_name}})
+    </insert>
+
+    <select id="findOrderMenuId" resultMap="result">
+        SELECT *
+        FROM project.ordermenu
+        WHERE order_id = #{order_id}
+    </select>
+
+</mapper>
