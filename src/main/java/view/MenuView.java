@@ -72,20 +72,4 @@ public class MenuView {
         System.out.println("=======================================");
 
     }
-
-    public int selectMenuAndGetPrice(List<MenuDTO> dtos, int selectNum)
-    {
-        if(dtos.size() < selectNum || selectNum < 1)
-        {
-            System.out.println("잘못된 메뉴번호 선택입니다.");
-            return -1;
-        }
-
-        if(dtos.get(selectNum - 1).getMenu_quantity() == 0)
-        {
-            System.out.println("선택하신 메뉴의 수량이 소진되어 주문이 불가합니다.");
-            return -1;
-        }
-        return dtos.get(selectNum - 1).getMenu_id();
-    }
 }

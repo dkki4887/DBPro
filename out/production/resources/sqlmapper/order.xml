@@ -19,7 +19,7 @@
 
     <resultMap id="orderMenuList" type="persistence.dto.OrderMenuDTO">
         <result property="orderMenu_id" column="orderMenu_id"/>
-        <result property="order_id" column="order_id"/>
+        <result property="order_num" column="order_num"/>
         <result property="menu_name" column="menu_name"/>
     </resultMap>
 
@@ -38,17 +38,11 @@
         VALUES (#{user_id}, #{store_id}, #{order_price}, "접수 대기", #{order_orderTime}, #{order_num})
     </insert>
 
-    <select id="selectOrderId" resultMap="orderResult">
-        SELECT *
-        FROM project.order
-        WHERE order_num = #{order_num}
-    </select>
-
     <select id="selectOrder_store" resultMap="orderResult">
         SELECT *
         FROM ordermenu om
         INNER JOIN project.order o
-        ON om.order_id = o.order_id
+        ON om.order_num = o.order_num
         INNER JOIN orderoption oo
         ON om.orderMenu_id = oo.orderMenu_id
         WHERE o.store_id = #{store_id}
@@ -58,7 +52,7 @@
         SELECT *
         FROM ordermenu om
         INNER JOIN project.order o
-        ON om.order_id = o.order_id
+        ON om.order_num = o.order_num
         INNER JOIN orderoption oo
         ON om.orderMenu_id = oo.orderMenu_id
         WHERE o.store_id = #{store_id} AND o.order_state = "접수 대기"
@@ -68,7 +62,7 @@
         SELECT *
         FROM ordermenu om
         INNER JOIN project.order o
-        ON om.order_id = o.order_id
+        ON om.order_num = o.order_num
         INNER JOIN orderoption oo
         ON om.orderMenu_id = oo.orderMenu_id
         WHERE o.store_id = #{store_id} AND o.order_state = "배달중"
@@ -78,7 +72,7 @@
         SELECT *
         FROM project.ordermenu om
         INNER JOIN project.order o
-        ON om.order_id = o.order_id
+        ON om.order_num = o.order_num
         INNER JOIN orderoption oo
         ON om.orderMenu_id = oo.orderMenu_id
         WHERE o.user_id = #{user_id}
@@ -89,7 +83,7 @@
         SELECT *
         FROM project.ordermenu om
         INNER JOIN project.order o
-        ON om.order_id = o.order_id
+        ON om.order_num = o.order_num
         INNER JOIN orderoption oo
         ON om.orderMenu_id = oo.orderMenu_id
         WHERE o.user_id = #{user_id}

@@ -6,19 +6,13 @@
 <mapper namespace="mapper.OrderMenuMapper">
     <resultMap id="result" type="persistence.dto.OrderMenuDTO">
         <result property="orderMenu_id" column="orderMenu_id"/>
-        <result property="order_id" column="order_id"/>
         <result property="menu_name" column="menu_name"/>
+        <result property="order_num" column="order_num"/>
     </resultMap>
 
     <insert id="insertOrderMenu">
-        INSERT INTO project.ordermenu (orderMenu_id, order_id , menu_name)
-        VALUES (#{orderMenu_id}, #{order_id}, #{menu_name}})
+        INSERT INTO project.ordermenu (orderMenu_id, order_num , menu_name)
+        VALUES (#{orderMenu_id}, #{order_num}, #{menu_name})
     </insert>
-
-    <select id="findOrderMenuId" resultMap="result">
-        SELECT *
-        FROM project.ordermenu
-        WHERE order_id = #{order_id}
-    </select>
 
 </mapper>

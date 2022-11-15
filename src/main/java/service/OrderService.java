@@ -5,6 +5,7 @@ import persistence.dao.MyOrderDAO;
 import persistence.dao.MyOrderMenuDAO;
 import persistence.dto.OrderDTO;
 import persistence.dto.OrderMenuDTO;
+import persistence.dto.OrderOptionDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -35,18 +36,20 @@ public class OrderService {
         menuS.updateMenuQuantity(menu_id); //메뉴 개수 수정
     }
 
-    public int selectOrderId(String order_num)
+    public void insertOrderMenuAndOption(String order_num, String menu_name, int i, String[] optionNames)
     {
-        System.out.println(orderDAO.selectOrderId(order_num).size());
-        return -1;
+        String orderMenu_id = order_num + "-" + i;
+        OrderMenuDTO omd = new OrderMenuDTO(orderMenu_id, order_num, menu_name);
+
+        orderMenuDAO.insertOrderMenu(omd); //오더메뉴 테이블에 메뉴명 넣기
+        for(int j = 0; j < optionNames.length; j++)
+            insertOrderOption(orderMenu_id, optionNames[j]);
     }
 
-    public int insertOrderMenu(int order_id, String menu_name)
+    public void insertOrderOption(String orderMenu_id, String option_name)
     {
-        int orderMenu_id = order_id + 100;
-        OrderMenuDTO orderMenuDTO = new OrderMenuDTO(orderMenu_id, order_id, menu_name);
-        orderMenuDAO.insertOrderMenu(orderMenuDTO); //오더메뉴 테이블에 메뉴명 넣기
-        return orderMenu_id;
+        OrderOptionDTO ood = new OrderOptionDTO(orderMenu_id, option_name);
+        orderMenuDAO.insertOrderOption(ood);
     }
 
     public List<OrderDTO> selectOrder_store(int store_id)

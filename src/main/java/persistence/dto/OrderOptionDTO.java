@@ -1,19 +1,25 @@
 package persistence.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.apache.ibatis.type.Alias;
 
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+
 @Alias("orderOptionList")
 public class OrderOptionDTO {
-    private int orderMenu_id;
+    private String orderMenu_id;
     private String option_name;
 
-    public int getOrderMenu_id() {
+    public OrderOptionDTO(String orderMenu_id, String option_name)
+    {
+        this.orderMenu_id = orderMenu_id;
+        this.option_name = option_name;
+    }
+
+    public String getOrderMenu_id() {
         return orderMenu_id;
     }
 
@@ -21,7 +27,7 @@ public class OrderOptionDTO {
         return option_name;
     }
 
-    public void setOrderMenu_id(int orderMenu_id) {
+    public void setOrderMenu_id(String orderMenu_id) {
         this.orderMenu_id = orderMenu_id;
     }
 

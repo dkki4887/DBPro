@@ -1,44 +1,44 @@
 package persistence.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.apache.ibatis.type.Alias;
 
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 @Alias("orderMenuList")
-public class OrderMenuDTO {
-    private int orderMenu_id;
-    private int order_id;
-    private String menu_name;
 
-    public OrderMenuDTO(int orderMenu_id, int order_id, String menu_name)
+public class OrderMenuDTO {
+    private String orderMenu_id;
+    private String menu_name;
+    private String order_num;
+
+    public OrderMenuDTO(String orderMenu_id, String order_num, String menu_name)
     {
         this.orderMenu_id = orderMenu_id;
-        this.order_id = order_id;
+        this.order_num = order_num;
         this.menu_name = menu_name;
     }
 
-    public void setOrderMenu_id(int orderMenu_id) {
-        this.orderMenu_id = orderMenu_id;
+    public String getOrder_num() {
+        return order_num;
     }
 
-    public int getOrder_id() {
-        return order_id;
-    }
-
-    public void setOrder_id(int order_id) {
-        this.order_id = order_id;
+    public void setOrder_num(String order_num) {
+        this.order_num = order_num;
     }
 
     public void setMenu_name(String menu_name) {
         this.menu_name = menu_name;
     }
 
-    public int getOrderMenu_id() {
+    public String getOrderMenu_id() {
         return orderMenu_id;
+    }
+
+    public void setOrderMenu_id(String orderMenu_id) {
+        this.orderMenu_id = orderMenu_id;
     }
 
     public String getMenu_name() {

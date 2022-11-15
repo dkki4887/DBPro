@@ -22,11 +22,11 @@ public class OptionService {
         return dtos;
     }
 
-    public int[] getOptionIds(List<OptionDTO> dtos, int[] options, int size)
+    public String[] getOptionNames(List<OptionDTO> dtos, int[] options, int size)
     {
-        int[] optionIds = new int[size];
+        String[] optionIds = new String[size];
         for(int i = 0; i < size; i++)
-            optionIds[i] = dtos.get(options[i] - 1).getOption_id();
+            optionIds[i] = dtos.get(options[i] - 1).getOption_name();
         return optionIds;
     }
 
