@@ -28,9 +28,9 @@ public class Main {
         //매장등록
 
         //매장승인
+        manager.storeAccept();
+        //옵션등록 해야함
 
-        //옵션등록
-        해야함
         //메뉴등록 =>limit 1짜리 하나 있어야함(재료소진)
 
         //가능한 옵션 등록 menuoption 테이블 사용
