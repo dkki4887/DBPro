@@ -29,29 +29,28 @@ public class MyOrderDAO {
         int result = -1;
         try{
             result = session.insert("mapper.OrderMapper.insertOrder", od);
-
             if (result == 1){
                 session.commit();
             }else {
                 session.rollback();
             }
-
         }finally {
             session.close();
         }
         return result;
     }
 
-    public OrderDTO findOrderId(String order_num) {
-        OrderDTO dto = null;
+    public List<OrderDTO> findOrderId(String order_num) {
+        List<OrderDTO> dtos = null;
         SqlSession session = sqlSessionFactory.openSession();
         try{
-            dto = session.selectOne("mapper.OrderMapper.findOrderId", order_num);
+            System.out.println("찾는 중 ㅋㅋ");
+            dtos = session.selectList("mapper.OrderMapper.findOrderId", order_num);
         }finally {
             session.close();
         }
         System.out.println("찾았음 ㅋㅋ");
-        return dto;
+        return dtos;
     }
 
     public List<OrderDTO> findOrderWithCustomerIdLike(Long customer_id)

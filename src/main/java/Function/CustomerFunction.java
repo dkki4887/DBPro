@@ -102,8 +102,9 @@ public class CustomerFunction {
             LocalDateTime time = LocalDateTime.now();
             String order_num = time.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss-")) + user_id;
 
-            int order_id = orderS.insertOrder(user_id, 1, order_price, time, menu_id, order_num); //주문 생성 & 오더아이디 찾기
-            System.out.println(order_id);
+            orderS.insertOrder(user_id, 1, order_price, time, menu_id, order_num); //주문 생성 & 오더아이디 찾기
+            int order_id = orderS.findOrderId(order_num);
+           // System.out.println(order_id);
            // int orderMenu_id = orderS.insertOrderMenu(order_id, menuS.getMenuName(mDtos, selectMenuNum));
            // System.out.println(orderMenu_id);
         }

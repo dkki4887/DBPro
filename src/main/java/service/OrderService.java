@@ -27,16 +27,19 @@ public class OrderService {
         return orderDTOS;
     }
 
-    public int insertOrder(String user_id , int store_id, long order_price, LocalDateTime order_orderTime, int menu_id, String order_num)
+    public void insertOrder(String user_id, int store_id, long order_price, LocalDateTime order_orderTime, int menu_id, String order_num)
     {
         MenuService menuS = new MenuService();
-        String orderTime = order_orderTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        OrderDTO od = new OrderDTO(user_id, store_id, order_price, orderTime, order_num);
+        OrderDTO od = new OrderDTO(user_id, store_id, order_price, order_orderTime, order_num);
 
         orderDAO.insertOrder(od); //오더테이블에 주문 넣기
         menuS.updateMenuQuantity(menu_id); //메뉴 개수 수정
+    }
 
-        return orderDAO.findOrderId(order_num).getOrder_id();
+    public int findOrderId(String order_num)
+    {
+        System.out.println(orderDAO.findOrderId(order_num).size());
+        return -1;
     }
 
     public int insertOrderMenu(int order_id, String menu_name)
@@ -45,11 +48,6 @@ public class OrderService {
         OrderMenuDTO orderMenuDTO = new OrderMenuDTO(orderMenu_id, order_id, menu_name);
         orderMenuDAO.insertOrderMenu(orderMenuDTO); //오더메뉴 테이블에 메뉴명 넣기
         return orderMenu_id;
-    }
-
-    public List<OrderMenuDTO> findOrderMenuId(int order_id)
-    {
-        return orderMenuDAO.findOrderMenuId(order_id);
     }
 
     public List<OrderDTO> selectOrder_store(int store_id)

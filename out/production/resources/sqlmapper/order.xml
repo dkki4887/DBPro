@@ -32,13 +32,13 @@
         FROM project.order
     </select>
 
-    <insert id="insertOrder">
+    <insert id="insertOrder" parameterType="OrderDTO">
         INSERT INTO project.order (user_id , store_id, order_price, order_state, order_orderTime, order_num)
         VALUES (#{user_id}, #{store_id}, #{order_price}, "접수 대기", #{order_orderTime}, #{order_num})
     </insert>
 
     <select id="findOrderId" resultMap="orderResult">
-        SELECT *
+        SELECT order_id
         FROM project.order o
         WHERE o.order_num = #{order_num}
     </select>

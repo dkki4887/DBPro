@@ -16,14 +16,14 @@ public class OrderDTO {
     private int store_id;
     private long order_price;
     private String order_state;
-    private String order_orderTime;
+    private LocalDateTime order_orderTime;
     private String order_num;
     private List<OrderMenuDTO> orderMenuList;
     private List<OrderOptionDTO> orderOptionList;
 
     public OrderDTO(){};
 
-    public OrderDTO(String user_id, int store_id, long order_price, String order_orderTime, String order_num) {
+    public OrderDTO(String user_id, int store_id, long order_price, LocalDateTime order_orderTime, String order_num) {
         this.user_id = user_id;
         this.store_id = store_id;
         this.order_price = order_price;
@@ -56,7 +56,7 @@ public class OrderDTO {
         return order_state;
     }
 
-    public String getOrder_orderTime() {
+    public LocalDateTime getOrder_orderTime() {
         return order_orderTime;
     }
 
