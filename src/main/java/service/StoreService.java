@@ -67,8 +67,9 @@ public class StoreService
 
         while(true)
         {
-            System.out.println("사장님 아이디를 입력해주세요 : ");
+            System.out.print("사장님 아이디를 입력해주세요 : ");
             input = sc.nextLine();
+            System.out.println();
 
             if(us.idCheck(input) && input.equals(keeper_id))
                 return input;
@@ -83,9 +84,9 @@ public class StoreService
 
         while(true)
         {
-            System.out.println("가게 전화번호를 입력해주세요 : ");
+            System.out.print("가게 전화번호를 입력해주세요 : ");
             input = sc.nextLine();
-
+            System.out.println();
             if(isdigit(input))
                 return input;
         }
@@ -93,14 +94,29 @@ public class StoreService
 
     private String inputStore_Name(Scanner sc)
     {
-        System.out.println("가게 이름를 입력해주세요 : ");
-        return sc.nextLine();
+        String input;
+        while(true)
+        {
+            System.out.print("가게 이름를 입력해주세요 : ");
+            input = sc.nextLine();
+
+            if (!input.equals(""))
+                return input;
+        }
     }
 
     private String inputStore_Address(Scanner sc)
         {
-            System.out.println("가게 주소를 입력해주세요 : ");
-            return sc.nextLine();
+            String input;
+
+            while(true)
+            {
+                System.out.println("가게 주소를 입력해주세요 : ");
+                input = sc.nextLine();
+
+                if (!input.equals(""))
+                    return input;
+            }
         }
     private int inputStore_Category(Scanner sc)
         {

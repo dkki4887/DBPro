@@ -8,18 +8,6 @@ import java.util.List;
 
 public class MenuView {
 
-    public List<MenuDTO> printStoreAllMenu(List<MenuDTO> dtos)
-    {
-        int i = 0;
-        System.out.println("======================================================");
-        for(MenuDTO dto: dtos) {
-            System.out.println((i + 1) + ". " + dto.getMenu_name() + " | " + dto.getMenu_price() + "원");
-            i++;
-        }
-        System.out.println("======================================================");
-        return dtos;
-    }
-
     public List<MenuDTO> printStoreAllMenu(List<MenuDTO> dtos, int store_id)
     {
         MenuService ms = new MenuService();
@@ -30,13 +18,19 @@ public class MenuView {
 
         for(MenuDTO menuCat : menuCategory)
         {
+            System.out.println("---------------------------------------");
+
             System.out.println(menuCat.getMenu_category());
+
             for(MenuDTO dto: dtos) {
                 if(dto.getMenu_category().equals(menuCat.getMenu_category())) {
                     System.out.println((i + 1) + ". " + dto.getMenu_name() + " | " + dto.getMenu_price() + "원");
                     i++;
                 }
             }
+
+            System.out.println("---------------------------------------");
+
         }
 
         System.out.println("========================================");

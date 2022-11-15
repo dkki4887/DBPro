@@ -67,10 +67,10 @@ public class StorekeeperFunction {
         }
     }
 
-    public void requestStoreAdd()
+    public void requestStoreAdd(String keeper_id)
     {
         StoreService ss = new StoreService();
-
+        ss.storeAdd(keeper_id);
     }
 
     public void viewStoreAllMenu(int store_id)
