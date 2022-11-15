@@ -18,7 +18,7 @@
         SELECT * FROM MENU
     </select>
 
-    <select id="selectStoreMenu" resultMap="result">
+    <select id="selectStoreMenu" parameterType="int" resultMap="result">
         SELECT *
         FROM MENU
         WHERE store_id = #{store_id}

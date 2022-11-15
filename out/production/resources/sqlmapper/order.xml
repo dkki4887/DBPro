@@ -38,8 +38,8 @@
 
     <select id="findOrderId" parameterType="OrderDTO" resultMap="orderResult">
         SELECT *
-        FROM project.order
-        WHERE user_id = #{user_id} AND order_orderTime = #{order_orderTime}
+        FROM project.order o
+        WHERE o.user_id = #{user_id} AND order_orderTime = #{order_orderTime}
     </select>
 
     <select id="selectOrder_store" resultMap="orderResult">
@@ -59,7 +59,7 @@
         ON om.order_id = o.order_id
         INNER JOIN orderoption oo
         ON om.orderMenu_id = oo.orderMenu_id
-        WHERE o.store_id = #{store_id} AND o.order_state = "접수대기"
+        WHERE o.store_id = #{store_id} AND o.order_state = "접수 대기"
     </select>
 
     <select id="selectOrder_store_Delivery" resultMap="orderResult">

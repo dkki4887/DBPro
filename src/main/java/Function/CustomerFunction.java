@@ -75,7 +75,7 @@ public class CustomerFunction {
         int store_id = storeV.selectStore(sDtos, sc.nextInt());
         System.out.println(); */
 
-        List<MenuDTO> mDtos = menuV.printStoreAllMenu(menuS.selectStoreMenu(1));
+        List<MenuDTO> mDtos = menuV.printStoreAllMenu(menuS.selectStoreMenu(1), 1);
         System.out.print("주문할 메뉴의 번호를 선택하세요(1개 선택): ");
         int selectMenuNum = sc.nextInt();
         int menu_id = menuS.getMenuId(mDtos, selectMenuNum);

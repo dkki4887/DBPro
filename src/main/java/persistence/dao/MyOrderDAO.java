@@ -50,10 +50,12 @@ public class MyOrderDAO {
         List<OrderDTO> dtos = null;
         SqlSession session = sqlSessionFactory.openSession();
         try{
+            System.out.println("찾는중 ㅋㅋ");
             dtos = session.selectList("mapper.OrderMapper.findOrderId", insert);
         }finally {
             session.close();
         }
+        System.out.println("찾았음 ㅋㅋ");
         return dtos;
     }
 

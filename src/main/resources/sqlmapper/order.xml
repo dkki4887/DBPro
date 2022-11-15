@@ -38,8 +38,8 @@
 
     <select id="findOrderId" parameterType="OrderDTO" resultMap="orderResult">
         SELECT *
-        FROM project.order
-        WHERE user_id = #{user_id} AND order_orderTime = #{order_orderTime}
+        FROM project.order o
+        WHERE o.user_id = #{user_id} AND order_orderTime = #{order_orderTime}
     </select>
 
     <select id="selectOrder_store" resultMap="orderResult">

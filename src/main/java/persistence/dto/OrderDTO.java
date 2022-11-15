@@ -1,9 +1,6 @@
 package persistence.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,6 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
 public class OrderDTO {
     private int order_id;
     private String user_id;
