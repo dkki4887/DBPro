@@ -8,6 +8,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class OrderDTO {
     private int order_id;
     private String user_id;
@@ -95,13 +96,5 @@ public class OrderDTO {
 
     public void setOrder_num(String order_num) {
         this.order_num = order_num;
-    }
-
-    public void setOrderMenuList(List<OrderMenuDTO> orderMenuList) {
-        this.orderMenuList = orderMenuList;
-    }
-
-    public void setOrderOptionList(List<OrderOptionDTO> orderOptionList) {
-        this.orderOptionList = orderOptionList;
     }
 }
