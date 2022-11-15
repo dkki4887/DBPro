@@ -2,6 +2,7 @@ package view;
 
 import persistence.dto.MenuDTO;
 
+import java.awt.*;
 import java.util.List;
 
 public class MenuView {
@@ -14,6 +15,32 @@ public class MenuView {
             i++;
         }
         return dtos;
+    }
+
+    public List<MenuDTO> printStoreAllMenu_Keeper(List<MenuDTO> dtos)
+    {
+        int i = 0;
+
+        System.out.println("================메뉴 목록================");
+
+        for(MenuDTO dto: dtos) {
+            System.out.println((i + 1) + ". " + dto.getMenu_name() + " | 카테고리 : " + dto.getMenu_category() + " | " + dto.getMenu_price() + "원" + " | 재고 : " + dto.getMenu_quantity());
+            i++;
+        }
+
+        System.out.println("========================================");
+
+        return dtos;
+    }
+
+    public void printOneMenu(MenuDTO menuDTO)
+    {
+        System.out.println("==============수정 메뉴 확인=============");
+
+        System.out.println(" | 카테고리 : " + menuDTO.getMenu_category() + " | " + menuDTO.getMenu_name() + " | " + menuDTO.getMenu_price() + "원" + " | 재고 : " + menuDTO.getMenu_quantity());
+
+        System.out.println("=======================================");
+
     }
 
     public int selectMenuAndGetPrice(List<MenuDTO> dtos, int selectNum)

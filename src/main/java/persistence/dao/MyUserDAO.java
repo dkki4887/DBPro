@@ -11,6 +11,9 @@ import java.util.List;
 public class MyUserDAO {
     private SqlSessionFactory sqlSessionFactory = MyBatisConnectionFactory.getSqlSessionFactory();
 
+    public MyUserDAO() {
+    }
+
     public List<UserDTO> selectAll(){
         List<UserDTO> list = null;
         SqlSession session = sqlSessionFactory.openSession();

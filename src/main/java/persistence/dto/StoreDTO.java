@@ -61,7 +61,7 @@ public class StoreDTO {
         this.store_address = store_address;
     }
 
-    public boolean isStore_state() {
+    public boolean getStore_state() {
         return store_state;
     }
 
