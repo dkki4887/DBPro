@@ -42,16 +42,16 @@ public class MyOrderDAO {
         return result;
     }
 
-    public List<OrderDTO> findOrderId(OrderDTO od) {
-        List<OrderDTO> dtos = null;
+    public OrderDTO findOrderId(String order_num) {
+        OrderDTO dto = null;
         SqlSession session = sqlSessionFactory.openSession();
         try{
-            dtos = session.selectList("mapper.OrderMapper.findOrderId", od);
+            dto = session.selectOne("mapper.OrderMapper.findOrderId", order_num);
         }finally {
             session.close();
         }
         System.out.println("찾았음 ㅋㅋ");
-        return dtos;
+        return dto;
     }
 
     public List<OrderDTO> findOrderWithCustomerIdLike(Long customer_id)

@@ -17,23 +17,19 @@ public class OrderDTO {
     private long order_price;
     private String order_state;
     private String order_orderTime;
+    private String order_num;
     private List<OrderMenuDTO> orderMenuList;
     private List<OrderOptionDTO> orderOptionList;
 
     public OrderDTO(){};
 
-    public OrderDTO(String user_id, int store_id, long order_price, LocalDateTime order_orderTime) {
+    public OrderDTO(String user_id, int store_id, long order_price, String order_orderTime, String order_num) {
         this.user_id = user_id;
         this.store_id = store_id;
         this.order_price = order_price;
         this.order_state = "접수 대기";
-        this.order_orderTime = order_orderTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));;
-    }
-
-    public OrderDTO(String user_id, LocalDateTime order_orderTime)
-    {
-        this.user_id = user_id;
-        this.order_orderTime = order_orderTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));;
+        this.order_orderTime = order_orderTime;
+        this.order_num = order_num;
     }
 
     public OrderDTO(int order_id) {

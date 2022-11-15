@@ -7,6 +7,7 @@ import persistence.dto.OrderDTO;
 import persistence.dto.OrderMenuDTO;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
@@ -26,22 +27,16 @@ public class OrderService {
         return orderDTOS;
     }
 
-    public int insertOrder(String user_id , int store_id, long order_price, LocalDateTime order_orderTime, int menu_id)
+    public int insertOrder(String user_id , int store_id, long order_price, LocalDateTime order_orderTime, int menu_id, String order_num)
     {
         MenuService menuS = new MenuService();
-        OrderDTO orderDTO = new OrderDTO(user_id, store_id, order_price, order_orderTime);
-        orderDAO.insertOrder(orderDTO); //오더테이블에 주문 넣기
+        String orderTime = order_orderTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        OrderDTO od = new OrderDTO(user_id, store_id, order_price, orderTime, order_num);
+
+        orderDAO.insertOrder(od); //오더테이블에 주문 넣기
         menuS.updateMenuQuantity(menu_id); //메뉴 개수 수정
 
-        OrderDTO od = new OrderDTO(user_id, order_orderTime);
-        int order_id = findOrderId(od);
-        System.out.println(order_id);
-        return order_id;
-    }
-
-    public int findOrderId(OrderDTO od)
-    {
-        return orderDAO.findOrderId(od).get(0).getOrder_id();
+        return orderDAO.findOrderId(order_num).getOrder_id();
     }
 
     public int insertOrderMenu(int order_id, String menu_name)

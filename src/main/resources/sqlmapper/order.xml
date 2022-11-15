@@ -11,6 +11,7 @@
         <result property="order_price" column="order_price"/>
         <result property="order_state" column="order_state"/>
         <result property="order_orderTime" column="order_orderTime"/>
+        <result property="order_num" column="order_num"/>
         
         <collection property="orderMenuList" resultMap="orderMenuList"/>
         <collection property="orderOptionList" resultMap="orderOptionList"/>
@@ -32,14 +33,14 @@
     </select>
 
     <insert id="insertOrder">
-        INSERT INTO project.order (user_id , store_id, order_price, order_state, order_orderTime)
-        VALUES (#{user_id}, #{store_id}, #{order_price}, "접수 대기", #{order_orderTime})
+        INSERT INTO project.order (user_id , store_id, order_price, order_state, order_orderTime, order_num)
+        VALUES (#{user_id}, #{store_id}, #{order_price}, "접수 대기", #{order_orderTime}, #{order_num})
     </insert>
 
-    <select id="findOrderId" parameterType="OrderDTO" resultMap="orderResult">
+    <select id="findOrderId" resultMap="orderResult">
         SELECT *
         FROM project.order o
-        WHERE o.user_id = #{user_id} AND o.order_orderTime = #{order_orderTime}
+        WHERE o.order_num = #{order_num}
     </select>
 
     <select id="selectOrder_store" resultMap="orderResult">
