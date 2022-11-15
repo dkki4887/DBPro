@@ -42,7 +42,7 @@ public class CustomerFunction {
         else
         {
             int store_id = od.get(inputNumber-1).getStore_id();
-            int reviewResult = reviewService.insertReview(store_id, customer_id, od.get(inputNumber-1).getOrder_id());
+            int reviewResult = reviewService.insertReview(store_id, customer_id, od.get(inputNumber-1).getOrder_id() , od.get(inputNumber-1).getOrder_num());
             if (reviewResult == 1) System.out.println("리뷰 작성 성공");
             else System.out.println("리뷰 작성 실패");
         }

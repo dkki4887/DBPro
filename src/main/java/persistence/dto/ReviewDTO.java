@@ -17,6 +17,7 @@ public class ReviewDTO {
     private int review_rate;
     private String review_content;
     private LocalDateTime review_time;
+    private String order_num;
 
     public int getReview_id() {
         return review_id;
@@ -74,9 +75,12 @@ public class ReviewDTO {
         this.review_time = review_time;
     }
 
+    public String getOrder_num() {return this.order_num;}
+    public void setOrder_num(String order_num) {this.order_num = order_num;}
+
     public ReviewDTO() {}
 
-    public ReviewDTO(int store_id , String user_id , int order_id,int review_rate ,String review_content, LocalDateTime review_time)
+    public ReviewDTO(int store_id , String user_id , int order_id,int review_rate ,String review_content, LocalDateTime review_time,String order_num)
     {
         this.store_id=store_id;
         this.user_id=user_id;
@@ -84,6 +88,7 @@ public class ReviewDTO {
         this.review_rate=review_rate;
         this.review_content=review_content;
         this.review_time=review_time;
+        this.order_num=order_num;
     }
 
 }
