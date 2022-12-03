@@ -38,17 +38,53 @@
         VALUES(#{user_id}, #{store_name}, #{store_phone}, #{store_address}, #{store_category}, #{store_time}, #{store_info}, false, 0)
     </insert>
 
-    <update id="storeUpdate">
-        UPDATE STORE SET store_name = #{store_name},
-                         user_id = #{user_id},
-                         store_phone = #{store_phone},
-                         store_address = #{store_address},
-                         store_category = #{store_category},
-                         store_time = #{store_time},
-                         store_post = #{store_post},
-                         store_state = #{store_state},
-                         store_rate = #{store_rate}
+    <update id="storeUpdate" parameterType="StoreDTO" keyProperty="store_id">
+        UPDATE STORE
+        <set>
+            <if test='store_name!=""'>
+                store_name = #{store_name},
+            </if>
+            <if test='user_id!=""'>
+                user_id = #{user_id},
+            </if>
+            <if test='store_phone!="'>
+                store_phone = #{store_phone},
+            </if>
+            <if test='store_address!=""'>
+                store_address = #{store_address},
+            </if>
+            <if test='store_category!=""'>
+                store_category = #{store_category},
+            </if>
+            <if test='store_time!=""'>
+                store_time = #{store_time},
+            </if>
+            <if test='store_state!=-1'>
+                store_state = #{store_state},
+            </if>
+            <if test='store_post!=""'>
+                store_post = #{store_post},
+            </if>
+            <if test='store_rate!=-1'>
+                store_rate = #{store_rate}
+            </if>
+            store_id = store_id
+        </set>
+        WHERE store_id = #{store_id};
     </update>
+
+    <update id="storeTimeUpdate" parameterType="string" keyProperty="store_id">
+        UPDATE STORE
+        <set>
+            <if test='store_time!=""'>
+                store_time = #{store_time},
+            </if>
+            store_id = store_id
+        </set>
+        WHERE store_id = #{store_id};
+    </update>
+
+
 
     <delete id="deleteStore">
         DELETE FROM STORE
