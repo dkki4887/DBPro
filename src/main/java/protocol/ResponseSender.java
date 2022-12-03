@@ -1,7 +1,10 @@
 package protocol;
 
+import persistence.dto.*;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class ResponseSender {
@@ -344,6 +347,312 @@ public class ResponseSender {
         Header header = new Header(
                 Header.TYPE_ANS,
                 Header.CODE_STORE_TIME,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendMenuIDAns(int menu_id, DataOutputStream outputStream) throws IOException {
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addIntBytes(menu_id);
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_MENU_ID,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendMenuNameAns(Scanner s, DataOutputStream outputStream) throws IOException {
+
+        System.out.print("메뉴 이름을 입력하세요. : ");
+        String menuName = s.nextLine();
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addStringBytes(menuName);
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_MENU_NAME,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendMenuPriceAns(Scanner s, DataOutputStream outputStream) throws IOException {
+
+        System.out.print("메뉴 가격을 입력하세요. : ");
+        String menuPrice = s.nextLine();
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addStringBytes(menuPrice);
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_MENU_PRICE,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendMenuStockAns(Scanner s, DataOutputStream outputStream) throws IOException {
+
+        System.out.print("메뉴 제고를 입력하세요. : ");
+        int menuStock = s.nextInt();
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addIntBytes(menuStock);
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_MENU_STOCK,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendMenuCategoryAns(Scanner s, DataOutputStream outputStream) throws IOException {
+
+        System.out.print("메뉴 카테고리를 입력하세요. : ");
+        String menuCategory = s.nextLine();
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addStringBytes(menuCategory);
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_MENU_CATEGORY,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendMenuListAns(List<MenuDTO> menuList, DataOutputStream outputStream) throws IOException {
+
+        BodyMaker bodyMaker = new BodyMaker();
+
+        for(MenuDTO menuDTO : menuList)
+        {
+            bodyMaker.addStringBytes(menuDTO); // 이런식으로 하는데 일단 회의해야할 듯
+        }
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_MENU_LIST,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendOptionIDAns(int option_id, DataOutputStream outputStream) throws IOException {
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addIntBytes(option_id);
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_OPTION_ID,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendOptionPriceAns(Scanner s, DataOutputStream outputStream) throws IOException {
+
+        System.out.print("옵션 가격을 입력하세요. : ");
+        long option_price = s.nextLong();
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addLongBytes(option_price);
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_OPTION_PRICE,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendOptionListAns(List<OptionDTO> OptionList, DataOutputStream outputStream) throws IOException {
+
+        BodyMaker bodyMaker = new BodyMaker();
+
+        for(OptionDTO optionDTO : OptionList)
+        {
+            bodyMaker.addStringBytes(oprionDTO); // 이런식으로 하는데 일단 회의해야할 듯
+        }
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_OPTION_LIST,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendOrderIDAns(int order_id, DataOutputStream outputStream) throws IOException {
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addIntBytes(order_id);
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_ORDER_ID,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendOrderStateAns(String orderState, DataOutputStream outputStream) throws IOException {
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addStringBytes(orderState);
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_ORDER_STATE,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendOrderPriceAns(long orderPrice, DataOutputStream outputStream) throws IOException {
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addLongBytes(orderPrice);
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_ORDER_PRICE,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendOrderListAns(List<OrderDTO> OrderList, DataOutputStream outputStream) throws IOException {
+
+        BodyMaker bodyMaker = new BodyMaker();
+
+        for(OrderDTO orderDTO : OrderList)
+        {
+            bodyMaker.addStringBytes(orderDTO); // 이런식으로 하는데 일단 회의해야할 듯
+        }
+
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_ORDER_LIST,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+    public void sendOrderMenuListAns(List<OrderMenuDTO> orderMenuList, DataOutputStream outputStream) throws IOException {
+
+        BodyMaker bodyMaker = new BodyMaker();
+
+        for(OrderMenuDTO orderMenuDTO : orderMenuList)
+        {
+            bodyMaker.addStringBytes(orderMenuDTO); // 이런식으로 하는데 일단 회의해야할 듯
+        }
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_ORDER_MENU_LIST,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendReviewIDAns(int reviewID, DataOutputStream outputStream) throws IOException {
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addIntBytes(reviewID);
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_REVIEW_ID,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendReviewContentAns(Scanner s, DataOutputStream outputStream) throws IOException {
+
+        System.out.print("리뷰에 대한 댓글을 입력하세요. : ");
+        String content = s.nextLine();
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addStringBytes(content);
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_REVIEW_CONTENT,
                 body.length
         );
 

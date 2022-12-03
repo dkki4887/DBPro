@@ -45,4 +45,7 @@ public class BodyMaker {
         return buf.toByteArray();
     }
 
+    public void addLongBytes(long longData) throws IOException{
+        dos.writeLong(longData);
+    }
 }

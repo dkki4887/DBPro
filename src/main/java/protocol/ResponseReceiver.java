@@ -323,7 +323,7 @@ public class ResponseReceiver {
         inputStream.read(body);
         DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
 
-        int review_id = bodyReader.readint();
+        int review_id = bodyReader.readInt();
     }
 
     public void receiveReviewContent(DataInputStream inputStream) throws IOException {
