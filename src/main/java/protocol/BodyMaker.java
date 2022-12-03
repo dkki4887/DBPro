@@ -36,6 +36,10 @@ public class BodyMaker {
         dos.writeUTF(str);
     }
 
+    public void addBooleanBytes(boolean bool) throws IOException {
+        dos.writeBoolean(bool);
+    }
+
 
     public byte[] getBody() {
         return buf.toByteArray();

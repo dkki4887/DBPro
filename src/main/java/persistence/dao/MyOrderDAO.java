@@ -5,10 +5,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import persistence.MyBatisConnectionFactory;
 import persistence.dto.OrderDTO;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 public class MyOrderDAO {
     private final SqlSessionFactory sqlSessionFactory = MyBatisConnectionFactory.getSqlSessionFactory();

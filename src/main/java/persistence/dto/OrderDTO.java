@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class OrderDTO implements MySerializableClass {
+public class OptionDTO implements MySerializableClass {
     private int order_id;
     private String user_id;
     private int store_id;

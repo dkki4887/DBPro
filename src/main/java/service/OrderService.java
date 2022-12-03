@@ -1,6 +1,5 @@
 package service;
 
-import persistence.dao.MyMenuOptionDAO;
 import persistence.dao.MyOrderDAO;
 import persistence.dao.MyOrderMenuDAO;
 import persistence.dto.OrderDTO;
@@ -9,7 +8,6 @@ import persistence.dto.OrderOptionDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
 
 public class OrderService {
     private final MyOrderDAO orderDAO;
