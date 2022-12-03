@@ -1,12 +1,8 @@
 package Function;
 
-import persistence.MyBatisConnectionFactory;
-import persistence.dao.MyMenuDAO;
-import persistence.dao.MyReviewDAO;
-import persistence.dao.MyStoreDAO;
-import persistence.dao.MyUserDAO;
-import persistence.dto.UserDTO;
-import service.UserService;
+import persistence.dto.*;
+import service.*;
+import view.*;
 
 import java.util.List;
 import java.util.Scanner;

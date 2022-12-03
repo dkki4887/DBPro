@@ -1,8 +1,8 @@
 package Function;
 
-import persistence.dto.StoreDTO;
-import service.StoreService;
-import view.StoreView;
+import persistence.dto.*;
+import service.*;
+import view.*;
 
 import java.util.List;
 import java.util.Scanner;
