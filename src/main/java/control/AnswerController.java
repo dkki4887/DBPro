@@ -1,5 +1,7 @@
 package control;
 
+import persistence.dto.UserDTO;
+import protocol.BodyMaker;
 import protocol.Header;
 
 import java.io.DataInputStream;
@@ -13,7 +15,28 @@ public class AnswerController {
         switch (header.code) {
 
             case Header.CODE_CUSTOMER_ID:
-                //id 받았으니 pw request 보내기
+                id = bodyReader.readUTF();
+                Header resHeader = new Header(
+                        Header.TYPE_REQ,
+                        Header.CODE_CUSTOMER_PW,
+                        0);
+                outputStream.write(resHeader.getBytes());
+                break;
+
+            case Header.CODE_USER_DTO:
+                UserDTO u = bodyReader.;
+                Header resHeader = new Header(
+                        Header.TYPE_REQ,
+                        Header.CODE_CUSTOMER_PW,
+                        0);
+                outputStream.write(resHeader.getBytes());
+                Header.readHeader(inputStream);
+                byte[] body = new byte[header.length];
+                inputStream.read(body);
+                DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
+
+        Player player = Player.readPlayer(bodyReader);
+        System.out.println(player);
                 break;
 
             case Header.CODE_CUSTOMER_PW:

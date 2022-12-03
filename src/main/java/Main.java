@@ -27,6 +27,7 @@ public class Main {
         boolean isContinue = true;
 
         while(isContinue) {
+            String id ;
 
             // read Header + Body
             Header header = Header.readHeader(is);
