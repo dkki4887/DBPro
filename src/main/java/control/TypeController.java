@@ -34,6 +34,9 @@ public class TypeController {
                 ResultController.handleResult(header, bodyReader, outputStream);
                 break;
 
+            case Header.TYPE_QUIT:
+                return false;
+
             default:
                 // BadRequest 알려주는 패킷 전송 ?? 이거 뭔지 모름
                 break;
