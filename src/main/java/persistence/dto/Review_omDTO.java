@@ -3,12 +3,17 @@ package persistence.dto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import protocol.MySerializableClass;
+
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @ToString
-public class Review_omDTO {
+public class Review_omDTO implements MySerializableClass {
     private int order_id;
     private int store_id;
     private String menu_name;
@@ -53,5 +58,18 @@ public class Review_omDTO {
 
     public void setReview_rate(int review_rate) {
         this.review_rate = review_rate;
+    }
+
+    @Override
+    public byte[] getBytes() throws IOException {
+        ByteArrayOutputStream buf = new ByteArrayOutputStream();
+        DataOutputStream dos = new DataOutputStream(buf);
+
+        dos.writeInt(order_id);
+        dos.writeInt(store_id);
+        dos.writeUTF(menu_name);
+        dos.writeUTF(review_content);
+        dos.writeInt(review_rate);
+        return buf.toByteArray();
     }
 }

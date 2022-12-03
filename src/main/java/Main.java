@@ -1,5 +1,5 @@
 
-import control.action.ActionController;
+import control.TypeController;
 import protocol.Header;
 
 import java.io.ByteArrayInputStream;
@@ -22,7 +22,7 @@ public class Main {
         DataInputStream is = new DataInputStream(socket.getInputStream());
         DataOutputStream os = new DataOutputStream(socket.getOutputStream());
 
-        ActionController controller = new ActionController();
+        TypeController controller = new TypeController();
 
         boolean isContinue = true;
 
@@ -34,7 +34,7 @@ public class Main {
             is.read(body);
             DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
 
-            isContinue = controller.handleRequest(header, bodyReader, os);
+            isContinue = controller.handleType(header, bodyReader, os);
 
         } // end of while
 
