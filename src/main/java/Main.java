@@ -1,57 +1,43 @@
-import Function.CustomerFunction;
-import Function.LoginFunction;
-import Function.ManagerFunction;
-import Function.StorekeeperFunction;
 
-import java.util.Scanner;
+import control.action.ActionController;
+import protocol.Header;
+
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        CustomerFunction customer = new CustomerFunction();
-        LoginFunction login = new LoginFunction();
-        ManagerFunction manager = new ManagerFunction();
+    public static void main(String[] args) throws IOException {
 
-        StorekeeperFunction keeper = new StorekeeperFunction();
-        int store_id = 1;
-        String user1_id = "회원 1";
-        String user2_id = "회원 2";
+        ServerSocket ss = new ServerSocket(3000);
+        System.out.println("ServerSocket created.\nWaiting for connection ...\n\n");
 
-        //사장 계정 등록
-        //login.userAdd();
-        //매장등록
-        //System.out.print("가게를 등록할 계정의 아이디를 입력하시오: ");
-        //String Oner_id = sc.nextLine();
-        //keeper.requestStoreAdd(Oner_id);
-        //매장승인
-       // manager.storeAccept();
-        //매장조회
-       // manager.selectStore_Accepted();
-        //옵션등록 하는중
+        Socket socket = ss.accept();
 
-        //메뉴등록 =>limit 1짜리 하나 있어야함(재료소진) , 가능옵션 입력
-        //keeper.menuAdd(store_id);
-        //메뉴조회 (사장)
-       // keeper.viewStoreAllMenu(store_id);
-        //메뉴수정 (메뉴명, 가격)
-       //keeper.menuUpdate(store_id);
-        //주문생성 +재료소진  4 +2
-      customer.createOrder(user1_id); // 3번
+        System.out.println("Client connected!\n");
 
-        //주문조회
-      // keeper.selectOrder_store(store_id);
-        //주문접수 (승인, 거절)
-      //  keeper.acceptOrder(store_id);
-        //주문취소(고객)
-        //customer.cancleOrder(user1_id);
-       // customer.cancleOrder(user2_id);
-        //주문상태 변경(배달완료)
-        //keeper.deliveryFinish(store_id);
-        //고객 주문이력조회 (취소, 배달완료 출력)
-        //customer.selectOrder_customer(user1_id);
-        //리뷰작성
-        //customer.writeReview(user1_id);
-        //리뷰조회
-        //customer.inquireReview(user1_id);
-    }
+        DataInputStream is = new DataInputStream(socket.getInputStream());
+        DataOutputStream os = new DataOutputStream(socket.getOutputStream());
+
+        ActionController controller = new ActionController();
+
+        boolean isContinue = true;
+
+        while(isContinue) {
+
+            // read Header + Body
+            Header header = Header.readHeader(is);
+            byte[] body = new byte[header.length];
+            is.read(body);
+            DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
+
+            isContinue = controller.handleRequest(header, bodyReader, os);
+
+        } // end of while
+
+
+    } // end of main
 }
