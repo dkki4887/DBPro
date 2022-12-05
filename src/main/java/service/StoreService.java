@@ -1,10 +1,10 @@
 package service;
 
-import persistence.dao.MyStoreDAO;
-import persistence.dao.MyUserDAO;
-import persistence.dto.StoreDTO;
-import persistence.dto.UserDTO;
+import persistence.dao.*;
+import persistence.dto.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -29,6 +29,25 @@ public class StoreService
     {
         List<StoreDTO> nameAid = myStoreDAO.selectAllStoreNameAndId();
         return nameAid;
+    }
+
+    public boolean isStoreOpen(int store_id)
+    {
+        String nowTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HHmm"));
+        List<StoreDTO> list = myStoreDAO.selectStoreTime(store_id);
+        String storeTime = list.get(0).getStore_time();
+
+        int open = Integer.parseInt(storeTime.substring(0, 2) + storeTime.substring(3, 5));
+        int close = Integer.parseInt(storeTime.substring(6, 8) + storeTime.substring(9));
+        int now = Integer.parseInt(nowTime);
+        //int now = 0500;
+
+        if(open < close && (open <= now && now < close))
+            return true;
+        else if(open > close && (open <= now || now < close))
+            return true;
+        else
+            return false;
     }
 
     public void storeAdd(String keeper_id)
