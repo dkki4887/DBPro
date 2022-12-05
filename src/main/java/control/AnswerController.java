@@ -13,7 +13,7 @@ public class AnswerController {
 
         switch (header.code) {
 
-            case Header.CODE_CUSTOMER_ID:
+            case Header.CODE_USER_ID:
 /*                id = bodyReader.readUTF();
                 Header resHeader = new Header(
                         Header.TYPE_REQ,
@@ -43,7 +43,7 @@ public class AnswerController {
                 System.out.println("USER DTO를 받고 결과를 전송");
                 break;
 
-            case Header.CODE_CUSTOMER_PW:
+            case Header.CODE_USER_PW:
                 //pw 받았으니 db에서 검색 후 로그인 result 보내기
                 break;
         }

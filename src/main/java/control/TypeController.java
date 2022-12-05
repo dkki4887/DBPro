@@ -1,5 +1,6 @@
 package control;
 
+import protocol.BodyMaker;
 import protocol.Header;
 
 import java.io.DataInputStream;
@@ -44,7 +45,6 @@ public class TypeController {
                 // BadRequest 알려주는 패킷 전송 ?? 이거 뭔지 모름
                 break;
         }
-
         return true;
     }
 }
