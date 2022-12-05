@@ -5,9 +5,15 @@ import persistence.dto.StoreDTO;
 import java.util.Scanner;
 
 public class StoreInputManager {
+    private Scanner sc;
+
+    public StoreInputManager(Scanner scanner)
+    {
+        sc = scanner;
+    }
+
     public StoreDTO getAddStoreInfo()
     {
-        Scanner sc = new Scanner(System.in);
         StoreDTO addStoreDTO = new StoreDTO();
 
         System.out.println("================가게 요청================");

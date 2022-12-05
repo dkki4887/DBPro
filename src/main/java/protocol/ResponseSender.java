@@ -132,8 +132,8 @@ public class ResponseSender {
     }
 
     */
-    public void sendUserInfoAns(DataOutputStream outputStream) throws IOException {
-        UserInputManager addUserInfoManager = new UserInputManager();
+    public void sendUserInfoAns(Scanner s,DataOutputStream outputStream) throws IOException {
+        UserInputManager addUserInfoManager = new UserInputManager(s);
         UserDTO addUserInfo = addUserInfoManager.getAddUserInfo();
 
         BodyMaker bodyMaker = new BodyMaker();
@@ -329,7 +329,7 @@ public class ResponseSender {
  */
 
     public void sendStoreInfoAns(Scanner s, DataOutputStream outputStream) throws IOException { //가게 정보 입력 후 전송
-        StoreInputManager addStoreInfoManager = new StoreInputManager();
+        StoreInputManager addStoreInfoManager = new StoreInputManager(s);
         StoreDTO addStoreInfo = addStoreInfoManager.getAddStoreInfo();
 
         BodyMaker bodyMaker = new BodyMaker();
@@ -397,7 +397,7 @@ public class ResponseSender {
         outputStream.write(header.getBytes());
         outputStream.write(body);
     }
-
+/*
     public void sendMenuIDAns(int menu_id, DataOutputStream outputStream) throws IOException {
 
         BodyMaker bodyMaker = new BodyMaker();
@@ -495,13 +495,32 @@ public class ResponseSender {
         outputStream.write(body);
     }
 
+ */
+
+    public void sendMenuInfoAns(Scanner s, DataOutputStream outputStream) throws IOException {
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addIntBytes(menu_id);
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_MENU_ID,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
     public void sendMenuListAns(List<MenuDTO> menuList, DataOutputStream outputStream) throws IOException {
 
         BodyMaker bodyMaker = new BodyMaker();
 
         for(MenuDTO menuDTO : menuList)
         {
-            bodyMaker.addStringBytes(menuDTO); // 이런식으로 하는데 일단 회의해야할 듯
+            bodyMaker.add(menuDTO); // 이런식으로 하는데 일단 회의해야할 듯
         }
 
         byte[] body = bodyMaker.getBody();
@@ -559,7 +578,7 @@ public class ResponseSender {
 
         for(OptionDTO optionDTO : OptionList)
         {
-            bodyMaker.addStringBytes(oprionDTO); // 이런식으로 하는데 일단 회의해야할 듯
+            bodyMaker.add(optionDTO); // 이런식으로 하는데 일단 회의해야할 듯
         }
 
         byte[] body = bodyMaker.getBody();
@@ -631,7 +650,7 @@ public class ResponseSender {
 
         for(OrderDTO orderDTO : OrderList)
         {
-            bodyMaker.addStringBytes(orderDTO); // 이런식으로 하는데 일단 회의해야할 듯
+            bodyMaker.add(orderDTO); // 이런식으로 하는데 일단 회의해야할 듯
         }
 
 
@@ -652,7 +671,7 @@ public class ResponseSender {
 
         for(OrderMenuDTO orderMenuDTO : orderMenuList)
         {
-            bodyMaker.addStringBytes(orderMenuDTO); // 이런식으로 하는데 일단 회의해야할 듯
+            bodyMaker.add(orderMenuDTO); // 이런식으로 하는데 일단 회의해야할 듯
         }
 
         byte[] body = bodyMaker.getBody();

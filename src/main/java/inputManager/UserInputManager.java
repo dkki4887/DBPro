@@ -5,9 +5,14 @@ import persistence.dto.UserDTO;
 import java.util.Scanner;
 
 public class UserInputManager {
+    private Scanner sc;
+
+    public UserInputManager(Scanner scanner)
+    {
+        sc = scanner;
+    }
     public UserDTO getAddUserInfo()
     {
-        Scanner sc = new Scanner(System.in);
         UserDTO addUserDTO = new UserDTO();
 
         String user_name = inputUser_name(sc);
