@@ -19,8 +19,8 @@ public class TypeController {
         resultController = new ResultController();
     }
 
-    public boolean handleType(Header header, DataInputStream bodyReader, DataOutputStream outputStream,String user_id) throws IOException {
-
+    public String handleType(Header header, DataInputStream bodyReader, DataOutputStream outputStream) throws IOException {
+        String USER_ID = null;
         switch(header.type) {
 
             case Header.TYPE_START:
@@ -31,7 +31,7 @@ public class TypeController {
                 break;
 
             case Header.TYPE_ANS:
-                AnswerController.handleAnswer(header, bodyReader, outputStream , user_id);
+                USER_ID=AnswerController.handleAnswer(header, bodyReader, outputStream );
                 break;
 
             case Header.TYPE_RES:
@@ -39,12 +39,12 @@ public class TypeController {
                 break;
 
             case Header.TYPE_QUIT:
-                return false;
+                return "false";
 
             default:
                 // BadRequest 알려주는 패킷 전송 ?? 이거 뭔지 모름
                 break;
         }
-        return true;
+        return USER_ID;
     }
 }

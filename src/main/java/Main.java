@@ -23,20 +23,19 @@ public class Main {
         DataOutputStream os = new DataOutputStream(socket.getOutputStream());
 
         TypeController controller = new TypeController();
-        String user_id = "";
-        boolean isContinue = true;
 
+        boolean isContinue = true;
+        String user_ID ;
         while(isContinue) {
             // read Header + Body
             Header header = Header.readHeader(is);
             byte[] body = new byte[header.length];
             is.read(body);
             DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
-
-            isContinue = controller.handleType(header, bodyReader, os , user_id);
-
+            user_ID= controller.handleType(header, bodyReader, os );
+            if(user_ID.equals("false"))
+                isContinue = false;
         } // end of while
-
 
     } // end of main
 }
