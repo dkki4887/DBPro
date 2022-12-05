@@ -25,7 +25,6 @@ public class BodyMaker {
 
         dos.writeInt(list.size());
         for(MySerializableClass object : list) dos.write(object.getBytes());
-
     }
 
     public void addIntBytes(int integer) throws IOException {
