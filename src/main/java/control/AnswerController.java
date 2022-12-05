@@ -9,10 +9,11 @@ import java.io.*;
 
 public class AnswerController {
 
-    public static void handleAnswer(Header header, DataInputStream bodyReader, DataOutputStream outputStream, String user_ID) throws IOException {
+
+    public static String handleAnswer(Header header, DataInputStream bodyReader, DataOutputStream outputStream ) throws IOException {
+        String USER_ID = null;
 
         switch (header.code) {
-
             case Header.CODE_USER_ID:
 /*                id = bodyReader.readUTF();
                 Header resHeader = new Header(
@@ -47,5 +48,7 @@ public class AnswerController {
                 //pw 받았으니 db에서 검색 후 로그인 result 보내기
                 break;
         }
+
+        return USER_ID;
     }
 }
