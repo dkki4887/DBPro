@@ -1,5 +1,6 @@
 package control;
 
+import protocol.BodyMaker;
 import protocol.Header;
 
 import java.io.DataInputStream;

@@ -27,7 +27,6 @@ public class Main {
         boolean isContinue = true;
 
         while(isContinue) {
-
             // read Header + Body
             Header header = Header.readHeader(is);
             byte[] body = new byte[header.length];
