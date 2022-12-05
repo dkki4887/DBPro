@@ -20,7 +20,7 @@ public class MenuInputManager {
     {
         MenuDTO addMenuInfo = new MenuDTO();
 
-        String menu_name = inputMenu_name(sc)
+        String menu_name = inputMenu_name(sc);
         long menu_price = inputMenu_price(sc);
         int menu_quantity = inputMenu_quantity(sc);
         String menu_category = inputMenu_category(sc);
