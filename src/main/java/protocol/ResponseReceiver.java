@@ -77,13 +77,13 @@ public class ResponseReceiver {
         return userInfo;
     }
 
-    public void receiveStoreID(DataInputStream inputStream) throws IOException {
+    public int receiveStoreID(DataInputStream inputStream) throws IOException {
         Header header = Header.readHeader(inputStream);
         byte[] body = new byte[header.length];
         inputStream.read(body);
         DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
 
-        int store_id = bodyReader.readInt();
+        return bodyReader.readInt();
     }
 
     public void receiveStoreName(DataInputStream inputStream) throws IOException {
@@ -185,13 +185,13 @@ public class ResponseReceiver {
         String store_phone = bodyReader.readUTF();
     }
 
-    public void receiveMenuID(DataInputStream inputStream) throws IOException {
+    public int receiveMenuID(DataInputStream inputStream) throws IOException {
         Header header = Header.readHeader(inputStream);
         byte[] body = new byte[header.length];
         inputStream.read(body);
         DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
 
-        int menu_id = bodyReader.readInt();
+        return bodyReader.readInt();
     }
 
     public void receiveMenuName(DataInputStream inputStream) throws IOException {

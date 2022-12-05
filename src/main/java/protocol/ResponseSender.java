@@ -573,11 +573,7 @@ public class ResponseSender {
     public void sendOptionListAns(List<OptionDTO> OptionList, DataOutputStream outputStream) throws IOException {
 
         BodyMaker bodyMaker = new BodyMaker();
-
-        for(OptionDTO optionDTO : OptionList)
-        {
-            bodyMaker.add(optionDTO); // 이런식으로 하는데 일단 회의해야할 듯
-        }
+        bodyMaker.add((MySerializableClass) OptionList);
 
         byte[] body = bodyMaker.getBody();
 
@@ -717,6 +713,17 @@ public class ResponseSender {
                 body.length
         );
 
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendStoreListAns(List<StoreDTO> storeList, DataOutputStream outputStream) throws IOException {
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.add((MySerializableClass) storeList);
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(Header.TYPE_ANS, Header.CODE_STORE_LIST, body.length);
         outputStream.write(header.getBytes());
         outputStream.write(body);
     }
