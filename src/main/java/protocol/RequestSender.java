@@ -74,7 +74,8 @@ public class RequestSender {
 */
 
     public void sendUserInfoReq(DataOutputStream outputStream) throws IOException {
-
+        BodyMaker bodyMaker = new BodyMaker();
+        byte[] resBody = bodyMaker.getBody();
         Header header = new Header(
                 Header.TYPE_REQ,
                 Header.CODE_USER_INFO,  //유저 정보 코드
@@ -82,6 +83,7 @@ public class RequestSender {
         );
 
         outputStream.write(header.getBytes());
+        outputStream.write(resBody);
     }
 /*
     public void sendStoreIDReq(Scanner s, DataOutputStream outputStream) throws IOException {
