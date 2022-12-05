@@ -1,5 +1,6 @@
 package control;
 
+import persistence.dao.MyMenuDAO;
 import persistence.dao.MyOrderDAO;
 import persistence.dto.MenuDTO;
 import persistence.dto.OptionDTO;
@@ -40,6 +41,12 @@ public class RequestController {
                 OrderDTO order = responseReceiver.receiveOrder(inputStream);
                 MyOrderDAO myOrderDAO = new MyOrderDAO();
                 myOrderDAO.insertOrder(order);
+                break;
+
+            case Header.CODE_UPDATE_MENU_QUANTITY:
+                int updateMenu_id = responseReceiver.receiveMenuID(inputStream);
+                MyMenuDAO myMenuDAO = new MyMenuDAO();
+                myMenuDAO.updateMenuQuantity(updateMenu_id);
                 break;
 
             case Header.TYPE_RES:
