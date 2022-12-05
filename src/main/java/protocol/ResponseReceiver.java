@@ -1,7 +1,7 @@
 package protocol;
 
 import persistence.dto.*;
-import service.UserService;
+import service.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -20,13 +20,20 @@ public class ResponseReceiver {
         return user_id;
     }
 
-    public void receiveUserPW(DataInputStream inputStream) throws IOException {
+    public List<String> receiveUserPW(DataInputStream inputStream) throws IOException {
         Header header = Header.readHeader(inputStream);
         byte[] body = new byte[header.length];
         inputStream.read(body);
         DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
 
-        String user_pw = bodyReader.readUTF();
+        List<String> user_IDAndPW = null;
+        int size = bodyReader.readInt();
+
+        for(int i=0; i<size; i++) {
+            user_IDAndPW.add(bodyReader.readUTF());
+        }
+
+        return user_IDAndPW;
     }
 
     public void receiveUserName(DataInputStream inputStream) throws IOException {
@@ -240,7 +247,7 @@ public class ResponseReceiver {
         int size = bodyReader.readInt();
 
         for(int i=0; i<size; i++) {
-            menuDTOs.add(MenuDTO.readMenu(bodyReader));
+            menuDTOs.add(MenuDTO.read(bodyReader));
         }
     }
 
@@ -272,7 +279,7 @@ public class ResponseReceiver {
         int size = bodyReader.readInt();
 
         for(int i=0; i<size; i++) {
-            optionDTOs.add(OptionDTO.readOption(bodyReader));
+            optionDTOs.add(OptionDTO.read(bodyReader));
         }
     }
 
