@@ -32,22 +32,27 @@ public class AnswerController {
                     bodyMaker.addStringBytes(user_id);
 
                     byte[] resBody = bodyMaker.getBody();
-                    Header id_resHeader_Success = new Header(     //성공 결과 전송
+                    Header id_resHeader_unDup = new Header(     //중복 결과 전송
                             Header.TYPE_RES,
-                            Header.CODE_SUCCESS,
+                            Header.CODE_SUCCESS,    //중복아닐 떈 success
                             resBody.length);
-                    outputStream.write(id_resHeader_Success.getBytes());
+
+                    outputStream.write(id_resHeader_unDup.getBytes());
                     outputStream.write(resBody);
 
                 }
                 else {
-                    byte[] id_resBody_Fail = new byte[header.length];
-                    Header id_resHeader_Fail = new Header(         //실패 결과 전송
+                    BodyMaker bodyMaker = new BodyMaker();
+                    bodyMaker.addStringBytes(user_id);
+                    byte[] id_resBody_Dup = bodyMaker.getBody();
+
+                    Header id_resHeader_Dup = new Header(         //실패 결과 전송
                             Header.TYPE_RES,
-                            Header.CODE_FAIL,
-                            0);
-                    outputStream.write(id_resHeader_Fail.getBytes());
-                    outputStream.write(id_resBody_Fail);
+                            Header.CODE_FAIL,   //중복일 땐 fail
+                            id_resBody_Dup.length);
+
+                    outputStream.write(id_resHeader_Dup.getBytes());
+                    outputStream.write(id_resBody_Dup);
                 }
                 break;
 
