@@ -9,11 +9,18 @@ public class Header implements MySerializableClass {
 
     public final static byte UNUSED = 0;
 
+    /* TYPE */
+    public final static byte TYPE_START = 0x00;
     public final static byte TYPE_REQ = 0x01;
     public final static byte TYPE_ANS = 0x02;
     public final static byte TYPE_RES = 0x03;
     public final static byte TYPE_QUIT = 0x04;
 
+    /* CODE */
+    //TYPE : 0x00 (START) 일 때
+    public final static byte CODE_SIGN_UP = 0x01;
+
+    //TYPE : 0x01(REQUEST) or 0x02(ANSWER) 일 때
     public final static byte CODE_CUSTOMER_ID = 0x01; // 타입 0x03 일때는 -> 성공
     public final static byte CODE_CUSTOMER_PW = 0x02; // 타입 0x03 일때는 -> 실패
     public final static byte CODE_CUSTOMER_NAME = 0x03; // 타입 0x03 일때는 -> 실패
@@ -39,8 +46,13 @@ public class Header implements MySerializableClass {
     public final static byte CODE_SELECTED_CATEGORY = 0x2B ;   public final static byte CODE_KEEPER_SALES = 0x2C;
     public final static byte CODE_STORE_NUMBER_OF_SALE = 0x2D;   public final static byte CODE_STORE_SALES = 0x2E;
     public final static byte CODE_STORE_OPENING_HOURS = 0x2F ;   public final static byte CODE_STATISTICS_LIST = 0x30;
-    public final static byte F = 0x50;
-    public static final byte CODE_USER_DTO = 0x50;
+
+    public final static byte CODE_USER_DTO = 0x50;
+
+    //TYPE : 0x03(RESULT) 일 때
+    public final static byte CODE_SUCCESS = 0x01;
+    public final static byte CODE_FAIL = 0x02;
+
 
     public byte type;
     public byte code;

@@ -22,6 +22,9 @@ public class TypeController {
 
         switch(header.type) {
 
+            case Header.TYPE_START:
+
+
             case Header.TYPE_REQ:
                 RequestController.handleRequest(header, bodyReader , outputStream);
                 break;

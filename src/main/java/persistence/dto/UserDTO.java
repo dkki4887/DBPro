@@ -21,6 +21,18 @@ public class UserDTO implements MySerializableClass{
     private String user_phone;
     private int user_category;
 
+    public UserDTO(){};
+
+    public UserDTO(String user_id, String user_pw, String user_name, String user_address, String user_phone, int user_category)
+    {
+        this.user_id = user_id;
+        this.user_pw = user_pw;
+        this.user_name = user_name;
+        this.user_address = user_address;
+        this.user_phone = user_phone;
+        this.user_category = user_category;
+    }
+
     public String getUser_id() {
         return user_id;
     }
