@@ -36,7 +36,7 @@ public class ReviewService {
         System.out.print("리뷰을 입력해주세요 : ");
         String review_content = sc.nextLine();
         review_content =sc.nextLine();
-        ReviewDTO reviewDTO = new ReviewDTO(store_id,user_id,order_id,grade,review_content,current_time,order_num);
+        ReviewDTO reviewDTO = new ReviewDTO(store_id,user_id,order_id,grade,review_content,current_time,order_num , 0);
         int result =reviewDAO.insertReview(reviewDTO);
         return result;
     }

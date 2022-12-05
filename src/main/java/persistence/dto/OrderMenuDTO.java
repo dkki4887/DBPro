@@ -2,6 +2,11 @@ package persistence.dto;
 
 import lombok.*;
 import org.apache.ibatis.type.Alias;
+import protocol.MySerializableClass;
+
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 @Getter
 @Setter
@@ -9,7 +14,7 @@ import org.apache.ibatis.type.Alias;
 @NoArgsConstructor
 @Alias("orderMenuList")
 
-public class OrderMenuDTO {
+public class OrderMenuDTO implements MySerializableClass {
     private String orderMenu_id;
     private String menu_name;
     private String order_num;
@@ -43,5 +48,16 @@ public class OrderMenuDTO {
 
     public String getMenu_name() {
         return menu_name;
+    }
+
+    @Override
+    public byte[] getBytes() throws IOException {
+        ByteArrayOutputStream buf = new ByteArrayOutputStream();
+        DataOutputStream dos = new DataOutputStream(buf);
+
+        dos.writeUTF(orderMenu_id);
+        dos.writeUTF(menu_name);
+        dos.writeUTF(order_num);
+        return buf.toByteArray();
     }
 }

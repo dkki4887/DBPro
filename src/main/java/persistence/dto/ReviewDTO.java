@@ -3,13 +3,17 @@ package persistence.dto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import protocol.MySerializableClass;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @ToString
-public class ReviewDTO {
+public class ReviewDTO implements MySerializableClass {
     private int review_id;
     private int store_id;
     private String user_id;
@@ -18,6 +22,7 @@ public class ReviewDTO {
     private String review_content;
     private LocalDateTime review_time;
     private String order_num;
+    private int review_comment;
 
     public int getReview_id() {
         return review_id;
@@ -71,6 +76,7 @@ public class ReviewDTO {
         return review_time;
     }
 
+
     public void setReview_time(LocalDateTime review_time) {
         this.review_time = review_time;
     }
@@ -78,9 +84,14 @@ public class ReviewDTO {
     public String getOrder_num() {return this.order_num;}
     public void setOrder_num(String order_num) {this.order_num = order_num;}
 
+    public int getReview_comment() {return this.review_comment;}
+
+    public void setReview_comment(int review_comment) {this.review_comment = review_comment;}
+
     public ReviewDTO() {}
 
-    public ReviewDTO(int store_id , String user_id , int order_id,int review_rate ,String review_content, LocalDateTime review_time,String order_num)
+    public ReviewDTO(int store_id , String user_id , int order_id,int review_rate ,String review_content, LocalDateTime review_time,String order_num
+    ,int review_comment)
     {
         this.store_id=store_id;
         this.user_id=user_id;
@@ -89,6 +100,23 @@ public class ReviewDTO {
         this.review_content=review_content;
         this.review_time=review_time;
         this.order_num=order_num;
+        this.review_comment = review_comment;
     }
 
+    @Override
+    public byte[] getBytes() throws IOException {
+        ByteArrayOutputStream buf = new ByteArrayOutputStream();
+        DataOutputStream dos = new DataOutputStream(buf);
+
+        dos.writeInt(review_id);
+        dos.writeInt(store_id);
+        dos.writeUTF(user_id);
+        dos.writeInt(order_id);
+        dos.writeInt(review_rate);
+        dos.writeUTF(review_content);
+        dos.writeUTF(String.valueOf(review_time));
+        dos.writeUTF(order_num);
+        dos.writeInt(review_comment);
+        return buf.toByteArray();
+    }
 }
