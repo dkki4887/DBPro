@@ -517,11 +517,7 @@ public class ResponseSender {
     public void sendMenuListAns(List<MenuDTO> menuList, DataOutputStream outputStream) throws IOException {
 
         BodyMaker bodyMaker = new BodyMaker();
-
-        for(MenuDTO menuDTO : menuList)
-        {
-            bodyMaker.add(menuDTO); // 이런식으로 하는데 일단 회의해야할 듯
-        }
+        bodyMaker.add((MySerializableClass) menuList);
 
         byte[] body = bodyMaker.getBody();
 
