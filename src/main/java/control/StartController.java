@@ -1,12 +1,16 @@
 package control;
 
 import control.*;
+import persistence.dao.MyOrderDAO;
 import persistence.dao.MyStoreDAO;
+import persistence.dto.StoreDTO;
 import protocol.*;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StartController {
 
@@ -15,6 +19,8 @@ public class StartController {
         ResponseReceiver responseReceiver = new ResponseReceiver();
         RequestSender requestSender = new RequestSender();
         RequestReceiver requestReceiver = new RequestReceiver();
+
+        String userID_for_test = "test"; // test용 유저아이디
 
         switch (header.code) {
 
@@ -27,6 +33,22 @@ public class StartController {
                 MyStoreDAO myStoreDAO = new MyStoreDAO();
                 responseSender.sendStoreListAns(myStoreDAO.selectAllStoreNameAndId(), outputStream);
                 break;
+
+
+            case Header.CODE_ORDER_ACCEPT: //주문 승인or거절 시작을 받고 ,Order List 전송
+                MyOrderDAO myOrderDAO = new MyOrderDAO();
+                MyStoreDAO myStoreDAO2 = new MyStoreDAO();
+                List<StoreDTO> storeList = new ArrayList<StoreDTO>();
+                storeList = myStoreDAO2.selectAll();
+                int store_id = -1;
+                for(int i = 0 ; i <storeList.size() ; i ++)
+                {
+                    if(storeList.get(i).getUser_id().equals( userID_for_test  ))
+                        store_id = storeList.get(i).getStore_id();
+                }
+                responseSender.sendOrderListAns(myOrderDAO.selectOrder_store_Waiting(store_id) , outputStream);
+                break;
+
 
         }
     }
