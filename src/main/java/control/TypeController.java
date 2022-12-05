@@ -19,7 +19,7 @@ public class TypeController {
         resultController = new ResultController();
     }
 
-    public boolean handleType(Header header, DataInputStream bodyReader, DataOutputStream outputStream) throws IOException {
+    public boolean handleType(Header header, DataInputStream bodyReader, DataOutputStream outputStream,String user_id) throws IOException {
 
         switch(header.type) {
 
@@ -31,7 +31,7 @@ public class TypeController {
                 break;
 
             case Header.TYPE_ANS:
-                AnswerController.handleAnswer(header, bodyReader, outputStream);
+                AnswerController.handleAnswer(header, bodyReader, outputStream , user_id);
                 break;
 
             case Header.TYPE_RES:
