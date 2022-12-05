@@ -76,6 +76,24 @@ public class UserService
         myUserDAO.userAdd(addUserDTO);
     }
 
+    public UserDTO getAddUserInfo()
+    {
+        Scanner sc = new Scanner(System.in);
+        UserDTO addUserDTO = new UserDTO();
+
+        String user_name = inputUser_name(sc);
+        String user_address = inputUser_address(sc);
+        String user_phone = inputUser_phone(sc);
+        int user_category = inputUser_category(sc);
+
+        addUserDTO.setUser_name(user_name);
+        addUserDTO.setUser_address(user_address);
+        addUserDTO.setUser_phone(user_phone);
+        addUserDTO.setUser_category(user_category);
+
+        return addUserDTO;
+    }
+
     private String inputUser_id(Scanner sc, MyUserDAO myUserDAO) {
         String input = null;
         boolean result = true;
@@ -127,7 +145,7 @@ public class UserService
 
         while(true)
         {
-            System.out.print("성함을 입력해주세요 : ");
+            System.out.print("이름을 입력하세요. : ");
             input = sc.nextLine();
 
             if(input.length() > 0)
@@ -146,7 +164,7 @@ public class UserService
 
         while(true)
         {
-            System.out.print("주소를 입력해주세요 : ");
+            System.out.print("주소를 입력하세요. : ");
             input = sc.nextLine();
 
             if(input.length() > 0)
@@ -163,7 +181,7 @@ public class UserService
         String input = null;
         while(true)
         {
-            System.out.print("전화번호를 입력해주세요 : ");
+            System.out.print("전화번호를 입력하세요. : ");
             input = sc.nextLine();
 
             if (isdigit(input))
@@ -179,7 +197,7 @@ public class UserService
         int input;
         while(true)
         {
-            System.out.print("계정 유형를 입력해주세요(0:관리자, 1:점주, 2:개인) : ");
+            System.out.print("계정 유형를 입력하세요.(0:관리자, 1:점주, 2:개인) : ");
             input = sc.nextInt();
 
             if (0 <= input && input <= 2)

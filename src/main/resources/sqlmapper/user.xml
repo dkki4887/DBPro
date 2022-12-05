@@ -37,4 +37,36 @@
         VALUES(#{user_id}, #{user_pw}, #{user_name}, #{user_address}, #{user_phone}, #{user_category})
     </insert>
 
+
+
+
+
+    <update id="userPwUpdate" parameterType="UserDTO" keyProperty="user_id">
+        UPDATE project.user
+        <set>
+            <if test='user_pw!=""'>
+                user_pw = #{user_pw},
+            </if>
+            user_id = user_id
+        </set>
+        WHERE user_id = #{user_id};
+    </update>
+
+    <update id="userInfoUpdate" parameterType="UserDTO" keyProperty="user_id">
+        UPDATE project.user
+        <set>
+            <if test='user_name!="'>
+                store_phone = #{store_phone},
+            </if>
+            <if test='user_address!=""'>
+                store_address = #{store_address},
+            </if>
+            <if test='user_phone!=""'>
+                store_category = #{store_category},
+            </if>
+            store_id = store_id
+        </set>
+        WHERE user_id = #{user_id};
+    </update>
+
 </mapper>

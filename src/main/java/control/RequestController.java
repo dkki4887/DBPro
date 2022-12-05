@@ -1,6 +1,5 @@
 package control;
 
-import control.*;
 import protocol.BodyMaker;
 import protocol.Header;
 
