@@ -4,7 +4,7 @@ import persistence.dto.OptionDTO;
 
 import java.util.List;
 
-public class OptionView {
+public class    OptionView {
 
     public List<OptionDTO> printMenuAllOption(List<OptionDTO> dtos) //이거 그냥 printAllOption으로 바꿔도 될듯
     {

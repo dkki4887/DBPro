@@ -1,12 +1,11 @@
 package control;
 
+import persistence.dao.MyUserDAO;
 import persistence.dto.UserDTO;
 import protocol.BodyMaker;
 import protocol.Header;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class AnswerController {
 
@@ -14,32 +13,37 @@ public class AnswerController {
 
         switch (header.code) {
 
-            case Header.CODE_USER_ID:
-                id = bodyReader.readUTF();
+            case Header.CODE_CUSTOMER_ID:
+/*                id = bodyReader.readUTF();
                 Header resHeader = new Header(
                         Header.TYPE_REQ,
                         Header.CODE_CUSTOMER_PW,
                         0);
-                outputStream.write(resHeader.getBytes());
+                outputStream.write(resHeader.getBytes());*/
                 break;
 
             case Header.CODE_USER_DTO:
-                UserDTO u = bodyReader.;
+                MyUserDAO myUserDAO = new MyUserDAO();
+                String user_id = bodyReader.readUTF();
+                String user_pw = bodyReader.readUTF();
+                String user_name = bodyReader.readUTF();
+                String user_address  = bodyReader.readUTF();
+                String user_phone = bodyReader.readUTF();
+                int user_category =bodyReader.readInt();
+                UserDTO userDTO = new UserDTO(user_id , user_pw, user_name , user_address , user_phone , user_category);
+                myUserDAO.userAdd(userDTO);
+
                 Header resHeader = new Header(
-                        Header.TYPE_REQ,
-                        Header.CODE_CUSTOMER_PW,
+                        Header.TYPE_RES,
+                        (byte) 0x01,
                         0);
                 outputStream.write(resHeader.getBytes());
-                Header.readHeader(inputStream);
                 byte[] body = new byte[header.length];
-                inputStream.read(body);
-                DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
-
-        Player player = Player.readPlayer(bodyReader);
-        System.out.println(player);
+                outputStream.write(body);
+                System.out.println("USER DTO를 받고 결과를 전송");
                 break;
 
-            case Header.CODE_USER_PW:
+            case Header.CODE_CUSTOMER_PW:
                 //pw 받았으니 db에서 검색 후 로그인 result 보내기
                 break;
         }

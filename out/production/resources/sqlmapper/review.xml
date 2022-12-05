@@ -13,6 +13,7 @@
         <result property="review_content" column="review_content"/>
         <result property="review_time" column="review_time"/>
         <result property="order_num" column="order_num"/>
+        <result property="review_comment" column="review_comment"/>
     </resultMap>
 
     <resultMap id="reviewOMResult" type="persistence.dto.Review_omDTO">
@@ -33,8 +34,8 @@
     </select>
 
     <insert id="insertReview" parameterType="ReviewDTO">
-        INSERT INTO project.review (review_id,store_id , user_id , order_id , review_rate , review_content , review_time , order_num)
-        values(#{review_id},#{store_id},#{user_id},#{order_id},#{review_rate},#{review_content},#{review_time},#{order_num})
+        INSERT INTO project.review (review_id,store_id , user_id , order_id , review_rate , review_content , review_time , order_num,review_comment)
+        values(#{review_id},#{store_id},#{user_id},#{order_id},#{review_rate},#{review_content},#{review_time},#{order_num},#{review_comment})
     </insert>
 
 </mapper>
