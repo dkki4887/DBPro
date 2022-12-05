@@ -1,5 +1,6 @@
 package protocol;
 
+import inputManager.MenuInputManager;
 import inputManager.StoreInputManager;
 import inputManager.UserInputManager;
 import persistence.dto.*;
@@ -498,9 +499,10 @@ public class ResponseSender {
  */
 
     public void sendMenuInfoAns(Scanner s, DataOutputStream outputStream) throws IOException {
-
+        MenuInputManager addMenuInfoManager = new MenuInputManager(s);
+        MenuDTO addMenuInfo = addMenuInfoManager.getAddMenuInfo();
         BodyMaker bodyMaker = new BodyMaker();
-        bodyMaker.addIntBytes(menu_id);
+        bodyMaker.add(addMenuInfo);
 
         byte[] body = bodyMaker.getBody();
 
