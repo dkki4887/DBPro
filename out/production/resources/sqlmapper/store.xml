@@ -68,6 +68,12 @@
         SELECT * FROM STORE WHERE store_ack = true;
     </select>
 
+    <select id="selectStoreTime" resultMap="result">
+        SELECT *
+        FROM STORE
+        WHERE store_id = #{store_id}
+    </select>
+
     <update id="updateStore_Accept">
     UPDATE project.store
     SET store_ack = true
