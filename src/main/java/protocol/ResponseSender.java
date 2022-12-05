@@ -1,5 +1,6 @@
 package protocol;
 
+import inputManager.UserInputManager;
 import persistence.dto.*;
 
 import java.io.DataOutputStream;
@@ -48,7 +49,7 @@ public class ResponseSender {
         outputStream.write(header.getBytes());
         outputStream.write(body);
     }
-
+/*
     public void sendUserNameAns(Scanner s, DataOutputStream outputStream) throws IOException {
 
         System.out.print("이름을 입력하세요 : ");
@@ -128,6 +129,27 @@ public class ResponseSender {
         outputStream.write(header.getBytes());
         outputStream.write(body);
     }
+
+    */
+    public void sendUserInfoAns(DataOutputStream outputStream) throws IOException {
+        UserInputManager addUserInfo = new UserInputManager();
+        UserDTO userDTO = addUserInfo.getAddUserInfo();
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.add(userDTO);
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_USER_INFO,//임시 코드
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
 
     public void sendStoreNameAns(Scanner s, DataOutputStream outputStream) throws IOException {
 

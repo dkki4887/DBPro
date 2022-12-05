@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class RequestSender {
-
+/*
     public void sendUserIDReq(Scanner s, DataOutputStream outputStream) throws IOException {
 
         Header header = new Header(
@@ -71,7 +71,19 @@ public class RequestSender {
 
         outputStream.write(header.getBytes());
     }
+*/
 
+    public void sendUserInfoReq(DataOutputStream outputStream) throws IOException {
+
+        Header header = new Header(
+                Header.TYPE_REQ,
+                Header.CODE_USER_INFO,  //유저 정보 코드
+                0
+        );
+
+        outputStream.write(header.getBytes());
+    }
+/*
     public void sendStoreIDReq(Scanner s, DataOutputStream outputStream) throws IOException {
 
         Header header = new Header(
@@ -164,6 +176,18 @@ public class RequestSender {
         Header header = new Header(
                 Header.TYPE_REQ,
                 Header.CODE_STORE_INTRODUCE,
+                0
+        );
+
+        outputStream.write(header.getBytes());
+    }
+*/
+
+    public void sendStoreInfoReq(DataOutputStream outputStream) throws IOException {
+
+        Header header = new Header(
+                Header.TYPE_REQ,
+                Header.CODE_STORE_INFO,//가게 정보 전송 요청
                 0
         );
 
