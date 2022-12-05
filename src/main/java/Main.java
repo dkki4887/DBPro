@@ -33,7 +33,7 @@ public class Main {
             is.read(body);
             DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
             user_ID= controller.handleType(header, bodyReader, os );
-            if(user_ID.equals("false"))
+            if(user_ID.equals("0"))
                 isContinue = false;
         } // end of while
 
