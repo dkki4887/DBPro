@@ -10,6 +10,18 @@ import java.util.List;
 
 public class ResponseReceiver {
 
+    public OrderDTO receiveOrder(DataInputStream inputStream) throws IOException
+    {
+        Header header = Header.readHeader(inputStream);
+        byte[] body = new byte[header.length];
+        inputStream.read(body);
+        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
+
+        OrderDTO order = new OrderDTO();
+        order.read(bodyReader);
+        return order;
+    }
+
     public String receiveUserID(DataInputStream inputStream) throws IOException {
         Header header = Header.readHeader(inputStream);
         byte[] body = new byte[header.length];

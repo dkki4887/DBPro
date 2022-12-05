@@ -1,6 +1,7 @@
 package control;
 
 import control.*;
+import persistence.dao.MyStoreDAO;
 import protocol.*;
 
 import java.io.DataInputStream;
@@ -22,8 +23,9 @@ public class StartController {
                 System.out.println("SIGN UP 시작 요청을 받음");
                 break;
 
-            case 0x02:
-                //
+            case Header.CODE_FOOD_ORDER: //주문 시작을 받음. 가게 정보 보내줌
+                MyStoreDAO myStoreDAO = new MyStoreDAO();
+                responseSender.sendStoreListAns(myStoreDAO.selectAllStoreNameAndId(), outputStream);
                 break;
 
         }

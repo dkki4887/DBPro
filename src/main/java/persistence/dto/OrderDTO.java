@@ -4,9 +4,11 @@ import lombok.*;
 import protocol.MySerializableClass;
 
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @ToString
@@ -102,12 +104,23 @@ public class OrderDTO implements MySerializableClass {
         this.order_num = order_num;
     }
 
+    public static OrderDTO read(DataInputStream bodyReader) throws IOException
+    {
+        String user_id = bodyReader.readUTF();
+        int store_id = bodyReader.readInt();
+        long order_price = bodyReader.readLong();
+        String order_state = bodyReader.readUTF();
+        String order_orderTime = bodyReader.readUTF();
+        String order_num = bodyReader.readUTF();
+
+        return new OrderDTO(user_id, store_id, order_price, LocalDateTime.now(), order_num);
+    }
+
     @Override
     public byte[] getBytes() throws IOException {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(buf);
 
-        dos.writeInt(order_id);
         dos.writeUTF(user_id);
         dos.writeInt(store_id);
         dos.writeLong(order_price);
