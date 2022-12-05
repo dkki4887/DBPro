@@ -73,7 +73,7 @@ public class AnswerController {
                 if(userService_use_pw.pwCheck(user_IDAndPw.get(0), user_IDAndPw.get(1))) {  //id, pw이용해서 비번확인
                     BodyMaker bodyMaker = new BodyMaker();
                     bodyMaker.addStringBytes(user_IDAndPw.get(0));
-                    byte[] pw_resBody_Success = bodyMaker.getBody();
+                    byte[] pw_resBody_Success = bodyMaker.getBody();    //바디에는 유저 아이디 보내줌
 
                     Header pw_resHeader = new Header(       //성공결과 전송
                             Header.TYPE_RES,
