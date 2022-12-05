@@ -23,7 +23,7 @@ public class Main {
         DataOutputStream os = new DataOutputStream(socket.getOutputStream());
 
         TypeController controller = new TypeController();
-
+        String user_id = "";
         boolean isContinue = true;
 
         while(isContinue) {
@@ -33,7 +33,7 @@ public class Main {
             is.read(body);
             DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
 
-            isContinue = controller.handleType(header, bodyReader, os);
+            isContinue = controller.handleType(header, bodyReader, os , user_id);
 
         } // end of while
 
