@@ -7,6 +7,7 @@ import org.apache.ibatis.session.ResultHandler;
 import protocol.MySerializableClass;
 
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -79,6 +80,17 @@ public class UserDTO implements MySerializableClass{
 
     public void setUser_category(int user_category) {
         this.user_category = user_category;
+    }
+
+    public UserDTO read(DataInputStream bodyReader) throws IOException {
+        user_id = bodyReader.readUTF();
+        user_pw = bodyReader.readUTF();
+        user_name = bodyReader.readUTF();
+        user_address = bodyReader.readUTF();
+        user_phone = bodyReader.readUTF();
+        user_category = bodyReader.readInt();
+
+        return this;
     }
 
     @Override

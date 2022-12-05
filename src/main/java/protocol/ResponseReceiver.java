@@ -1,6 +1,7 @@
 package protocol;
 
 import persistence.dto.*;
+import service.UserService;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -9,13 +10,14 @@ import java.util.List;
 
 public class ResponseReceiver {
 
-    public void receiveUserID(DataInputStream inputStream) throws IOException {
+    public String receiveUserID(DataInputStream inputStream) throws IOException {
         Header header = Header.readHeader(inputStream);
         byte[] body = new byte[header.length];
         inputStream.read(body);
         DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
 
         String user_id = bodyReader.readUTF();
+        return user_id;
     }
 
     public void receiveUserPW(DataInputStream inputStream) throws IOException {
@@ -61,6 +63,18 @@ public class ResponseReceiver {
         DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
 
         int user_type = bodyReader.readInt();
+    }
+
+    public UserDTO receiveUserInfo(DataInputStream inputStream) throws IOException{
+        Header header = Header.readHeader(inputStream);
+        byte[] body = new byte[header.length];
+        inputStream.read(body);
+        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
+
+        UserDTO userInfo = new UserDTO();
+        userInfo.read(bodyReader);
+
+        return userInfo;
     }
 
     public void receiveStoreID(DataInputStream inputStream) throws IOException {

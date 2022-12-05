@@ -5,9 +5,10 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class RequestSender {
-/*
-    public void sendUserIDReq(Scanner s, DataOutputStream outputStream) throws IOException {
 
+    public void sendUserIDReq(DataOutputStream outputStream) throws IOException {
+        BodyMaker bodyMaker = new BodyMaker();
+        byte[] resBody = bodyMaker.getBody();
         Header header = new Header(
                 Header.TYPE_REQ,
                 Header.CODE_USER_ID,
@@ -15,8 +16,9 @@ public class RequestSender {
         );
 
         outputStream.write(header.getBytes());
+        outputStream.write(resBody);
     }
-
+/*
     public void sendUserPWReq(Scanner s, DataOutputStream outputStream) throws IOException {
 
         Header header = new Header(
@@ -73,13 +75,15 @@ public class RequestSender {
     }
 */
 
-    public void sendUserInfoReq(DataOutputStream outputStream) throws IOException {
+    public void sendUserInfoReq(String user_id, DataOutputStream outputStream) throws IOException {
         BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addStringBytes(user_id);
+
         byte[] resBody = bodyMaker.getBody();
         Header header = new Header(
                 Header.TYPE_REQ,
                 Header.CODE_USER_INFO,  //유저 정보 코드
-                0
+                resBody.length
         );
 
         outputStream.write(header.getBytes());
