@@ -32,10 +32,13 @@ public class Main {
             byte[] body = new byte[header.length];
             is.read(body);
             DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
-            user_ID= controller.handleType(header, bodyReader, os );
-            if(user_ID.equals("0"))
+            String idStr = controller.handleType(header, bodyReader, os );
+            if(idStr != null)
+                user_ID = idStr;
+            if(idStr.equals("0"))
                 isContinue = false;
-        } // end of while
+        }
+        // end of while
 
     } // end of main
 }

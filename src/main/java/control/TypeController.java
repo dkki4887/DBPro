@@ -39,7 +39,7 @@ public class TypeController {
                 break;
 
             case Header.TYPE_QUIT:
-                return 0;
+                return "0";
 
             default:
                 // BadRequest 알려주는 패킷 전송 ?? 이거 뭔지 모름

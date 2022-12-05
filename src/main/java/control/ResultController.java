@@ -21,14 +21,6 @@ public class ResultController {
                 //
                 break;
 
-            case 0x03: // 실패
-                //
-                break;
-
-            case 0x04: // 실패
-                //
-                break;
-
         }
     }
 }
