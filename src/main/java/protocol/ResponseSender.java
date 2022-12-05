@@ -1,5 +1,6 @@
 package protocol;
 
+import inputManager.StoreInputManager;
 import inputManager.UserInputManager;
 import persistence.dto.*;
 
@@ -132,11 +133,11 @@ public class ResponseSender {
 
     */
     public void sendUserInfoAns(DataOutputStream outputStream) throws IOException {
-        UserInputManager addUserInfo = new UserInputManager();
-        UserDTO userDTO = addUserInfo.getAddUserInfo();
+        UserInputManager addUserInfoManager = new UserInputManager();
+        UserDTO addUserInfo = addUserInfoManager.getAddUserInfo();
 
         BodyMaker bodyMaker = new BodyMaker();
-        bodyMaker.add(userDTO);
+        bodyMaker.add(addUserInfo);
 
         byte[] body = bodyMaker.getBody();
 
@@ -150,7 +151,7 @@ public class ResponseSender {
         outputStream.write(body);
     }
 
-
+/*
     public void sendStoreNameAns(Scanner s, DataOutputStream outputStream) throws IOException {
 
         System.out.print("가게 이름을 입력하세요 : ");
@@ -325,10 +326,31 @@ public class ResponseSender {
         outputStream.write(body);
     }
 
-    public void sendStoreSaleCountAns(int count, DataOutputStream outputStream) throws IOException {
+ */
+
+    public void sendStoreInfoAns(Scanner s, DataOutputStream outputStream) throws IOException { //가게 정보 입력 후 전송
+        StoreInputManager addStoreInfoManager = new StoreInputManager();
+        StoreDTO addStoreInfo = addStoreInfoManager.getAddStoreInfo();
 
         BodyMaker bodyMaker = new BodyMaker();
-        bodyMaker.addIntBytes(count);
+        bodyMaker.add(addStoreInfo);
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_STORE_INFO,//임시 코드 가게 정보 전송
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendStoreSaleCountAns(StatisticalInfoDTO statisticalInfo, DataOutputStream outputStream) throws IOException {
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.add(statisticalInfo);
 
         byte[] body = bodyMaker.getBody();
 

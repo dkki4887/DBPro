@@ -17,6 +17,14 @@
         <result property="store_rate" column="store_rate"/>
     </resultMap>
 
+    <resultMap id="staticalinfo" type="persistence.dto.StatisticalInfoDTO">
+        <result property="store_id" column="store_id"/>
+        <result property="store_name" column="store_name"/>
+        <result property="menu_name" column="menu_name"/>
+        <result property="sum_order_price" column="sum_order_price"/>
+        <result property="count_order" column="count_order"/>
+    </resultMap>
+
     <select id="selectAll" resultMap="result">
         SELECT * FROM STORE
     </select>
@@ -32,6 +40,16 @@
     <select id="selectStore_id" parameterType="int" resultMap="result">
         SELECT store_name FROM STORE WHERE store_id = #{store_id}
     </select>
+
+    <select id="selectStoreSaleCount" parameterType="int" resultMap="staticalinfo">
+        SELECT  s.store_id, s.store_name, m.menu_name,COUNT(o.order_id) AS count_order, SUM(o.order_price) AS sum_order_price
+        FROM STORE s,project.menu m, project.order o, project.ordermenu om
+        WHERE s.store_id = #{store_id} AND s.store_id = m.store_id AND m.menu_name = om.menu_name
+          AND om.order_num = o.order_num
+        GROUP BY m.menu_id
+    </select>
+
+
 
     <insert id="storeAdd" parameterType="StoreDTO" keyProperty="store_id">
         INSERT INTO project.store(user_id, store_name, store_phone, store_address, store_category, store_time, store_info, store_state, store_rate)
