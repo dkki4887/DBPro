@@ -1,11 +1,15 @@
 package control;
 
+import persistence.dao.MyOrderDAO;
 import persistence.dao.MyUserDAO;
+import persistence.dto.OrderDTO;
 import persistence.dto.UserDTO;
 import protocol.*;
 import service.UserService;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -100,6 +104,45 @@ public class AnswerController {
                     outputStream.write(pw_resHeader.getBytes());
                     outputStream.write(pw_resBody_Fail);
                 }
+                break;
+
+
+            case Header.CODE_FIXED_ORDER_DTO:
+                MyOrderDAO myOrderDAO = new MyOrderDAO();
+                Header fix_header = Header.readHeader(bodyReader);
+                byte[] fix_body = new byte[fix_header.length];
+                int order_id = bodyReader.readInt(); String user = bodyReader.readUTF();
+                int store_id = bodyReader.readInt(); long order_price = bodyReader.readLong();
+                String order_state = bodyReader.readUTF() ;
+                LocalDateTime order_orderTime= LocalDateTime.parse(bodyReader.readUTF());
+                String order_num = bodyReader.readUTF();
+                OrderDTO orderDTO = new OrderDTO(order_id , user , store_id , order_price , order_state , order_orderTime , order_num);
+                boolean isSuccess = true;
+                if(orderDTO.getOrder_state().equals("배달중"))
+                    myOrderDAO.updateOrderState_Delivery(orderDTO.getOrder_id());
+                else if(orderDTO.getOrder_state().equals("취소"))
+                    myOrderDAO.updateOrderState_Cancle(orderDTO.getOrder_id());
+                else
+                    isSuccess= false;
+
+                if(isSuccess)
+                {
+                    Header rs_header = new Header(
+                            Header.TYPE_RES,
+                            Header.CODE_SUCCESS,
+                            0);
+                    outputStream.write(header.getBytes());
+                }
+                else
+                {
+                    Header rs_header = new Header(
+                            Header.TYPE_RES,
+                            Header.CODE_FAIL,
+                            0);
+                    outputStream.write(header.getBytes());
+                }
+
+
                 break;
         }
 
