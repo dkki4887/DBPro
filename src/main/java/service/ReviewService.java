@@ -17,10 +17,6 @@ public class ReviewService {
         reviewDAO = new MyReviewDAO();
     }
 
-    //    public List<ReviewDTO> findAll(){
-//        List<ReviewDTO> reviewDTOS = reviewDAO.findAll();
-//        return reviewDTOS;
-//    }
     public List<ReviewDTO> selectAll()
     {
         List<ReviewDTO> reviewDTOS = reviewDAO.selectAll();
