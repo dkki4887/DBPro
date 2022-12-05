@@ -45,7 +45,7 @@
         SELECT  s.store_id, s.store_name, m.menu_name,COUNT(o.order_id) AS count_order, SUM(o.order_price) AS sum_order_price
         FROM STORE s,project.menu m, project.order o, project.ordermenu om
         WHERE s.store_id = #{store_id} AND s.store_id = m.store_id AND m.menu_name = om.menu_name
-          AND om.order_num = o.order_num
+          AND om.order_num = o.order_num AND (o.order_state = "주문 접수" OR o.order_state = "배달 완료")
         GROUP BY m.menu_id
     </select>
 
