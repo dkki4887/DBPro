@@ -110,6 +110,11 @@ public class RequestController {
                 int order_id = inputStream.readInt();
                 new MyOrderDAO().updateOrderState_Cancle(order_id);
                 break;
+
+            case Header.CODE_INSERT_REVIEW:
+                ReviewDTO reviewDTO = ReviewDTO.read(inputStream);
+                new MyReviewDAO().insertReview(reviewDTO);
+                break;
         }
     }
 }

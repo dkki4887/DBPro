@@ -101,6 +101,12 @@
         WHERE user_id = #{user_id} AND order_state = "접수 대기"
     </select>
 
+    <select id="selectAllCustomerOrderForReview" resultMap="orderResult">
+        SELECT *
+        FROM project.order
+        WHERE user_id = #{user_id} AND order_state = "배달 완료"
+    </select>
+
     <update id="updateOrderPrice" parameterType="OrderDTO">
         UPDATE project.order
         SET order_price = #{order_price}

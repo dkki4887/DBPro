@@ -209,5 +209,17 @@ public class MyOrderDAO {
         }
         return dtos;
     }
+
+    public List<OrderDTO> selectAllCustomerOrderForReview(String user_id)
+    {
+        List<OrderDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.OrderMapper.selectAllCustomerOrderForReview", user_id);
+        }finally {
+            session.close();
+        }
+        return dtos;
+    }
 }
 

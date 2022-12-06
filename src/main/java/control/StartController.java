@@ -137,6 +137,18 @@ public class StartController {
                 responseSender.sendOrderOptionList(orderOptionDTO, outputStream);
                 responseSender.sendStoreListAns(new MyStoreDAO().selectAll(), outputStream);
                 break;
+
+            case Header.CODE_WRITE_REVIEW:
+                user_id = bodyReader.readUTF();
+                List<OrderDTO> orders = new MyOrderDAO().selectAllCustomerOrderForReview(user_id);
+                List<OrderMenuDTO> orderMenus = new MyOrderMenuDAO().selectAllMenu();
+                List<OrderOptionDTO> orderOptions = new MyOrderMenuDAO().selectAllOption();
+
+                responseSender.sendOrderList(orders, outputStream);
+                responseSender.sendOrderMenuList(orderMenus, outputStream);
+                responseSender.sendOrderOptionList(orderOptions, outputStream);
+                responseSender.sendStoreListAns(new MyStoreDAO().selectAll(), outputStream);
+                break;
         }
     }
 }
