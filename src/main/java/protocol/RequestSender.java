@@ -314,7 +314,6 @@ public class RequestSender {
 
         outputStream.write(header.getBytes());
     }
-*/
 
     public void sendOptionIDReq(Scanner s, DataOutputStream outputStream) throws IOException {
 
