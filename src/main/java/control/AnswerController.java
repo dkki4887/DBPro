@@ -1,11 +1,7 @@
 package control;
 
-import persistence.dao.MyOrderDAO;
-import persistence.dao.MyReviewDAO;
-import persistence.dao.MyUserDAO;
-import persistence.dto.OrderDTO;
-import persistence.dto.ReviewDTO;
-import persistence.dto.UserDTO;
+import persistence.dao.*;
+import persistence.dto.*;
 import protocol.*;
 import service.UserService;
 
@@ -17,33 +13,38 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AnswerController {
+    private Scanner sc;
+    private ResponseSender responseSender;
+    private ResponseReceiver responseReceiver;
+    private RequestSender requestSender;
+    private RequestReceiver requestReceiver;
 
+    public AnswerController()
+    {
+        this.sc = new Scanner(System.in);
+        this.responseSender = new ResponseSender();
+        this.responseReceiver = new ResponseReceiver();
+        this.requestSender = new RequestSender();
+        this.requestReceiver = new RequestReceiver();
+    }
 
-    public static String handleAnswer(Header header, DataInputStream bodyReader, DataOutputStream outputStream ) throws IOException {
-        Scanner sc = new Scanner(System.in);
-        ResponseSender responseSender = new ResponseSender();
-        ResponseReceiver responseReceiver = new ResponseReceiver();
-        RequestSender requestSender = new RequestSender();
-        RequestReceiver requestReceiver = new RequestReceiver();
-        String userID_for_test = "store1"; // test용 유저아이디
+    public String handleAnswer(Header header, DataInputStream bodyReader, DataOutputStream outputStream ) throws IOException {
         String USER_ID = "-";
+        String userID_for_test = "1234";
 
         switch (header.code) {
             case Header.CODE_USER_ID:
-                byte[] bodyy = new byte[header.length];
-                bodyReader.read(bodyy);
-
+                System.out.println("아이디 입력 받음");
                 String user_id = bodyReader.readUTF();
-                //String user_id = responseReceiver.receiveUserID(bodyReader);//user_id를 전송 받아 저장 후
                 UserService userService = new UserService();
+
+                BodyMaker user_id_bodyMaker = new BodyMaker();
+                user_id_bodyMaker.addStringBytes(user_id);
 
                 if(!userService.idCheck(user_id))          //저장한 user_id를 체크함
                 {
                     System.out.println("중복 안됨");
-                    BodyMaker bodyMaker = new BodyMaker();
-                    bodyMaker.addStringBytes(user_id);
-
-                    byte[] id_resBody_unDup = bodyMaker.getBody();
+                    byte[] id_resBody_unDup = user_id_bodyMaker.getBody();
                     Header id_resHeader_unDup = new Header(     //중복 결과 전송
                             Header.TYPE_RES,
                             Header.CODE_SUCCESS,    //중복아닐 떈 success
@@ -55,10 +56,7 @@ public class AnswerController {
                 }
                 else {
                     System.out.println("중복됨");
-                    BodyMaker bodyMaker = new BodyMaker();
-                    bodyMaker.addStringBytes(user_id);
-                    byte[] id_resBody_Dup = bodyMaker.getBody();
-
+                    byte[] id_resBody_Dup = user_id_bodyMaker.getBody();
                     Header id_resHeader_Dup = new Header(         //실패 결과 전송
                             Header.TYPE_RES,
                             Header.CODE_FAIL,   //중복일 땐 fail
@@ -73,29 +71,42 @@ public class AnswerController {
             case Header.CODE_USER_DTO: // CODE_USER_INFO랑 같은 기능임
             case Header.CODE_USER_INFO:
                 MyUserDAO myUserDAO = new MyUserDAO();
-                UserDTO userDTO = responseReceiver.receiveUserInfo(bodyReader);//유저 정보 전송 받아 UserDTO에 저장함
-                System.out.println(userDTO.getUser_id());
-                myUserDAO.userAdd(userDTO);         //전송받은 UserDTO를 추가
+                UserService us = new UserService();
+                UserDTO signUpUser = UserDTO.read(bodyReader);
+
+                switch(signUpUser.getUser_category())
+                {
+                    case 1:
+                        signUpUser.setUser_state(false);
+                        break;
+                    default:
+                        break;
+                }
+
+                myUserDAO.userAdd(signUpUser);         //전송받은 UserDTO를 추가
+                BodyMaker userInfo_bodyMaker = new BodyMaker();
+                userInfo_bodyMaker.add(signUpUser);
+                byte[] signup_body_success = userInfo_bodyMaker.getBody();
 
                 Header resHeader = new Header(            //성공 결과 전송
                         Header.TYPE_RES,
                         Header.CODE_SUCCESS,
-                        0);
+                        signup_body_success.length);
                 outputStream.write(resHeader.getBytes());
-                byte[] body = new byte[header.length];
-                outputStream.write(body);
+                outputStream.write(signup_body_success);
 
-                USER_ID = userDTO.getUser_id();
+                USER_ID = signUpUser.getUser_id();
                 break;
 
             case Header.CODE_USER_PW:
-                List<String> user_IDAndPw = responseReceiver.receiveUserPW(bodyReader);//user_id랑 pw 정보를 받아 저장함
+                String userID = bodyReader.readUTF(), userPW = bodyReader.readUTF();
                 UserService userService_use_pw = new UserService();
 
-                if(userService_use_pw.pwCheck(user_IDAndPw.get(0), user_IDAndPw.get(1))) {  //id, pw이용해서 비번확인
-                    BodyMaker bodyMaker = new BodyMaker();
-                    bodyMaker.addStringBytes(user_IDAndPw.get(0));
-                    byte[] pw_resBody_Success = bodyMaker.getBody();    //바디에는 유저 아이디 보내줌
+                if(userService_use_pw.pwCheck(userID, userPW)) {  //id, pw이용해서 비번확인
+                    BodyMaker user_pw_bodyMaker = new BodyMaker();
+                    UserDTO loginUser = userService_use_pw.findUser(userID);
+                    user_pw_bodyMaker.add(loginUser);
+                    byte[] pw_resBody_Success = user_pw_bodyMaker.getBody();
 
                     Header pw_resHeader = new Header(       //성공결과 전송
                             Header.TYPE_RES,
@@ -107,9 +118,7 @@ public class AnswerController {
                 else
                 {
                     BodyMaker bodyMaker = new BodyMaker();
-                    bodyMaker.addStringBytes(user_IDAndPw.get(0));
                     byte[] pw_resBody_Fail = bodyMaker.getBody();
-
                     Header pw_resHeader = new Header(        //실패 결과 전송
                             Header.TYPE_RES,
                             Header.CODE_FAIL,
@@ -117,7 +126,7 @@ public class AnswerController {
                     outputStream.write(pw_resHeader.getBytes());
                     outputStream.write(pw_resBody_Fail);
                 }
-                USER_ID = user_IDAndPw.get(0);
+                USER_ID = userID;
                 break;
 
 

@@ -25,8 +25,6 @@ public class RequestController {
    }
 
     public void handleRequest(Header header, DataInputStream inputStream, DataOutputStream outputStream) throws IOException {
-        ResponseReceiver responseReceiver = new ResponseReceiver();
-        ResponseSender responseSender = new ResponseSender();
 
         String userID_for_test = "store1"; // test용 유저아이디
         switch(header.code) {
