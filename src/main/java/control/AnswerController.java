@@ -1,8 +1,10 @@
 package control;
 
 import persistence.dao.MyOrderDAO;
+import persistence.dao.MyReviewDAO;
 import persistence.dao.MyUserDAO;
 import persistence.dto.OrderDTO;
+import persistence.dto.ReviewDTO;
 import persistence.dto.UserDTO;
 import protocol.*;
 import service.UserService;
@@ -23,7 +25,7 @@ public class AnswerController {
         ResponseReceiver responseReceiver = new ResponseReceiver();
         RequestSender requestSender = new RequestSender();
         RequestReceiver requestReceiver = new RequestReceiver();
-
+        String userID_for_test = "store1"; // test용 유저아이디
         String USER_ID = "-";
 
         switch (header.code) {
@@ -158,6 +160,39 @@ public class AnswerController {
                             0);
                     outputStream.write(rs_header.getBytes());
                 }
+                break;
+            case Header.CODE_REPLY_CONTENTS:
+                MyReviewDAO myReviewDAO = new MyReviewDAO();
+                int r_review_id = bodyReader.readInt(); int r_order_id = bodyReader.readInt();
+                int r_store_id = bodyReader.readInt(); String r_menu_name = bodyReader.readUTF();
+                String r_review_content = bodyReader.readUTF(); int review_rate = bodyReader.readInt();
+                int review_comment = bodyReader.readInt();
+
+                ReviewDTO reply = new ReviewDTO(r_store_id, userID_for_test , r_order_id, review_rate ,
+                        r_review_content, LocalDateTime.now() ,"1",r_review_id);
+                reply.toString();
+                int result = myReviewDAO.insertReview(reply);
+
+                if(result ==1 )
+                {
+                    System.out.println("답글 등록 성공");
+                    Header rs_header = new Header(
+                            Header.TYPE_RES,
+                            Header.CODE_SUCCESS,
+                            0);
+                    outputStream.write(rs_header.getBytes());
+                }
+                else
+                {
+                    System.out.println("답글 등록 실패");
+                    Header rs_header = new Header(
+                            Header.TYPE_RES,
+                            Header.CODE_FAIL,
+                            0);
+                    outputStream.write(rs_header.getBytes());
+                }
+
+
                 break;
         }
         return USER_ID;

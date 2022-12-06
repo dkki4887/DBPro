@@ -2,9 +2,11 @@ package control;
 
 import control.*;
 import persistence.dao.MyOrderDAO;
+import persistence.dao.MyReviewDAO;
 import persistence.dao.MyStoreDAO;
 import persistence.dao.MyUserDAO;
 import persistence.dto.OrderDTO;
+import persistence.dto.Review_omDTO;
 import persistence.dto.StoreDTO;
 import persistence.dto.UserDTO;
 import protocol.*;
@@ -64,6 +66,32 @@ public class StartController {
                 responseSender.sendWaitUserListAns(myUserDAO.selectUser_WaitingAccept(), outputStream);
                 break;
 
+            case Header.CODE_REVIEW_LOOKUP:
+                MyReviewDAO myReviewDAO = new MyReviewDAO();
+                MyStoreDAO myStoreDAO3 = new MyStoreDAO();
+                List<StoreDTO> storeList2 = myStoreDAO3.selectAll();
+                int store_id2 = -1;
+                for(int i = 0 ; i <storeList2.size() ; i ++)
+                {
+                    if(storeList2.get(i).getUser_id().equals( userID_for_test  ))
+                    {
+                        store_id2 = storeList2.get(i).getStore_id();
+                        break;
+                    }
+                }
+                List<Review_omDTO> reviewList = myReviewDAO.findReviewWithStoreAndNonReply(store_id2);
+
+                BodyMaker bodyMaker = new BodyMaker();
+                bodyMaker.addIntBytes(reviewList.size());
+                for(int i = 0 ; i <reviewList.size(); i ++)
+                    bodyMaker.add(reviewList.get(i));
+                byte[] review_body = bodyMaker.getBody();
+                Header review_header = new Header(
+                        Header.TYPE_ANS,
+                        Header.CODE_REVIEW_LOOKUP,
+                        review_body.length);
+                outputStream.write(review_header.getBytes());
+                outputStream.write(review_body);
 
 
 

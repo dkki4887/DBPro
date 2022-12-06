@@ -91,7 +91,7 @@ public class ReviewDTO implements MySerializableClass {
     public ReviewDTO() {}
 
     public ReviewDTO(int store_id , String user_id , int order_id,int review_rate ,String review_content, LocalDateTime review_time,String order_num
-    ,int review_comment)
+            ,int review_comment)
     {
         this.store_id=store_id;
         this.user_id=user_id;
