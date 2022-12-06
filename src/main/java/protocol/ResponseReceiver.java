@@ -281,19 +281,19 @@ public class ResponseReceiver {
         long option_id = bodyReader.readLong();
     }
 
-    public void receiveOptionList(DataInputStream inputStream) throws IOException {
-        Header header = Header.readHeader(inputStream);
-        byte[] body = new byte[header.length];
-        inputStream.read(body);
-        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
-
-        List<OptionDTO> optionDTOs = null;
-        int size = bodyReader.readInt();
-
-        for(int i=0; i<size; i++) {
-            optionDTOs.add(OptionDTO.read(bodyReader));
-        }
-    }
+//    public void receiveOptionList(DataInputStream inputStream) throws IOException {
+//        Header header = Header.readHeader(inputStream);
+//        byte[] body = new byte[header.length];
+//        inputStream.read(body);
+//        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
+//
+//        List<OptionDTO> optionDTOs = null;
+//        int size = bodyReader.readInt();
+//
+//        for(int i=0; i<size; i++) {
+//            optionDTOs.add(OptionDTO.read(bodyReader));
+//        }
+//    }
 
     public void receiveOrderID(DataInputStream inputStream) throws IOException {
         Header header = Header.readHeader(inputStream);
@@ -322,7 +322,7 @@ public class ResponseReceiver {
         String order_id = bodyReader.readUTF();
     }
 
-    public void receiveOrderList(DataInputStream inputStream) throws IOException {
+/*    public void receiveOrderList(DataInputStream inputStream) throws IOException {
         Header header = Header.readHeader(inputStream);
         byte[] body = new byte[header.length];
         inputStream.read(body);
@@ -348,7 +348,7 @@ public class ResponseReceiver {
         for(int i=0; i<size; i++) {
             orderMenuDTOs.add(OrderMenuDTO.readOrderMenu(bodyReader));
         }
-    }
+    }*/
 
     public void receiveReviewID(DataInputStream inputStream) throws IOException {
         Header header = Header.readHeader(inputStream);

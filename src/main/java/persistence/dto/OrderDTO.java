@@ -131,12 +131,14 @@ public class OrderDTO implements MySerializableClass {
     public byte[] getBytes() throws IOException {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(buf);
+        String ldtToStr = order_orderTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
+        dos.writeInt(order_id);
         dos.writeUTF(user_id);
         dos.writeInt(store_id);
         dos.writeLong(order_price);
         dos.writeUTF(order_state);
-        dos.writeUTF(String.valueOf(order_orderTime)); // 받는 쪽에서 String -> LocalDateTime으로 변환해야함
+        dos.writeUTF(ldtToStr); // 받는 쪽에서 String -> LocalDateTime으로 변환해야함
         dos.writeUTF(order_num);
         return buf.toByteArray();
     }

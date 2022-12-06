@@ -3,9 +3,11 @@ package control;
 import control.*;
 import persistence.dao.MyOrderDAO;
 import persistence.dao.MyStoreDAO;
+import persistence.dto.OrderDTO;
 import persistence.dto.StoreDTO;
 import protocol.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -20,12 +22,12 @@ public class StartController {
         RequestSender requestSender = new RequestSender();
         RequestReceiver requestReceiver = new RequestReceiver();
 
-        String userID_for_test = "test"; // test용 유저아이디
+        String userID_for_test = "store1"; // test용 유저아이디
 
         switch (header.code) {
 
             case Header.CODE_SIGN_UP:  // 가입 시작을 받음
-                requestSender.sendUserInfoReq(outputStream);
+                /*requestSender.sendUserInfoReq(outputStream);*/
                 System.out.println("SIGN UP 시작 요청을 받음");
                 break;
 
@@ -38,15 +40,18 @@ public class StartController {
             case Header.CODE_ORDER_ACCEPT: //주문 승인or거절 시작을 받고 ,Order List 전송
                 MyOrderDAO myOrderDAO = new MyOrderDAO();
                 MyStoreDAO myStoreDAO2 = new MyStoreDAO();
-                List<StoreDTO> storeList = new ArrayList<StoreDTO>();
-                storeList = myStoreDAO2.selectAll();
+                List<StoreDTO> storeList = myStoreDAO2.selectAll();
                 int store_id = -1;
                 for(int i = 0 ; i <storeList.size() ; i ++)
                 {
                     if(storeList.get(i).getUser_id().equals( userID_for_test  ))
+                    {
                         store_id = storeList.get(i).getStore_id();
+                        break;
+                    }
                 }
-                responseSender.sendOrderListAns(myOrderDAO.selectOrder_store_Waiting(store_id) , outputStream);
+                List<OrderDTO> orderList = myOrderDAO.selectOrder_store_Waiting(store_id);
+                responseSender.sendOrderListAns(orderList, outputStream);
                 break;
 
 

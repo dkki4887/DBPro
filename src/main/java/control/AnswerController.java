@@ -9,6 +9,7 @@ import service.UserService;
 
 import java.io.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,7 +24,7 @@ public class AnswerController {
         RequestSender requestSender = new RequestSender();
         RequestReceiver requestReceiver = new RequestReceiver();
 
-        String USER_ID = null;
+        String USER_ID = "-";
 
         switch (header.code) {
             case Header.CODE_USER_ID:
@@ -109,13 +110,16 @@ public class AnswerController {
 
             case Header.CODE_FIXED_ORDER_DTO:
                 MyOrderDAO myOrderDAO = new MyOrderDAO();
-                Header fix_header = Header.readHeader(bodyReader);
-                byte[] fix_body = new byte[fix_header.length];
-                int order_id = bodyReader.readInt(); String user = bodyReader.readUTF();
-                int store_id = bodyReader.readInt(); long order_price = bodyReader.readLong();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+                int order_id = bodyReader.readInt();
+                String user = bodyReader.readUTF();
+                int store_id = bodyReader.readInt();
+                long order_price = bodyReader.readLong();
                 String order_state = bodyReader.readUTF() ;
-                LocalDateTime order_orderTime= LocalDateTime.parse(bodyReader.readUTF());
+                LocalDateTime order_orderTime= LocalDateTime.parse(bodyReader.readUTF(),formatter);
                 String order_num = bodyReader.readUTF();
+
                 OrderDTO orderDTO = new OrderDTO(order_id , user , store_id , order_price , order_state , order_orderTime , order_num);
                 boolean isSuccess = true;
                 if(orderDTO.getOrder_state().equals("배달중"))
@@ -125,27 +129,26 @@ public class AnswerController {
                 else
                     isSuccess= false;
 
-                if(isSuccess)
+                if(isSuccess==true)
                 {
+                    System.out.println("주문 승인/거절 성공");
                     Header rs_header = new Header(
                             Header.TYPE_RES,
                             Header.CODE_SUCCESS,
                             0);
-                    outputStream.write(header.getBytes());
+                    outputStream.write(rs_header.getBytes());
                 }
                 else
                 {
+                    System.out.println("주문 승인/거절 실패");
                     Header rs_header = new Header(
                             Header.TYPE_RES,
                             Header.CODE_FAIL,
                             0);
-                    outputStream.write(header.getBytes());
+                    outputStream.write(rs_header.getBytes());
                 }
-
-
                 break;
         }
-
         return USER_ID;
     }
 }
