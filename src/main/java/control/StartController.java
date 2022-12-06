@@ -17,12 +17,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StartController {
+    private ResponseSender responseSender;
+    private ResponseReceiver responseReceiver;
+    private RequestSender requestSender;
+    private RequestReceiver requestReceiver;
 
-    public static void handleStart(Header header, DataInputStream bodyReader, DataOutputStream outputStream) throws IOException {
-        ResponseSender responseSender = new ResponseSender();
-        ResponseReceiver responseReceiver = new ResponseReceiver();
-        RequestSender requestSender = new RequestSender();
-        RequestReceiver requestReceiver = new RequestReceiver();
+    public void handleStart(Header header, DataInputStream bodyReader, DataOutputStream outputStream) throws IOException {
+        responseSender = new ResponseSender();
+        responseReceiver = new ResponseReceiver();
+        requestSender = new RequestSender();
+        requestReceiver = new RequestReceiver();
 
         String userID_for_test = "store1"; // test용 유저아이디
 

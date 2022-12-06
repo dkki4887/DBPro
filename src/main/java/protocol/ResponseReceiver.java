@@ -16,10 +16,9 @@ public class ResponseReceiver {
         Header header = Header.readHeader(inputStream);
         byte[] body = new byte[header.length];
         inputStream.read(body);
-        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
 
         OrderDTO order = new OrderDTO();
-        order.read(bodyReader);
+        order.read(inputStream);
         return order;
     }
 
@@ -120,9 +119,8 @@ public class ResponseReceiver {
         Header header = Header.readHeader(inputStream);
         byte[] body = new byte[header.length];
         inputStream.read(body);
-        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
 
-        return bodyReader.readInt();
+        return inputStream.readInt();
     }
 
     public void receiveStoreName(DataInputStream inputStream) throws IOException {
@@ -372,7 +370,6 @@ public class ResponseReceiver {
         }
     }*/
 
- */
 
     public void receiveReviewID(DataInputStream inputStream) throws IOException {
         Header header = Header.readHeader(inputStream);
