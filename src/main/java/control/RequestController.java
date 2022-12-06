@@ -1,9 +1,6 @@
 package control;
 
-import persistence.dao.MyMenuDAO;
-import persistence.dao.MyMenuOptionDAO;
-import persistence.dao.MyOrderDAO;
-import persistence.dao.MyOrderMenuDAO;
+import persistence.dao.*;
 import persistence.dto.*;
 import protocol.BodyMaker;
 import protocol.Header;
@@ -29,9 +26,6 @@ public class RequestController {
 
     public void handleRequest(Header header, DataInputStream inputStream, DataOutputStream outputStream) throws IOException {
 
-    public static void handleRequest(Header header, DataInputStream inputStream, DataOutputStream outputStream) throws IOException {
-        ResponseReceiver responseReceiver = new ResponseReceiver();
-        ResponseSender responseSender = new ResponseSender();
         String userID_for_test = "store1"; // test용 유저아이디
         switch(header.code) {
 

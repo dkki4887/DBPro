@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class ResultController {
 
-    public static void handleResult(Header header, DataInputStream bodyReader, DataOutputStream outputStream) throws IOException {
+    public void handleResult(Header header, DataInputStream bodyReader, DataOutputStream outputStream) throws IOException {
         switch (header.code) {
 
             case 0x01:  // 성공

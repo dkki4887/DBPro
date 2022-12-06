@@ -24,18 +24,26 @@ public class StartController {
     private RequestSender requestSender;
     private RequestReceiver requestReceiver;
 
-    public void handleStart(Header header, DataInputStream bodyReader, DataOutputStream outputStream) throws IOException {
-        responseSender = new ResponseSender();
-        responseReceiver = new ResponseReceiver();
-        requestSender = new RequestSender();
-        requestReceiver = new RequestReceiver();
+    public StartController()
+    {
+        this.responseSender = new ResponseSender();
+        this.responseReceiver = new ResponseReceiver();
+        this.requestSender = new RequestSender();
+        this.requestReceiver = new RequestReceiver();
+    }
 
+    public void handleStart(Header header, DataInputStream bodyReader, DataOutputStream outputStream) throws IOException {
         String userID_for_test = "store1"; // test용 유저아이디
 
         switch (header.code) {
 
             case Header.CODE_SIGN_UP:  // 가입 시작을 받음
-                /*requestSender.sendUserInfoReq(outputStream);*/
+                requestSender.sendUserIDReq(outputStream);
+                System.out.println("SIGN UP 시작 요청을 받음");
+                break;
+
+            case Header.CODE_LOG_IN:  // 가입 시작을 받음
+                requestSender.sendUserIDReq(outputStream);
                 System.out.println("SIGN UP 시작 요청을 받음");
                 break;
 
@@ -43,6 +51,7 @@ public class StartController {
                 MyStoreDAO myStoreDAO = new MyStoreDAO();
                 responseSender.sendStoreListAns(myStoreDAO.selectAllStoreNameAndId(), outputStream);
                 break;
+
 
             case Header.CODE_ORDER_ACCEPT: //주문 승인or거절 시작을 받고 ,Order List 전송
                 MyOrderDAO myOrderDAO = new MyOrderDAO();
