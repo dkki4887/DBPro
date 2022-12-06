@@ -23,6 +23,30 @@ public class ResponseReceiver {
         return order;
     }
 
+    public OrderMenuDTO receiveOrderMenu(DataInputStream inputStream) throws IOException
+    {
+        Header header = Header.readHeader(inputStream);
+        byte[] body = new byte[header.length];
+        inputStream.read(body);
+        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
+
+        OrderMenuDTO orderMenu = new OrderMenuDTO();
+        orderMenu.read(bodyReader);
+        return orderMenu;
+    }
+
+    public OrderOptionDTO receiveOrderOption(DataInputStream inputStream) throws IOException
+    {
+        Header header = Header.readHeader(inputStream);
+        byte[] body = new byte[header.length];
+        inputStream.read(body);
+        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
+
+        OrderOptionDTO orderOption = new OrderOptionDTO();
+        orderOption.read(bodyReader);
+        return orderOption;
+    }
+
     public String receiveUserID(DataInputStream inputStream) throws IOException {
         Header header = Header.readHeader(inputStream);
         byte[] body = new byte[header.length];
@@ -348,7 +372,6 @@ public class ResponseReceiver {
         }
     }*/
 
- */
 
     public void receiveReviewID(DataInputStream inputStream) throws IOException {
         Header header = Header.readHeader(inputStream);

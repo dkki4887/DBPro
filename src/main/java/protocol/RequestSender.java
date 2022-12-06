@@ -209,10 +209,8 @@ public class RequestSender {
         );
 
         outputStream.write(header.getBytes());
-    }
+    } }
 
-    /*public void sendStoreDiscountRateReq(Scanner s, DataOutputStream outputStream) throws IOException {
-    /*
 /*    public void sendStoreDiscountRateReq(Scanner s, DataOutputStream outputStream) throws IOException {
 
         Header header = new Header(
@@ -453,4 +451,5 @@ public class RequestSender {
         outputStream.write(header.getBytes());
         outputStream.write(body);
     }
-}
+
+     */
