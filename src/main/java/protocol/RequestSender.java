@@ -143,8 +143,9 @@ public class RequestSender {
 
         outputStream.write(header.getBytes());
     }
+    */
 
-    public void sendStoreTimeReq(Scanner s, DataOutputStream outputStream) throws IOException {
+    public void sendStoreTimeReq(DataOutputStream outputStream) throws IOException {
 
         Header header = new Header(
                 Header.TYPE_REQ,
@@ -154,6 +155,7 @@ public class RequestSender {
 
         outputStream.write(header.getBytes());
     }
+    /*
 
     public void sendStoreOpenReq(Scanner s, DataOutputStream outputStream) throws IOException {
 

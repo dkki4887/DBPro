@@ -115,6 +115,10 @@ public class StartController {
             case Header.CODE_INSERT_MENU:
                 requestSender.sendMenuInfoReq(outputStream);
                 break;
+
+            case Header.CODE_UPDATE_STORE_TIME:
+                requestSender.sendStoreTimeReq(outputStream);
+                break;
         }
     }
 }
