@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import persistence.MyBatisConnectionFactory;
 import persistence.dto.StoreDTO;
+import persistence.dto.StoreReviewDTO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -101,6 +102,17 @@ public class MyStoreDAO {
         SqlSession session = sqlSessionFactory.openSession();
         try{
             list  = session.selectList("mapper.StoreMapper.selectStore_Accepted");
+        } finally {
+            session.close();
+        }
+        return list;
+    }
+
+    public List<StoreReviewDTO> selectStoreReview(){
+        List<StoreReviewDTO> list = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            list  = session.selectList("mapper.StoreMapper.selectStoreReview");
         } finally {
             session.close();
         }

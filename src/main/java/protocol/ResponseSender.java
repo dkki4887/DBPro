@@ -734,6 +734,19 @@ public class ResponseSender {
         outputStream.write(body);
     }
 
+    public void sendStoreAndReviewAns(List<StoreReviewDTO> storeReviewList, DataOutputStream outputStream) throws IOException {
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addIntBytes(storeReviewList.size());
+        for(StoreReviewDTO dto : storeReviewList)
+            bodyMaker.add(dto);
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(Header.TYPE_ANS, Header.CODE_STORE_LIST, body.length);
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
     public void sendWaitUserListAns(List<UserDTO> userList, DataOutputStream outputStream) throws IOException {
 
             BodyMaker bodyMaker = new BodyMaker();

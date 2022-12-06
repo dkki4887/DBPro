@@ -106,6 +106,11 @@ public class StartController {
             case Header.CODE_INFO_AND_PW_FIX:
                 responseSender.sendCheckPwdResult(bodyReader, outputStream);
                 break;
+
+            case Header.CODE_STORE_LOOKUP:
+                myStoreDAO = new MyStoreDAO();
+                responseSender.sendStoreAndReviewAns(myStoreDAO.selectStoreReview(), outputStream);
+                break;
         }
     }
 }
