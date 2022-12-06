@@ -73,8 +73,7 @@ public class Header implements MySerializableClass {
     public final static byte CODE_USER_LIST = 0x58;
     public final static byte CODE_INSERT_MENU = 0x59;
     public final static byte CODE_MENU_INFO = 0x5A;
-
-
+    public final static byte CODE_UPDATE_USER_INFO = 0x5B;
 
 
     //TYPE : 0x03(RESULT) 일 때

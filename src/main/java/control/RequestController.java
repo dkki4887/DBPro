@@ -98,6 +98,11 @@ public class RequestController {
                 outputStream.write(review_header.getBytes());
                 outputStream.write(review_body);
                 break;
+
+            case Header.CODE_UPDATE_USER_INFO:
+                UserDTO user = UserDTO.read(inputStream);
+                new MyUserDAO().userInfoUpdate(user);
+                break;
         }
     }
 }

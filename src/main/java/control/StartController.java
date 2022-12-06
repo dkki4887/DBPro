@@ -25,12 +25,6 @@ public class StartController {
     private RequestSender requestSender;
     private RequestReceiver requestReceiver;
 
-    public void handleStart(Header header, DataInputStream inputStream, DataOutputStream outputStream) throws IOException {
-        responseSender = new ResponseSender();
-        responseReceiver = new ResponseReceiver();
-        requestSender = new RequestSender();
-        requestReceiver = new RequestReceiver();
-
     public StartController()
     {
         this.responseSender = new ResponseSender();
@@ -110,11 +104,8 @@ public class StartController {
                 outputStream.write(review_body);
 
             case Header.CODE_INFO_AND_PW_FIX:
-                responseSender.sendCheckPwdResult(inputStream, outputStream);
+                responseSender.sendCheckPwdResult(bodyReader, outputStream);
                 break;
-
-
-
         }
     }
 }
