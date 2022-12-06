@@ -211,11 +211,11 @@ public class RequestSender {
         outputStream.write(header.getBytes());
     }
 
-    public void sendStoreDiscountRateReq(Scanner s, DataOutputStream outputStream) throws IOException {
+    /*public void sendStoreDiscountRateReq(Scanner s, DataOutputStream outputStream) throws IOException {
 
         Header header = new Header(
                 Header.TYPE_REQ,
-                Header.CODE_STORE_DISCOUNT_RATE,
+               // Header.CODE_STORE_DISCOUNT_RATE,
                 0
         );
 
@@ -243,6 +243,8 @@ public class RequestSender {
 
         outputStream.write(header.getBytes());
     }
+
+     */
 
     public void sendMenuListReq(Scanner s, DataOutputStream outputStream) throws IOException {
 

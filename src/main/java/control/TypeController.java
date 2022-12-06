@@ -12,11 +12,13 @@ public class TypeController {
     RequestController requestController;
     AnswerController answerController;
     ResultController resultController;
+    StartController startController;
 
     public TypeController() {
         requestController = new RequestController();
         answerController = new AnswerController();
         resultController = new ResultController();
+        startController = new StartController();
     }
 
     public String handleType(Header header, DataInputStream bodyReader, DataOutputStream outputStream) throws IOException {
@@ -24,7 +26,7 @@ public class TypeController {
         switch(header.type) {
 
             case Header.TYPE_START:
-
+                StartController.handleStart(header, bodyReader, outputStream);
 
             case Header.TYPE_REQ:
                 RequestController.handleRequest(header, bodyReader , outputStream);

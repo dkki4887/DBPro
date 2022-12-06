@@ -22,6 +22,30 @@ public class ResponseReceiver {
         return order;
     }
 
+    public OrderMenuDTO receiveOrderMenu(DataInputStream inputStream) throws IOException
+    {
+        Header header = Header.readHeader(inputStream);
+        byte[] body = new byte[header.length];
+        inputStream.read(body);
+        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
+
+        OrderMenuDTO orderMenu = new OrderMenuDTO();
+        orderMenu.read(bodyReader);
+        return orderMenu;
+    }
+
+    public OrderOptionDTO receiveOrderOption(DataInputStream inputStream) throws IOException
+    {
+        Header header = Header.readHeader(inputStream);
+        byte[] body = new byte[header.length];
+        inputStream.read(body);
+        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
+
+        OrderOptionDTO orderOption = new OrderOptionDTO();
+        orderOption.read(bodyReader);
+        return orderOption;
+    }
+
     public String receiveUserID(DataInputStream inputStream) throws IOException {
         Header header = Header.readHeader(inputStream);
         byte[] body = new byte[header.length];
@@ -100,9 +124,9 @@ public class ResponseReceiver {
         Header header = Header.readHeader(inputStream);
         byte[] body = new byte[header.length];
         inputStream.read(body);
-        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
+        //DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
 
-        return bodyReader.readInt();
+        return inputStream.readInt();
     }
 
     public void receiveStoreName(DataInputStream inputStream) throws IOException {
@@ -291,7 +315,7 @@ public class ResponseReceiver {
         int size = bodyReader.readInt();
 
         for(int i=0; i<size; i++) {
-            optionDTOs.add(OptionDTO.read(bodyReader));
+            //optionDTOs.add(OptionDTO.read(bodyReader));
         }
     }
 
@@ -332,7 +356,7 @@ public class ResponseReceiver {
         int size = bodyReader.readInt();
 
         for(int i=0; i<size; i++) {
-            orderDTOs.add(OrderDTO.readOrder(bodyReader));
+            //orderDTOs.add(OrderDTO.readOrder(bodyReader));
         }
     }
 
@@ -346,7 +370,7 @@ public class ResponseReceiver {
         int size = bodyReader.readInt();
 
         for(int i=0; i<size; i++) {
-            orderMenuDTOs.add(OrderMenuDTO.readOrderMenu(bodyReader));
+            //orderMenuDTOs.add(OrderMenuDTO.readOrderMenu(bodyReader));
         }
     }
 

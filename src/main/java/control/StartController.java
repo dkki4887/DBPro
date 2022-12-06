@@ -25,13 +25,15 @@ public class StartController {
         switch (header.code) {
 
             case Header.CODE_SIGN_UP:  // 가입 시작을 받음
-                requestSender.sendUserInfoReq(outputStream);
+                requestSender.sendUserInfoReq(userID_for_test, outputStream);
                 System.out.println("SIGN UP 시작 요청을 받음");
                 break;
 
             case Header.CODE_FOOD_ORDER: //주문 시작을 받음. 가게 정보 보내줌
+                System.out.println("시작 요청을 받음!!");
                 MyStoreDAO myStoreDAO = new MyStoreDAO();
                 responseSender.sendStoreListAns(myStoreDAO.selectAllStoreNameAndId(), outputStream);
+                System.out.println("가게 리스트 보내줌!!!");
                 break;
 
 

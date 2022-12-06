@@ -89,7 +89,6 @@ public class Header implements MySerializableClass {
         int length = dis.readInt();
 
         return new Header(type, code, length);
-
     }
 
 

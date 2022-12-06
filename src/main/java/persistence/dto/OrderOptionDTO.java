@@ -5,6 +5,7 @@ import org.apache.ibatis.type.Alias;
 import protocol.MySerializableClass;
 
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -38,6 +39,14 @@ public class OrderOptionDTO implements MySerializableClass {
 
     public void setOption_name(String option_name) {
         this.option_name = option_name;
+    }
+
+    public static OrderOptionDTO read(DataInputStream bodyReader) throws IOException
+    {
+        String orderMenu_id = bodyReader.readUTF();
+        String option_name = bodyReader.readUTF();
+
+        return new OrderOptionDTO(orderMenu_id, option_name);
     }
 
     @Override

@@ -55,25 +55,27 @@
         VALUES(#{store_id}, #{menu_name}, #{menu_price}, #{menu_quantity}, #{menu_category})
     </insert>
 
+
     <update id="menuUpdate" parameterType="MenuDTO" keyProperty="menu_id">
         UPDATE project.menu
-            <set>
-                <if test='menu_name!=null'>
-                    menu_name = #{menu_name},
-                </if>
-                <if test='menu_price!=null'>
-                    menu_price = #{menu_price},
-                </if>
-                <if test='menu_quantity!=null'>
-                    menu_quantity = #{menu_quantity},
-                </if>
-                <if test='menu_category!=null'>
-                    menu_category = #{menu_category},
-                </if>
-            </set>
+        <set>
+            <if test='menu_name!=""'>
+                menu_name = #{menu_name},
+            </if>
+            <if test='menu_price!=-1'>
+                menu_price = #{menu_price},
+            </if>
+            <if test='menu_quantity!=-1'>
+                menu_quantity = #{menu_quantity},
+            </if>
+            <if test='menu_category!=""'>
+                menu_category = #{menu_category}
+            </if>
+            menu_id = menu_id
+        </set>
         WHERE menu_id = #{menu_id} AND store_id = #{store_id};
-
     </update>
+
 
     <update id="updateMenuQuantity">
         UPDATE menu

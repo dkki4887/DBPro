@@ -1,5 +1,7 @@
 package protocol;
 
+import persistence.dto.StoreDTO;
+
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -22,7 +24,6 @@ public class BodyMaker {
     }
 
     public void add(List<MySerializableClass> list) throws IOException {
-
         dos.writeInt(list.size());
         for(MySerializableClass object : list) dos.write(object.getBytes());
     }
@@ -38,11 +39,6 @@ public class BodyMaker {
     public void addBooleanBytes(boolean bool) throws IOException {
         dos.writeBoolean(bool);
     }
-
-    public void addLongBytes(long longData) throws IOException {
-        dos.writeLong(longData);
-    }
-
 
     public byte[] getBody() {
         return buf.toByteArray();
