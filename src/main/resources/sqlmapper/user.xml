@@ -73,14 +73,14 @@
     </update>
 
     <update id="updateUser_Accept">
-           UPDATE project.user
-           SET user_state = true
-           WHERE user_id = #{user_id}
-           </update>
+        UPDATE project.user
+        SET user_state = true
+        WHERE user_id = #{user_id}
+    </update>
 
-       <delete id="deleteUser">
-               DELETE FROM USER
-               WHERE user_id = #{user_id}
-           </delete>
+    <delete id="deleteUser">
+        DELETE FROM USER
+        WHERE user_id = #{user_id}
+    </delete>
 
 </mapper>
