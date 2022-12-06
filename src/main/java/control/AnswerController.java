@@ -28,25 +28,31 @@ public class AnswerController {
 
         switch (header.code) {
             case Header.CODE_USER_ID:
-                String user_id = responseReceiver.receiveUserID(bodyReader);//user_id를 전송 받아 저장 후
+                byte[] bodyy = new byte[header.length];
+                bodyReader.read(bodyy);
+
+                String user_id = bodyReader.readUTF();
+                //String user_id = responseReceiver.receiveUserID(bodyReader);//user_id를 전송 받아 저장 후
                 UserService userService = new UserService();
 
                 if(!userService.idCheck(user_id))          //저장한 user_id를 체크함
                 {
+                    System.out.println("중복 안됨");
                     BodyMaker bodyMaker = new BodyMaker();
                     bodyMaker.addStringBytes(user_id);
 
-                    byte[] resBody = bodyMaker.getBody();
+                    byte[] id_resBody_unDup = bodyMaker.getBody();
                     Header id_resHeader_unDup = new Header(     //중복 결과 전송
                             Header.TYPE_RES,
                             Header.CODE_SUCCESS,    //중복아닐 떈 success
-                            resBody.length);
+                            id_resBody_unDup.length);
 
                     outputStream.write(id_resHeader_unDup.getBytes());
-                    outputStream.write(resBody);
+                    outputStream.write(id_resBody_unDup);
 
                 }
                 else {
+                    System.out.println("중복됨");
                     BodyMaker bodyMaker = new BodyMaker();
                     bodyMaker.addStringBytes(user_id);
                     byte[] id_resBody_Dup = bodyMaker.getBody();
@@ -59,12 +65,14 @@ public class AnswerController {
                     outputStream.write(id_resHeader_Dup.getBytes());
                     outputStream.write(id_resBody_Dup);
                 }
+                USER_ID = user_id;
                 break;
 
             case Header.CODE_USER_DTO: // CODE_USER_INFO랑 같은 기능임
             case Header.CODE_USER_INFO:
                 MyUserDAO myUserDAO = new MyUserDAO();
                 UserDTO userDTO = responseReceiver.receiveUserInfo(bodyReader);//유저 정보 전송 받아 UserDTO에 저장함
+                System.out.println(userDTO.getUser_id());
                 myUserDAO.userAdd(userDTO);         //전송받은 UserDTO를 추가
 
                 Header resHeader = new Header(            //성공 결과 전송
@@ -74,6 +82,8 @@ public class AnswerController {
                 outputStream.write(resHeader.getBytes());
                 byte[] body = new byte[header.length];
                 outputStream.write(body);
+
+                USER_ID = userDTO.getUser_id();
                 break;
 
             case Header.CODE_USER_PW:
@@ -105,6 +115,7 @@ public class AnswerController {
                     outputStream.write(pw_resHeader.getBytes());
                     outputStream.write(pw_resBody_Fail);
                 }
+                USER_ID = user_IDAndPw.get(0);
                 break;
 
 
