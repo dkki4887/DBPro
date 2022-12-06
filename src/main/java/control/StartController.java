@@ -5,10 +5,7 @@ import persistence.dao.MyOrderDAO;
 import persistence.dao.MyReviewDAO;
 import persistence.dao.MyStoreDAO;
 import persistence.dao.MyUserDAO;
-import persistence.dto.OrderDTO;
-import persistence.dto.Review_omDTO;
-import persistence.dto.StoreDTO;
-import persistence.dto.UserDTO;
+import persistence.dto.*;
 import protocol.*;
 
 import java.io.ByteArrayInputStream;
@@ -90,7 +87,29 @@ public class StartController {
                 outputStream.write(review_body);
 
 
+            case Header.CODE_STATISTICS:
+                MyStoreDAO myStoreDAO4 = new MyStoreDAO();
+                List<StoreDTO> stores = myStoreDAO4.selectAll();
+                int storeID = 0;
+                for(int i = 0 ; i < stores.size() ; i ++)
+                {
+                    if(stores.get(i).getUser_id().equals(userID_for_test))
+                        storeID = stores.get(i).getStore_id();
+                }
+                List<StatisticalInfoDTO> staInfoList = myStoreDAO4.selectStaticalinfo(storeID);
 
+                BodyMaker bodyMaker2 = new BodyMaker();
+                bodyMaker2.addIntBytes(staInfoList.size());
+                for(int i = 0 ; i <staInfoList.size(); i ++)
+                    bodyMaker2.add(staInfoList.get(i));
+                byte[] sta_body = bodyMaker2.getBody();
+                Header sta_header = new Header(
+                        Header.TYPE_ANS,
+                        Header.CODE_STATISTICS,
+                        sta_body.length);
+                outputStream.write(sta_header.getBytes());
+                outputStream.write(sta_body);
+                break;
         }
     }
 }

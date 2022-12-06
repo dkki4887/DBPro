@@ -3,6 +3,7 @@ package persistence.dao;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import persistence.MyBatisConnectionFactory;
+import persistence.dto.StatisticalInfoDTO;
 import persistence.dto.StoreDTO;
 
 import java.util.HashMap;
@@ -142,6 +143,17 @@ public class MyStoreDAO {
             session.close();
         }
         return result;
+    }
+
+    public List<StatisticalInfoDTO> selectStaticalinfo(int store_id){
+        List<StatisticalInfoDTO> list = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            list  = session.selectList("mapper.StoreMapper.selectStaticalinfo",store_id);
+        } finally {
+            session.close();
+        }
+        return list;
     }
 }
 
