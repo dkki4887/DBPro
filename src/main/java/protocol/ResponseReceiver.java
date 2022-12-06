@@ -11,6 +11,41 @@ import java.util.List;
 
 public class ResponseReceiver {
 
+    public OrderDTO receiveOrder(DataInputStream inputStream) throws IOException
+    {
+        Header header = Header.readHeader(inputStream);
+        byte[] body = new byte[header.length];
+        inputStream.read(body);
+
+        OrderDTO order = new OrderDTO();
+        order.read(inputStream);
+        return order;
+    }
+
+    public OrderMenuDTO receiveOrderMenu(DataInputStream inputStream) throws IOException
+    {
+        Header header = Header.readHeader(inputStream);
+        byte[] body = new byte[header.length];
+        inputStream.read(body);
+        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
+
+        OrderMenuDTO orderMenu = new OrderMenuDTO();
+        orderMenu.read(bodyReader);
+        return orderMenu;
+    }
+
+    public OrderOptionDTO receiveOrderOption(DataInputStream inputStream) throws IOException
+    {
+        Header header = Header.readHeader(inputStream);
+        byte[] body = new byte[header.length];
+        inputStream.read(body);
+        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
+
+        OrderOptionDTO orderOption = new OrderOptionDTO();
+        orderOption.read(bodyReader);
+        return orderOption;
+    }
+
     public String receiveUserID(DataInputStream inputStream) throws IOException {
         Header header = Header.readHeader(inputStream);
         byte[] body = new byte[header.length];
@@ -78,6 +113,14 @@ public class ResponseReceiver {
         DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
         System.out.println(bodyReader.readUTF());
         return UserDTO.read(bodyReader);
+    }
+
+    public int receiveStoreID(DataInputStream inputStream) throws IOException {
+        Header header = Header.readHeader(inputStream);
+        byte[] body = new byte[header.length];
+        inputStream.read(body);
+
+        return inputStream.readInt();
     }
 
     public void receiveStoreName(DataInputStream inputStream) throws IOException {
@@ -177,6 +220,15 @@ public class ResponseReceiver {
         DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
 
         String store_phone = bodyReader.readUTF();
+    }
+
+    public int receiveMenuID(DataInputStream inputStream) throws IOException {
+        Header header = Header.readHeader(inputStream);
+        byte[] body = new byte[header.length];
+        inputStream.read(body);
+        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
+
+        return bodyReader.readInt();
     }
 
     public void receiveMenuName(DataInputStream inputStream) throws IOException {

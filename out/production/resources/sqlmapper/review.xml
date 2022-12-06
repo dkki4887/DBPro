@@ -18,44 +18,24 @@
 
     <resultMap id="reviewOMResult" type="persistence.dto.Review_omDTO">
         <result property="review_id" column="review_id"/>
-        <result property="order_id" column="order_id"/>
         <result property="store_id" column="store_id"/>
         <result property="menu_name" column="menu_name"/>
+        <result property="menu_price" column="menu_price"/>
         <result property="review_content" column="review_content"/>
         <result property="review_rate" column="review_rate"/>
-        <result property="review_comment" column="review_comment"/>
     </resultMap>
 
-
     <select id="findReviewWithUserIdLike" resultMap="reviewOMResult">
-        SELECT r.review_id, r.order_id, r.store_id, o.menu_name, r.review_content, r.review_rate, r.review_comment
+        SELECT r.order_id, r.store_id, o.menu_name, r.review_content, r.review_rate
         FROM project.review r
         JOIN project.ordermenu o
         ON r.order_num = o.order_num
         WHERE r.user_id = #{user_id}
     </select>
 
-    <select id="findReviewWithStoreAndNonReply" resultMap="reviewOMResult">
-        SELECT r.review_id, r.order_id, r.store_id, o.menu_name, r.review_content, r.review_rate ,r.review_comment
-        FROM project.review r
-        JOIN project.ordermenu o
-        ON r.order_num = o.order_num
-        WHERE r.store_id = #{store_id} AND r.review_comment = 0
-    </select>
-
-    <select id="findReviewWithStoreAndReply" resultMap="reviewOMResult">
-        SELECT r.review_id, r.order_id, r.store_id, o.menu_name, r.review_content, r.review_rate, r.review_comment
-        FROM project.review r
-        JOIN project.ordermenu o
-        ON r.order_num = o.order_num
-        WHERE r.store_id = #{store_id} AND r.review_comment > 0
-    </select>
-
     <insert id="insertReview" parameterType="ReviewDTO">
-        INSERT INTO project.review (store_id , user_id , order_id , review_rate , review_content , review_time , order_num, review_comment)
-        values(#{store_id},#{user_id},#{order_id},#{review_rate},#{review_content},#{review_time},#{order_num},#{review_comment})
+        INSERT INTO project.review (review_id,store_id , user_id , order_id , review_rate , review_content , review_time , order_num,review_comment)
+        values(#{review_id},#{store_id},#{user_id},#{order_id},#{review_rate},#{review_content},#{review_time},#{order_num},#{review_comment})
     </insert>
-
-
 
 </mapper>
