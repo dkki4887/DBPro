@@ -6,6 +6,7 @@ import persistence.MyBatisConnectionFactory;
 import persistence.dto.StoreDTO;
 import persistence.dto.StoreReviewDTO;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +68,18 @@ public class MyStoreDAO {
             session.close();
         }
         return storeDTO;
+    }
+
+    public List<StoreDTO> selectByUserId(String user_id)
+    {
+        List<StoreDTO> storeDTOs = new ArrayList<StoreDTO>();
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            storeDTOs.add(session.selectOne("mapper.StoreMapper.selectByUserid", user_id));
+        } finally {
+            session.close();
+        }
+        return storeDTOs;
     }
 
     public void storeAdd(StoreDTO addStoreDTO)

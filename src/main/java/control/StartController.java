@@ -111,6 +111,10 @@ public class StartController {
                 myStoreDAO = new MyStoreDAO();
                 responseSender.sendStoreAndReviewAns(myStoreDAO.selectStoreReview(), outputStream);
                 break;
+
+            case Header.CODE_INSERT_MENU:
+                requestSender.sendMenuInfoReq(outputStream);
+                break;
         }
     }
 }

@@ -243,6 +243,18 @@ public class RequestSender {
         outputStream.write(header.getBytes());
     }
 
+    */
+
+    public void sendMenuInfoReq(DataOutputStream outputStream) throws IOException {
+        Header header = new Header(
+                Header.TYPE_REQ,
+                Header.CODE_MENU_INFO,
+                0
+        );
+        outputStream.write(header.getBytes());
+    }
+    /*
+
     public void sendMenuListReq(Scanner s, DataOutputStream outputStream) throws IOException {
 
         Header header = new Header(

@@ -53,6 +53,10 @@
         SELECT store_name FROM STORE WHERE store_id = #{store_id}
     </select>
 
+    <select id="selectByUserid" parameterType="string" resultMap="result">
+        SELECT * FROM STORE WHERE user_id = #{user_id}
+    </select>
+
     <select id="selectStaticalinfo" parameterType="int" resultMap="staticalinfo">
         SELECT  s.store_id, s.store_name, m.menu_name,COUNT(o.order_id) AS count_order, SUM(o.order_price) AS sum_order_price
         FROM STORE s,project.menu m, project.order o, project.ordermenu om

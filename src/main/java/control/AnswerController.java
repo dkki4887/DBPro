@@ -3,6 +3,7 @@ package control;
 import persistence.dao.*;
 import persistence.dto.*;
 import protocol.*;
+import service.StoreService;
 import service.UserService;
 
 import java.io.*;
@@ -104,8 +105,22 @@ public class AnswerController {
 
                 if(userService_use_pw.pwCheck(userID, userPW)) {  //id, pw이용해서 비번확인
                     BodyMaker user_pw_bodyMaker = new BodyMaker();
+                    MyStoreDAO myStoreDAO = new MyStoreDAO();
                     UserDTO loginUser = userService_use_pw.findUser(userID);
-                    user_pw_bodyMaker.add(loginUser);
+                    user_pw_bodyMaker.add(loginUser);   //유저 DTO 먼저 넣음
+
+                    if(loginUser.getUser_category() == 1)   //점주면 해당 유저소유 StoreDTO를 뒤에 더 넣어줌
+                    {
+                        List<StoreDTO> userStores = myStoreDAO.selectByUserId(userID);
+                        user_pw_bodyMaker.addIntBytes(userStores.size());
+
+                        for(StoreDTO userStore : userStores)
+                        {
+                            user_pw_bodyMaker.add(userStore);
+                        }
+                    }
+
+
                     byte[] pw_resBody_Success = user_pw_bodyMaker.getBody();
 
                     Header pw_resHeader = new Header(       //성공결과 전송
@@ -203,6 +218,25 @@ public class AnswerController {
 
 
                 break;
+
+            case Header.CODE_MENU_INFO:
+                MyMenuDAO myMenuDAO = new MyMenuDAO();
+                MenuDTO addMenu = MenuDTO.read(bodyReader);
+                addMenu.setMenu_state(false);
+
+                myMenuDAO.menuAdd(addMenu);         //전송받은 MenuDTO를 추가
+                BodyMaker menuInfo_bodyMaker = new BodyMaker();
+                menuInfo_bodyMaker.add(addMenu);
+                byte[] menuadd_body_success = menuInfo_bodyMaker.getBody();
+
+                Header menuadd_resHeader = new Header(            //성공 결과 전송
+                        Header.TYPE_RES,
+                        Header.CODE_SUCCESS,
+                        menuadd_body_success.length);
+                outputStream.write(menuadd_resHeader.getBytes());
+                outputStream.write(menuadd_body_success);
+                break;
+
         }
         return USER_ID;
     }
