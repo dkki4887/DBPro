@@ -55,4 +55,28 @@ public class MyReviewDAO {
         return dtos;
     }
 
+    public List<Review_omDTO> findReviewWithStoreAndNonReply(int store_id)
+    {
+        List<Review_omDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.ReviewMapper.findReviewWithStoreAndNonReply",store_id);
+        }finally {
+            session.close();
+        }
+        return dtos;
+    }
+
+    public List<Review_omDTO> findReviewWithStoreAndReply(int store_id)
+    {
+        List<Review_omDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.ReviewMapper.findReviewWithStoreAndReply",store_id);
+        }finally {
+            session.close();
+        }
+        return dtos;
+    }
+
 }
