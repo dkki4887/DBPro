@@ -4,13 +4,28 @@ import inputManager.MenuInputManager;
 import inputManager.StoreInputManager;
 import inputManager.UserInputManager;
 import persistence.dto.*;
+import service.UserService;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 public class ResponseSender {
+
+    public void sendCheckPwdResult(DataInputStream inputStream, DataOutputStream outputStream) throws IOException
+    {
+        String pwd = inputStream.readUTF();
+        String user_id = inputStream.readUTF();
+        boolean pwdCheck = new UserService().pwCheck(user_id, pwd);
+        Header header;
+        if(pwdCheck)
+            header = new Header( Header.TYPE_ANS, Header.CODE_SUCCESS, 0);
+        else
+            header = new Header( Header.TYPE_ANS, Header.CODE_FAIL, 0);
+        outputStream.write(header.getBytes());
+    }
 
     public void sendUserIDAns(Scanner s, DataOutputStream outputStream) throws IOException {
 

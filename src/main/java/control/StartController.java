@@ -10,6 +10,7 @@ import persistence.dto.Review_omDTO;
 import persistence.dto.StoreDTO;
 import persistence.dto.UserDTO;
 import protocol.*;
+import service.UserService;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -24,7 +25,7 @@ public class StartController {
     private RequestSender requestSender;
     private RequestReceiver requestReceiver;
 
-    public void handleStart(Header header, DataInputStream bodyReader, DataOutputStream outputStream) throws IOException {
+    public void handleStart(Header header, DataInputStream inputStream, DataOutputStream outputStream) throws IOException {
         responseSender = new ResponseSender();
         responseReceiver = new ResponseReceiver();
         requestSender = new RequestSender();
@@ -93,8 +94,9 @@ public class StartController {
                 outputStream.write(review_header.getBytes());
                 outputStream.write(review_body);
 
-            case Header.CODE_EDIT_INFORMATION:
-                
+            case Header.CODE_INFO_AND_PW_FIX:
+                responseSender.sendCheckPwdResult(inputStream, outputStream);
+                break;
 
 
         }

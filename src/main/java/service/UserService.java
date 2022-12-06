@@ -45,8 +45,9 @@ public class UserService
     public boolean pwCheck(String userid, String userpw) {
         List<UserDTO> userDTOS = myUserDAO.selectAllUserid();
         for(UserDTO userDTO : userDTOS)
-            if(userid.equals(userDTO.getUser_id())) {
-                UserDTO user_pwDTO=myUserDAO.selectUserpw(userDTO);
+            if(userid.equals(userDTO.getUser_id()))
+            {
+                UserDTO user_pwDTO = myUserDAO.selectUserpw(userDTO);
                 if (userpw.equals(user_pwDTO.getUser_pw()))
                     return true;
             }
