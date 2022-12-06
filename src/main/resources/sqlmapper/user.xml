@@ -31,6 +31,10 @@
         SELECT * FROM project.user WHERE user_id = #{user_id}
     </select>
 
+    <select id="selectUser_WaitingAccept" resultMap="result">
+               SELECT * FROM USER WHERE user_state = false;
+           </select>
+
 
     <insert id="userAdd" parameterType="UserDTO" keyProperty="user_id">
         INSERT INTO project.user(user_id, user_pw, user_name, user_address, user_phone, user_category)
@@ -68,5 +72,16 @@
         </set>
         WHERE user_id = #{user_id};
     </update>
+
+    <update id="updateUser_Accept">
+           UPDATE project.user
+           SET user_state = true
+           WHERE user_id = #{user_id}
+           </update>
+
+       <delete id="deleteUser">
+               DELETE FROM USER
+               WHERE user_id = #{user_id}
+           </delete>
 
 </mapper>

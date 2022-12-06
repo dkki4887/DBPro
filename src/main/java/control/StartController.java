@@ -3,8 +3,10 @@ package control;
 import control.*;
 import persistence.dao.MyOrderDAO;
 import persistence.dao.MyStoreDAO;
+import persistence.dao.MyUserDAO;
 import persistence.dto.OrderDTO;
 import persistence.dto.StoreDTO;
+import persistence.dto.UserDTO;
 import protocol.*;
 
 import java.io.ByteArrayInputStream;
@@ -53,6 +55,12 @@ public class StartController {
                 List<OrderDTO> orderList = myOrderDAO.selectOrder_store_Waiting(store_id);
                 responseSender.sendOrderListAns(orderList, outputStream);
                 break;
+            case Header.CODE_USER_ACCEPT:
+                MyUserDAO myUserDAO = new MyUserDAO();
+                responseSender.sendWaitUserListAns(myUserDAO.selectUser_WaitingAccept(), outputStream);
+                break;
+
+
 
 
         }
