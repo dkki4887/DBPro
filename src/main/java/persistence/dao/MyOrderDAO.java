@@ -4,6 +4,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import persistence.MyBatisConnectionFactory;
 import persistence.dto.OrderDTO;
+import persistence.dto.OrderMenuDTO;
+import persistence.dto.OrderOptionDTO;
 
 import java.util.List;
 
@@ -161,6 +163,31 @@ public class MyOrderDAO {
         SqlSession session = sqlSessionFactory.openSession();
         try{
             dtos = session.selectList("mapper.OrderMapper.selectAllOrder_customer", user_id);
+        }finally {
+            session.close();
+        }
+        return dtos;
+    }
+
+    public List<OrderMenuDTO> selectOrderMenuWithOrderNum(String order_num)
+    {
+        List<OrderMenuDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.OrderMapper.selectOrderMenuWithOrderNum", order_num);
+        }finally {
+            session.close();
+        }
+        return dtos;
+    }
+
+
+    public List<OrderOptionDTO> selectOrderOptionWithOrderMenuID(String orderMenu_id)
+    {
+        List<OrderOptionDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.OrderMapper.selectOrderOptionWithOrderMenuID", orderMenu_id);
         }finally {
             session.close();
         }

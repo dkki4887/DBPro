@@ -62,24 +62,59 @@ public class RequestController {
                         break;
                     }
                 }
-                System.out.println(store_id2);
-                List<Review_omDTO> reviewList = myReviewDAO.findReviewWithStoreAndReply(store_id2);
+
+                List<Review_omDTO> replyList = myReviewDAO.findReviewWithStoreAndReply(store_id2);
 
                 BodyMaker bodyMaker = new BodyMaker();
-                bodyMaker.addIntBytes(reviewList.size());
-                for(int i = 0 ; i <reviewList.size(); i ++)
-                    bodyMaker.add(reviewList.get(i));
-                byte[] review_body = bodyMaker.getBody();
+                bodyMaker.addIntBytes(replyList.size());
+                for(int i = 0 ; i <replyList.size(); i ++)
+                    bodyMaker.add(replyList.get(i));
+                byte[] reply_body = bodyMaker.getBody();
 
-                System.out.println("보내나?");
 
-                Header review_header = new Header(
-                        Header.TYPE_ANS,
-                        Header.CODE_REVIEW_LOOKUP,
-                        review_body.length);
-                outputStream.write(review_header.getBytes());
-                outputStream.write(review_body);
+                Header reply_header = new Header(
+                        Header.TYPE_RES,
+                        Header.CODE_REVIEW_REPLY,
+                        reply_body.length);
+                outputStream.write(reply_header.getBytes());
+                outputStream.write(reply_body);
                 break;
+
+            case Header.CODE_ORDERED_MENU_LIST:
+                MyOrderDAO moDAO = new MyOrderDAO();
+                String order_num =inputStream.readUTF();
+                List<OrderMenuDTO> omDTOS = moDAO.selectOrderMenuWithOrderNum(order_num);
+
+                BodyMaker omBM = new BodyMaker();
+                omBM.addIntBytes(omDTOS.size());
+                for(int i = 0 ; i < omDTOS.size() ; i ++)
+                    omBM.add(omDTOS.get(i));
+                byte[] omBody = omBM.getBody();
+                Header omHeader = new Header(
+                        Header.TYPE_ANS,
+                        Header.CODE_ORDERED_MENU_LIST,
+                        omBody.length);
+                outputStream.write(omHeader.getBytes());
+                outputStream.write(omBody);
+                break;
+
+
+            case Header.CODE_ORDERED_OPTION:
+                MyOrderDAO ooDAO = new MyOrderDAO();
+                String orderMenu_id =inputStream.readUTF();
+                List<OrderOptionDTO> ooDTOS = ooDAO.selectOrderOptionWithOrderMenuID(orderMenu_id);
+
+                BodyMaker ooBM = new BodyMaker();
+                ooBM.addIntBytes(ooDTOS.size());
+                for(int i = 0 ; i < ooDTOS.size() ; i ++)
+                    ooBM.add(ooDTOS.get(i));
+                byte[] ooBody = ooBM.getBody();
+                Header ooHeader = new Header(
+                        Header.TYPE_ANS,
+                        Header.CODE_ORDERED_OPTION,
+                        ooBody.length);
+                outputStream.write(ooHeader.getBytes());
+                outputStream.write(ooBody);
         }
     }
 }
