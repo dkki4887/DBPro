@@ -148,7 +148,7 @@
     <select id="selectStoreReview" resultMap="StoreReview">
         SELECT s.store_id, s.store_name, s.store_phone, s.store_address, s.store_time, s.store_info, r.review_rate, r.review_content
         FROM STORE s, REVIEW r
-        WHERE s.store_id = r.store_id
+        WHERE s.store_id = r.store_id AND s.store_state = true
         ORDER BY s.store_id
     </select>
 

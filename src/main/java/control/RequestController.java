@@ -105,6 +105,11 @@ public class RequestController {
                 UserDTO user = UserDTO.read(inputStream);
                 new MyUserDAO().userInfoUpdate(user);
                 break;
+
+            case Header.CODE_CANCEL_ORDER:
+                int order_id = inputStream.readInt();
+                new MyOrderDAO().updateOrderState_Cancle(order_id);
+                break;
         }
     }
 }

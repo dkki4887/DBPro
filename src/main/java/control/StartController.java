@@ -125,6 +125,18 @@ public class StartController {
                 responseSender.sendOrderOptionList(orderOptionDTOS, outputStream);
                 responseSender.sendStoreListAns(new MyStoreDAO().selectAll(), outputStream);
                 break;
+
+            case Header.CODE_ORDER_CANCEL:
+                user_id = bodyReader.readUTF();
+                List<OrderDTO> orderDTO = new MyOrderDAO().selectAllCustomerOrderForCancel(user_id);
+                List<OrderMenuDTO> orderMenuDTO = new MyOrderMenuDAO().selectAllMenu();
+                List<OrderOptionDTO> orderOptionDTO = new MyOrderMenuDAO().selectAllOption();
+
+                responseSender.sendOrderList(orderDTO, outputStream);
+                responseSender.sendOrderMenuList(orderMenuDTO, outputStream);
+                responseSender.sendOrderOptionList(orderOptionDTO, outputStream);
+                responseSender.sendStoreListAns(new MyStoreDAO().selectAll(), outputStream);
+                break;
         }
     }
 }

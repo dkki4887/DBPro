@@ -91,18 +91,16 @@ public class MyOrderDAO {
     }
 
     public int updateOrderState_Cancle(int order_id) {
-
         SqlSession session = sqlSessionFactory.openSession();
         int result = -1;
         try{
-            result =session.update("mapper.OrderMapper.updateOrderState_Cancle",order_id);
+            result = session.update("mapper.OrderMapper.updateOrderState_Cancle", order_id);
 
             if (result==1){
                 session.commit();
             }else {
                 session.rollback();
             }
-
         }finally {
             session.close();
         }
@@ -194,6 +192,18 @@ public class MyOrderDAO {
         SqlSession session = sqlSessionFactory.openSession();
         try{
             dtos = session.selectList("mapper.OrderMapper.selectAllCustomerOrder", user_id);
+        }finally {
+            session.close();
+        }
+        return dtos;
+    }
+
+    public List<OrderDTO> selectAllCustomerOrderForCancel(String user_id)
+    {
+        List<OrderDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.OrderMapper.selectAllCustomerOrderForCancel", user_id);
         }finally {
             session.close();
         }
