@@ -103,7 +103,10 @@ public class StartController {
                 outputStream.write(review_body);
 
             case Header.CODE_EDIT_INFORMATION:
-                
+
+            case Header.CODE_INSERT_MENU:
+                requestSender.sendMenuInfoReq(outputStream);
+
 
 
         }

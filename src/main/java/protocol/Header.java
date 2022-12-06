@@ -73,6 +73,8 @@ public class Header implements MySerializableClass {
     public final static byte CODE_INSERT_ORDER_OPTION = 0x57;
     public final static byte CODE_USER_LIST = 0x58;
     public final static byte CODE_INSERT_MENU = 0x59;
+    public final static byte CODE_MENU_INFO = 0x5A;
+
 
 
 
