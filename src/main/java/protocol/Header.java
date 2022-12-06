@@ -28,6 +28,7 @@ public class Header implements MySerializableClass {
     public final static byte CODE_WRITE_REVIEW = 0x08;
 
     public final static byte CODE_ORDER_ACCEPT = 0x30;
+    public final static byte CODE_REVIEW_LOOKUP = 0x31;
 
     //TYPE : 0x01(REQUEST) or 0x02(ANSWER) 일 때
     public final static byte CODE_USER_ID = 0x01;
