@@ -128,6 +128,7 @@
     <select id="selectAllStoreNameAndId" resultMap="result">
         SELECT *
         FROM STORE
+        WHERE store_state = true;
     </select>
 
     <select id="selectStore_WaitingAccept" resultMap="result">

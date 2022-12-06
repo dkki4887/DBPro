@@ -80,6 +80,7 @@ public class Header implements MySerializableClass {
 
 
 
+
     //TYPE : 0x03(RESULT) 일 때
     public final static byte CODE_SUCCESS = 0x01;
     public final static byte CODE_FAIL = 0x02;
@@ -116,7 +117,5 @@ public class Header implements MySerializableClass {
         dos.writeInt(length);
 
         return buf.toByteArray();
-
-
     }
 }

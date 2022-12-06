@@ -14,4 +14,9 @@
         VALUES (#{orderMenu_id}, #{option_name})
     </insert>
 
+    <select id="selectAllOrderOption" resultMap="result">
+        SELECT *
+        FROM project.ORDEROPTION
+    </select>
+
 </mapper>

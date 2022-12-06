@@ -1,14 +1,8 @@
 package control;
 
 import control.*;
-import persistence.dao.MyOrderDAO;
-import persistence.dao.MyReviewDAO;
-import persistence.dao.MyStoreDAO;
-import persistence.dao.MyUserDAO;
-import persistence.dto.OrderDTO;
-import persistence.dto.Review_omDTO;
-import persistence.dto.StoreDTO;
-import persistence.dto.UserDTO;
+import persistence.dao.*;
+import persistence.dto.*;
 import protocol.*;
 import service.UserService;
 
@@ -118,6 +112,18 @@ public class StartController {
 
             case Header.CODE_UPDATE_STORE_TIME:
                 requestSender.sendStoreTimeReq(outputStream);
+                break;
+
+            case Header.CODE_ORDER_LIST_LOOKUP:
+                String user_id = bodyReader.readUTF();
+                List<OrderDTO> orderDTOs = new MyOrderDAO().selectAllCustomerOrder(user_id);
+                List<OrderMenuDTO> orderMenuDTOS = new MyOrderMenuDAO().selectAllMenu();
+                List<OrderOptionDTO> orderOptionDTOS = new MyOrderMenuDAO().selectAllOption();
+
+                responseSender.sendOrderList(orderDTOs, outputStream);
+                responseSender.sendOrderMenuList(orderMenuDTOS, outputStream);
+                responseSender.sendOrderOptionList(orderOptionDTOS, outputStream);
+                responseSender.sendStoreListAns(new MyStoreDAO().selectAll(), outputStream);
                 break;
         }
     }

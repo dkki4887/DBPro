@@ -21,8 +21,8 @@
     <select id="selectStoreMenu" parameterType="int" resultMap="result">
         SELECT *
         FROM MENU
-        WHERE store_id = #{store_id}
-        ORDER BY menu_category
+        WHERE store_id = #{store_id} AND menu_state = true
+        ORDER BY menu_category;
     </select>
 
     <select id="selectStoreMenuNum" parameterType="int" resultType="int">

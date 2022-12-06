@@ -49,6 +49,27 @@ public class MyOrderDAO {
         return dtos;
     }
 
+    public int updateOrderPrice(long order_price, String order_num)
+    {
+        OrderDTO od = new OrderDTO(order_price, order_num);
+        SqlSession session = sqlSessionFactory.openSession();
+        int result = -1;
+        try{
+            result =session.update("mapper.OrderMapper.updateOrderPrice", od);
+
+            if (result==1){
+                session.commit();
+            }else {
+                session.rollback();
+            }
+
+        }finally {
+            session.close();
+        }
+        return result;
+
+    }
+
     public int updateOrderState_Complete(int order_id) {
 
         SqlSession session = sqlSessionFactory.openSession();
@@ -68,6 +89,7 @@ public class MyOrderDAO {
         return result;
 
     }
+
     public int updateOrderState_Cancle(int order_id) {
 
         SqlSession session = sqlSessionFactory.openSession();
@@ -85,7 +107,6 @@ public class MyOrderDAO {
             session.close();
         }
         return result;
-
     }
 
     public int updateOrderState_Delivery(int order_id) {
@@ -105,7 +126,6 @@ public class MyOrderDAO {
             session.close();
         }
         return result;
-
     }
 
 
@@ -155,12 +175,25 @@ public class MyOrderDAO {
         }
         return dtos;
     }
+
     public List<OrderDTO> selectAllOrder_customer(String user_id)
     {
         List<OrderDTO> dtos = null;
         SqlSession session = sqlSessionFactory.openSession();
         try{
             dtos = session.selectList("mapper.OrderMapper.selectAllOrder_customer", user_id);
+        }finally {
+            session.close();
+        }
+        return dtos;
+    }
+
+    public List<OrderDTO> selectAllCustomerOrder(String user_id)
+    {
+        List<OrderDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.OrderMapper.selectAllCustomerOrder", user_id);
         }finally {
             session.close();
         }

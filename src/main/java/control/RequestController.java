@@ -31,7 +31,7 @@ public class RequestController {
 
             case Header.CODE_MENU_LIST:
                 int store_id = inputStream.readInt();
-                List<MenuDTO> menuList = new MenuService().selectStoreMenu(store_id);
+                List<MenuDTO> menuList = new MyMenuDAO().selectStoreMenu(store_id);
                 responseSender.sendMenuListAns(menuList, outputStream);
                 System.out.println("메뉴리스트 보내줌!!");
                 break;
@@ -52,8 +52,10 @@ public class RequestController {
 
             case Header.CODE_UPDATE_MENU_QUANTITY:
                 int updateMenu_id = inputStream.readInt();
-                MyMenuDAO myMenuDAO = new MyMenuDAO();
-                myMenuDAO.updateMenuQuantity(updateMenu_id);
+                long order_price = inputStream.readLong();
+                String order_num = inputStream.readUTF();
+                new MyMenuDAO().updateMenuQuantity(updateMenu_id);
+                new MyOrderDAO().updateOrderPrice(order_price, order_num);
                 System.out.println("메뉴 수량 바꿈!!");
                 break;
 

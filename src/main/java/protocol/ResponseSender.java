@@ -534,7 +534,6 @@ public class ResponseSender {
     }
 
     public void sendMenuListAns(List<MenuDTO> menuList, DataOutputStream outputStream) throws IOException {
-
         BodyMaker bodyMaker = new BodyMaker();
         bodyMaker.addIntBytes(menuList.size());
         for(MenuDTO dto : menuList)
@@ -747,7 +746,8 @@ public class ResponseSender {
         outputStream.write(body);
     }
 
-    public void sendWaitUserListAns(List<UserDTO> userList, DataOutputStream outputStream) throws IOException {
+    public void sendWaitUserListAns(List<UserDTO> userList, DataOutputStream outputStream) throws IOException
+    {
 
             BodyMaker bodyMaker = new BodyMaker();
             bodyMaker.add((MySerializableClass) userList);
@@ -756,5 +756,44 @@ public class ResponseSender {
             Header header = new Header(Header.TYPE_ANS, Header.CODE_USER_LIST, body.length);
             outputStream.write(header.getBytes());
             outputStream.write(body);
-        }
+    }
+
+    public void sendOrderList(List<OrderDTO> orderList, DataOutputStream outputStream) throws IOException {
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addIntBytes(orderList.size());
+        for(OrderDTO dto : orderList)
+            bodyMaker.add(dto);
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(Header.TYPE_ANS, Header.CODE_ORDER_LIST, body.length);
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendOrderMenuList(List<OrderMenuDTO> orderMenuList, DataOutputStream outputStream) throws IOException
+    {
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addIntBytes(orderMenuList.size());
+        for(OrderMenuDTO dto : orderMenuList)
+            bodyMaker.add(dto);
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(Header.TYPE_ANS, Header.CODE_ORDER_LIST, body.length);
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendOrderOptionList(List<OrderOptionDTO> orderOptionList, DataOutputStream outputStream) throws IOException
+    {
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addIntBytes(orderOptionList.size());
+        for(OrderOptionDTO dto : orderOptionList)
+            bodyMaker.add(dto);
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(Header.TYPE_ANS, Header.CODE_ORDER_LIST, body.length);
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
 }
