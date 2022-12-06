@@ -15,6 +15,7 @@
         <result property="store_info" column="store_info"/>
         <result property="store_state" column="store_state"/>
         <result property="store_rate" column="store_rate"/>
+        <result property="store_ack" column="store_ack"/>
     </resultMap>
 
     <resultMap id="staticalinfo" type="persistence.dto.StatisticalInfoDTO">

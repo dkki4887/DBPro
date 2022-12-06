@@ -12,21 +12,24 @@ public class TypeController {
     RequestController requestController;
     AnswerController answerController;
     ResultController resultController;
+
     StartController startController;
 
     public TypeController() {
+        startController = new StartController();
         requestController = new RequestController();
         answerController = new AnswerController();
         resultController = new ResultController();
-        startController = new StartController();
     }
 
     public String handleType(Header header, DataInputStream bodyReader, DataOutputStream outputStream) throws IOException {
-        String USER_ID = null;
+        String USER_ID = "-";
         switch(header.type) {
 
             case Header.TYPE_START:
                 StartController.handleStart(header, bodyReader, outputStream);
+                break;
+
 
             case Header.TYPE_REQ:
                 RequestController.handleRequest(header, bodyReader , outputStream);

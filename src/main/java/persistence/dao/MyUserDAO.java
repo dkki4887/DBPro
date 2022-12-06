@@ -73,5 +73,50 @@ public class MyUserDAO {
         }
         return userDTO;
     }
+    public List<UserDTO> selectUser_WaitingAccept() {
+            List<UserDTO> list = null;
+                    SqlSession session = sqlSessionFactory.openSession();
+                    try{
+                        list  = session.selectList("mapper.UserMapper.selectUser_WaitingAccept");
+                    } finally {
+                        session.close();
+                    }
+                    return list;
+                }
+
+        public int updateUser_Accept(String user_id) {
+            SqlSession session = sqlSessionFactory.openSession();
+                   int result = -1;
+                   try{
+                       result =session.update("mapper.UserMapper.updateUser_Accept",user_id);
+
+                       if (result==1){
+                           session.commit();
+                       }else {
+                           session.rollback();
+                       }
+
+                   }finally {
+                       session.close();
+                   }
+                   return result;
+        }
+
+        public int deleteUser(String user_id) {
+            SqlSession session = sqlSessionFactory.openSession();
+                   int result = -1;
+                   try{
+                       result = session.delete("mapper.UserMapper.deleteUser", user_id);
+
+                       if (result==1){
+                           session.commit();
+                       }else {
+                           session.rollback();
+                       }
+                   } finally {
+                       session.close();
+                   }
+                   return result;
+        }
 }
 

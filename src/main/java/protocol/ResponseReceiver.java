@@ -6,6 +6,7 @@ import service.*;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResponseReceiver {
@@ -22,30 +23,6 @@ public class ResponseReceiver {
         return order;
     }
 
-    public OrderMenuDTO receiveOrderMenu(DataInputStream inputStream) throws IOException
-    {
-        Header header = Header.readHeader(inputStream);
-        byte[] body = new byte[header.length];
-        inputStream.read(body);
-        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
-
-        OrderMenuDTO orderMenu = new OrderMenuDTO();
-        orderMenu.read(bodyReader);
-        return orderMenu;
-    }
-
-    public OrderOptionDTO receiveOrderOption(DataInputStream inputStream) throws IOException
-    {
-        Header header = Header.readHeader(inputStream);
-        byte[] body = new byte[header.length];
-        inputStream.read(body);
-        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
-
-        OrderOptionDTO orderOption = new OrderOptionDTO();
-        orderOption.read(bodyReader);
-        return orderOption;
-    }
-
     public String receiveUserID(DataInputStream inputStream) throws IOException {
         Header header = Header.readHeader(inputStream);
         byte[] body = new byte[header.length];
@@ -53,6 +30,7 @@ public class ResponseReceiver {
         DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
 
         String user_id = bodyReader.readUTF();
+        System.out.println(user_id);
         return user_id;
     }
 
@@ -62,14 +40,11 @@ public class ResponseReceiver {
         inputStream.read(body);
         DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
 
-        List<String> user_IDAndPW = null;
-        int size = bodyReader.readInt();
+        List<String> userIDPW = new ArrayList<String>();
+        userIDPW.add(bodyReader.readUTF());
+        userIDPW.add(bodyReader.readUTF());
 
-        for(int i=0; i<size; i++) {
-            user_IDAndPW.add(bodyReader.readUTF());
-        }
-
-        return user_IDAndPW;
+        return userIDPW;
     }
 
     public void receiveUserName(DataInputStream inputStream) throws IOException {
@@ -113,20 +88,17 @@ public class ResponseReceiver {
         byte[] body = new byte[header.length];
         inputStream.read(body);
         DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
-
-        UserDTO userInfo = new UserDTO();
-        userInfo.read(bodyReader);
-
-        return userInfo;
+        System.out.println(bodyReader.readUTF());
+        return UserDTO.read(bodyReader);
     }
 
     public int receiveStoreID(DataInputStream inputStream) throws IOException {
         Header header = Header.readHeader(inputStream);
         byte[] body = new byte[header.length];
         inputStream.read(body);
-        //DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
+        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
 
-        return inputStream.readInt();
+        return bodyReader.readInt();
     }
 
     public void receiveStoreName(DataInputStream inputStream) throws IOException {
@@ -304,20 +276,22 @@ public class ResponseReceiver {
 
         long option_id = bodyReader.readLong();
     }
+/*
+//    public void receiveOptionList(DataInputStream inputStream) throws IOException {
+//        Header header = Header.readHeader(inputStream);
+//        byte[] body = new byte[header.length];
+//        inputStream.read(body);
+//        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
+//
+//        List<OptionDTO> optionDTOs = null;
+//        int size = bodyReader.readInt();
+//
+//        for(int i=0; i<size; i++) {
+//            optionDTOs.add(OptionDTO.read(bodyReader));
+//        }
+//    }
 
-    public void receiveOptionList(DataInputStream inputStream) throws IOException {
-        Header header = Header.readHeader(inputStream);
-        byte[] body = new byte[header.length];
-        inputStream.read(body);
-        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
-
-        List<OptionDTO> optionDTOs = null;
-        int size = bodyReader.readInt();
-
-        for(int i=0; i<size; i++) {
-            //optionDTOs.add(OptionDTO.read(bodyReader));
-        }
-    }
+ */
 
     public void receiveOrderID(DataInputStream inputStream) throws IOException {
         Header header = Header.readHeader(inputStream);
@@ -345,8 +319,8 @@ public class ResponseReceiver {
 
         String order_id = bodyReader.readUTF();
     }
-
-    public void receiveOrderList(DataInputStream inputStream) throws IOException {
+/*
+/*    public void receiveOrderList(DataInputStream inputStream) throws IOException {
         Header header = Header.readHeader(inputStream);
         byte[] body = new byte[header.length];
         inputStream.read(body);
@@ -356,7 +330,7 @@ public class ResponseReceiver {
         int size = bodyReader.readInt();
 
         for(int i=0; i<size; i++) {
-            //orderDTOs.add(OrderDTO.readOrder(bodyReader));
+            orderDTOs.add(OrderDTO.readOrder(bodyReader));
         }
     }
 
@@ -370,9 +344,11 @@ public class ResponseReceiver {
         int size = bodyReader.readInt();
 
         for(int i=0; i<size; i++) {
-            //orderMenuDTOs.add(OrderMenuDTO.readOrderMenu(bodyReader));
+            orderMenuDTOs.add(OrderMenuDTO.readOrderMenu(bodyReader));
         }
-    }
+    }*/
+
+ */
 
     public void receiveReviewID(DataInputStream inputStream) throws IOException {
         Header header = Header.readHeader(inputStream);

@@ -28,6 +28,9 @@ public class Header implements MySerializableClass {
     public final static byte CODE_WRITE_REVIEW = 0x08;
 
     public final static byte CODE_ORDER_ACCEPT = 0x30;
+    public final static byte CODE_REVIEW_LOOKUP = 0x31;
+    public final static byte CODE_STATISTICS = 0x32;
+    public final static byte CODE_USER_ACCEPT=0x33;
 
     //TYPE : 0x01(REQUEST) or 0x02(ANSWER) 일 때
     public final static byte CODE_USER_ID = 0x01;
@@ -54,8 +57,10 @@ public class Header implements MySerializableClass {
     public final static byte CODE_SELECTED_CATEGORY = 0x2B ;   public final static byte CODE_KEEPER_SALES = 0x2C;
     public final static byte CODE_STORE_NUMBER_OF_SALE = 0x2D;   public final static byte CODE_STORE_SALES = 0x2E;
     public final static byte CODE_STORE_OPENING_HOURS = 0x2F ;   public final static byte CODE_STATISTICS_LIST = 0x30;
-    public final static byte CODE_STORE_LIST = 0x31;
+    public final static byte CODE_STORE_LIST = 0x40;
+    public final static byte CODE_FIXED_ORDER_DTO = 0x41;
 
+    public final static byte CODE_REVIEW_REPLY = 0x42;
     public final static byte CODE_USER_DTO = 0x50;
     public final static byte CODE_USER_INFO = 0x51;
     public final static byte CODE_STORE_INFO = 0x52;
@@ -64,8 +69,8 @@ public class Header implements MySerializableClass {
     public final static byte CODE_UPDATE_MENU_QUANTITY = 0x55;
     public final static byte CODE_INSERT_ORDER_MENU = 0x56;
     public final static byte CODE_INSERT_ORDER_OPTION = 0x57;
+    public final static byte CODE_USER_LIST = 0x58;
 
-    public final static byte CODE_FIXED_ORDER_DTO = 0x70;
 
     //TYPE : 0x03(RESULT) 일 때
     public final static byte CODE_SUCCESS = 0x01;

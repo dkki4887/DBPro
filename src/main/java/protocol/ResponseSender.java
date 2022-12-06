@@ -347,43 +347,43 @@ public class ResponseSender {
         outputStream.write(header.getBytes());
         outputStream.write(body);
     }
+/*
+//    public void sendStoreSaleCountAns(StatisticalInfoDTO statisticalInfo, DataOutputStream outputStream) throws IOException {
+//
+//        BodyMaker bodyMaker = new BodyMaker();
+//        bodyMaker.add(statisticalInfo);
+//
+//        byte[] body = bodyMaker.getBody();
+//
+//        Header header = new Header(
+//                Header.TYPE_ANS,
+//                Header.CODE_STORE_COUNT_OF_SALE,
+//                body.length
+//        );
+//
+//        outputStream.write(header.getBytes());
+//        outputStream.write(body);
+//    }
+//
+//    public void sendStoreTotalSalesAns(int totalSales, DataOutputStream outputStream) throws IOException {
+//
+//        BodyMaker bodyMaker = new BodyMaker();
+//        bodyMaker.addIntBytes(totalSales);
+//
+//        byte[] body = bodyMaker.getBody();
+//
+//        Header header = new Header(
+//                Header.TYPE_ANS,
+//                Header.CODE_STORE_TOTAL_SALES,
+//                body.length
+//        );
+//
+//        outputStream.write(header.getBytes());
+//        outputStream.write(body);
+//    }
 
-    /*public void sendStoreSaleCountAns(StatisticalInfoDTO statisticalInfo, DataOutputStream outputStream) throws IOException {
 
-        BodyMaker bodyMaker = new BodyMaker();
-        bodyMaker.add(statisticalInfo);
-
-        byte[] body = bodyMaker.getBody();
-
-        Header header = new Header(
-                Header.TYPE_ANS,
-                Header.CODE_STORE_COUNT_OF_SALE,
-                body.length
-        );
-
-        outputStream.write(header.getBytes());
-        outputStream.write(body);
-    }
-
-    public void sendStoreTotalSalesAns(int totalSales, DataOutputStream outputStream) throws IOException {
-
-        BodyMaker bodyMaker = new BodyMaker();
-        bodyMaker.addIntBytes(totalSales);
-
-        byte[] body = bodyMaker.getBody();
-
-        Header header = new Header(
-                Header.TYPE_ANS,
-                Header.CODE_STORE_TOTAL_SALES,
-                body.length
-        );
-
-        outputStream.write(header.getBytes());
-        outputStream.write(body);
-    }
-
-     */
-
+ */
     public void sendStoreTimeAns(String time, DataOutputStream outputStream) throws IOException {
 
         BodyMaker bodyMaker = new BodyMaker();
@@ -521,12 +521,16 @@ public class ResponseSender {
     public void sendMenuListAns(List<MenuDTO> menuList, DataOutputStream outputStream) throws IOException {
 
         BodyMaker bodyMaker = new BodyMaker();
-        bodyMaker.addIntBytes(menuList.size());
-        for(MenuDTO dto : menuList)
-            bodyMaker.add(dto);
+        bodyMaker.add((MySerializableClass) menuList);
+
         byte[] body = bodyMaker.getBody();
 
-        Header header = new Header(Header.TYPE_ANS, Header.CODE_MENU_LIST, body.length);
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_MENU_LIST,
+                body.length
+        );
+
         outputStream.write(header.getBytes());
         outputStream.write(body);
     }
@@ -548,7 +552,7 @@ public class ResponseSender {
         outputStream.write(body);
     }
 
-    /*public void sendOptionPriceAns(Scanner s, DataOutputStream outputStream) throws IOException {
+/*    public void sendOptionPriceAns(Scanner s, DataOutputStream outputStream) throws IOException {
 
         System.out.print("옵션 가격을 입력하세요. : ");
         long option_price = s.nextLong();
@@ -566,19 +570,21 @@ public class ResponseSender {
 
         outputStream.write(header.getBytes());
         outputStream.write(body);
-    }
-
-     */
+    }*/
 
     public void sendOptionListAns(List<OptionDTO> OptionList, DataOutputStream outputStream) throws IOException {
 
         BodyMaker bodyMaker = new BodyMaker();
-        bodyMaker.addIntBytes(OptionList.size());
-        for(OptionDTO dto : OptionList)
-            bodyMaker.add(dto);
+        bodyMaker.add((MySerializableClass) OptionList);
+
         byte[] body = bodyMaker.getBody();
 
-        Header header = new Header( Header.TYPE_ANS, Header.CODE_OPTION_LIST, body.length);
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_OPTION_LIST,
+                body.length
+        );
+
         outputStream.write(header.getBytes());
         outputStream.write(body);
     }
@@ -617,7 +623,7 @@ public class ResponseSender {
         outputStream.write(body);
     }
 
-    /*public void sendOrderPriceAns(long orderPrice, DataOutputStream outputStream) throws IOException {
+/*    public void sendOrderPriceAns(long orderPrice, DataOutputStream outputStream) throws IOException {
 
         BodyMaker bodyMaker = new BodyMaker();
         bodyMaker.addLongBytes(orderPrice);
@@ -632,30 +638,23 @@ public class ResponseSender {
 
         outputStream.write(header.getBytes());
         outputStream.write(body);
-    }
-
-     */
+    }*/
 
     public void sendOrderListAns(List<OrderDTO> OrderList, DataOutputStream outputStream) throws IOException {
 
         BodyMaker bodyMaker = new BodyMaker();
 
+        bodyMaker.addIntBytes(OrderList.size());
         for(OrderDTO orderDTO : OrderList)
-        {
             bodyMaker.add(orderDTO); // 이런식으로 하는데 일단 회의해야할 듯
-        }
 
-
-        byte[] body = bodyMaker.getBody();
-
-        Header header = new Header(
+        byte[] orderBody = bodyMaker.getBody();
+        Header orderHeader = new Header(
                 Header.TYPE_ANS,
                 Header.CODE_ORDER_LIST,
-                body.length
-        );
-
-        outputStream.write(header.getBytes());
-        outputStream.write(body);
+                orderBody.length);
+        outputStream.write(orderHeader.getBytes());
+        outputStream.write(orderBody);
     }
     public void sendOrderMenuListAns(List<OrderMenuDTO> orderMenuList, DataOutputStream outputStream) throws IOException {
 
@@ -718,13 +717,22 @@ public class ResponseSender {
     public void sendStoreListAns(List<StoreDTO> storeList, DataOutputStream outputStream) throws IOException {
 
         BodyMaker bodyMaker = new BodyMaker();
-        bodyMaker.addIntBytes(storeList.size());
-        for(StoreDTO dto : storeList)
-            bodyMaker.add(dto);
+        bodyMaker.add((MySerializableClass) storeList);
         byte[] body = bodyMaker.getBody();
 
         Header header = new Header(Header.TYPE_ANS, Header.CODE_STORE_LIST, body.length);
         outputStream.write(header.getBytes());
         outputStream.write(body);
     }
+
+    public void sendWaitUserListAns(List<UserDTO> userList, DataOutputStream outputStream) throws IOException {
+
+            BodyMaker bodyMaker = new BodyMaker();
+            bodyMaker.add((MySerializableClass) userList);
+            byte[] body = bodyMaker.getBody();
+
+            Header header = new Header(Header.TYPE_ANS, Header.CODE_USER_LIST, body.length);
+            outputStream.write(header.getBytes());
+            outputStream.write(body);
+        }
 }

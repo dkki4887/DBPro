@@ -21,18 +21,29 @@ public class UserDTO implements MySerializableClass{
     private String user_address;
     private String user_phone;
     private int user_category;
+    private boolean user_state;
 
-    public UserDTO(){};
+    public UserDTO() {
+    }
 
-    public UserDTO(String user_id, String user_pw, String user_name, String user_address, String user_phone, int user_category)
-    {
+    public UserDTO(String user_id, String user_pw, String user_name, String user_address, String phone, int user_category) {
         this.user_id = user_id;
         this.user_pw = user_pw;
         this.user_name = user_name;
         this.user_address = user_address;
-        this.user_phone = user_phone;
+        this.user_phone = phone;
         this.user_category = user_category;
     }
+    public UserDTO(String user_id, String user_pw, String user_name, String user_address, String phone, int user_category, boolean user_state) {
+        this.user_id = user_id;
+        this.user_pw = user_pw;
+        this.user_name = user_name;
+        this.user_address = user_address;
+        this.user_phone = phone;
+        this.user_category = user_category;
+        this.user_state=user_state;
+    }
+
 
     public String getUser_id() {
         return user_id;
@@ -82,17 +93,6 @@ public class UserDTO implements MySerializableClass{
         this.user_category = user_category;
     }
 
-    public UserDTO read(DataInputStream bodyReader) throws IOException {
-        user_id = bodyReader.readUTF();
-        user_pw = bodyReader.readUTF();
-        user_name = bodyReader.readUTF();
-        user_address = bodyReader.readUTF();
-        user_phone = bodyReader.readUTF();
-        user_category = bodyReader.readInt();
-
-        return this;
-    }
-
     @Override
     public byte[] getBytes() throws IOException {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
@@ -106,4 +106,16 @@ public class UserDTO implements MySerializableClass{
         dos.writeInt(user_category);
         return buf.toByteArray();
     }
+
+    public static UserDTO read(DataInputStream bodyReader) throws IOException {
+        String user_id = bodyReader.readUTF();
+        String user_pw = bodyReader.readUTF();
+        String user_name = bodyReader.readUTF();
+        String user_address  = bodyReader.readUTF();
+        String user_phone = bodyReader.readUTF();
+        int user_category =bodyReader.readInt();
+        UserDTO userDTO = new UserDTO(user_id , user_pw, user_name , user_address , user_phone , user_category);
+        return userDTO;
+    }
+
 }
