@@ -62,6 +62,7 @@ public class RequestController {
                         break;
                     }
                 }
+                System.out.println(store_id2);
                 List<Review_omDTO> reviewList = myReviewDAO.findReviewWithStoreAndReply(store_id2);
 
                 BodyMaker bodyMaker = new BodyMaker();
@@ -69,6 +70,9 @@ public class RequestController {
                 for(int i = 0 ; i <reviewList.size(); i ++)
                     bodyMaker.add(reviewList.get(i));
                 byte[] review_body = bodyMaker.getBody();
+
+                System.out.println("보내나?");
+
                 Header review_header = new Header(
                         Header.TYPE_ANS,
                         Header.CODE_REVIEW_LOOKUP,

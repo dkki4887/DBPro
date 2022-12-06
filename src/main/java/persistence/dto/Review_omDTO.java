@@ -22,9 +22,7 @@ public class Review_omDTO implements MySerializableClass {
 
     private int review_comment;
 
-    public Review_omDTO(int review_id , int order_id, int store_id ,
-                        String menu_name ,String review_content ,  int review_rate ,int review_comment)
-    {
+    public Review_omDTO(int review_id, int order_id, int store_id, String menu_name, String review_content, int review_rate, int review_comment) {
         this.review_id = review_id;
         this.order_id = order_id;
         this.store_id = store_id;
@@ -34,7 +32,7 @@ public class Review_omDTO implements MySerializableClass {
         this.review_comment = review_comment;
     }
 
-    public Review_omDTO(){}
+
     public int getOrder_id() {
         return order_id;
     }
@@ -92,4 +90,6 @@ public class Review_omDTO implements MySerializableClass {
         dos.writeInt(review_comment);
         return buf.toByteArray();
     }
+
+
 }

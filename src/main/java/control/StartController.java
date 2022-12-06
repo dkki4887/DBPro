@@ -73,7 +73,7 @@ public class StartController {
                     }
                 }
                 List<Review_omDTO> reviewList = myReviewDAO.findReviewWithStoreAndNonReply(store_id2);
-
+                System.out.println(reviewList.size());
                 BodyMaker bodyMaker = new BodyMaker();
                 bodyMaker.addIntBytes(reviewList.size());
                 for(int i = 0 ; i <reviewList.size(); i ++)
