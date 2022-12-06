@@ -5,6 +5,7 @@ import org.apache.ibatis.type.Alias;
 import protocol.MySerializableClass;
 
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -49,6 +50,16 @@ public class OrderMenuDTO implements MySerializableClass {
     public String getMenu_name() {
         return menu_name;
     }
+
+    public static OrderMenuDTO read(DataInputStream bodyReader) throws IOException
+    {
+        String orderMenu_id = bodyReader.readUTF();
+        String menu_name = bodyReader.readUTF();
+        String order_num = bodyReader.readUTF();
+
+        return new OrderMenuDTO(orderMenu_id, order_num, menu_name);
+    }
+
 
     @Override
     public byte[] getBytes() throws IOException {

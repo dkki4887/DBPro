@@ -117,5 +117,4 @@ public class UserDTO implements MySerializableClass{
         UserDTO userDTO = new UserDTO(user_id , user_pw, user_name , user_address , user_phone , user_category);
         return userDTO;
     }
-
 }

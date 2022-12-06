@@ -9,11 +9,10 @@ import java.io.IOException;
 
 public class TypeController {
 
-    RequestController requestController;
-    AnswerController answerController;
-    ResultController resultController;
-
-    StartController startController;
+    private RequestController requestController;
+    private AnswerController answerController;
+    private ResultController resultController;
+    private StartController startController;
 
     public TypeController() {
         startController = new StartController();
@@ -27,20 +26,20 @@ public class TypeController {
         switch(header.type) {
 
             case Header.TYPE_START:
-                StartController.handleStart(header, bodyReader, outputStream);
+                startController.handleStart(header, bodyReader, outputStream);
                 break;
 
 
             case Header.TYPE_REQ:
-                RequestController.handleRequest(header, bodyReader , outputStream);
+                requestController.handleRequest(header, bodyReader , outputStream);
                 break;
 
             case Header.TYPE_ANS:
-                USER_ID=AnswerController.handleAnswer(header, bodyReader, outputStream );
+                USER_ID=answerController.handleAnswer(header, bodyReader, outputStream );
                 break;
 
             case Header.TYPE_RES:
-                ResultController.handleResult(header, bodyReader, outputStream);
+                resultController.handleResult(header, bodyReader, outputStream);
                 break;
 
             case Header.TYPE_QUIT:

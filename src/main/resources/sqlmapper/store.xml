@@ -26,6 +26,17 @@
         <result property="count_order" column="count_order"/>
     </resultMap>
 
+    <resultMap id="StoreReview" type="persistence.dto.StoreReviewDTO">
+        <result property="store_id" column="store_id"/>
+        <result property="store_name" column="store_name"/>
+        <result property="store_phone" column="store_phone"/>
+        <result property="store_address" column="store_address"/>
+        <result property="store_time" column="store_time"/>
+        <result property="store_info" column="store_info"/>
+        <result property="review_rate" column="review_rate"/>
+        <result property="review_content" column="review_content"/>
+    </resultMap>
+
     <select id="selectAll" resultMap="result">
         SELECT * FROM STORE
     </select>
@@ -40,6 +51,10 @@
 
     <select id="selectStore_id" parameterType="int" resultMap="result">
         SELECT store_name FROM STORE WHERE store_id = #{store_id}
+    </select>
+
+    <select id="selectByUserid" parameterType="string" resultMap="result">
+        SELECT * FROM STORE WHERE user_id = #{user_id}
     </select>
 
     <select id="selectStaticalinfo" parameterType="int" resultMap="staticalinfo">
@@ -127,6 +142,13 @@
         SELECT *
         FROM STORE
         WHERE store_id = #{store_id}
+    </select>
+
+    <select id="selectStoreReview" resultMap="StoreReview">
+        SELECT s.store_id, s.store_name, s.store_phone, s.store_address, s.store_time, s.store_info, r.review_rate, r.review_content
+        FROM STORE s, REVIEW r
+        WHERE s.store_id = r.store_id
+        ORDER BY s.store_id
     </select>
 
     <update id="updateStore_Accept">

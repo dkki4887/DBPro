@@ -7,6 +7,7 @@ import persistence.dao.MyStoreDAO;
 import persistence.dao.MyUserDAO;
 import persistence.dto.*;
 import protocol.*;
+import service.UserService;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -16,19 +17,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StartController {
+    private ResponseSender responseSender;
+    private ResponseReceiver responseReceiver;
+    private RequestSender requestSender;
+    private RequestReceiver requestReceiver;
 
-    public static void handleStart(Header header, DataInputStream bodyReader, DataOutputStream outputStream) throws IOException {
-        ResponseSender responseSender = new ResponseSender();
-        ResponseReceiver responseReceiver = new ResponseReceiver();
-        RequestSender requestSender = new RequestSender();
-        RequestReceiver requestReceiver = new RequestReceiver();
+    public StartController()
+    {
+        this.responseSender = new ResponseSender();
+        this.responseReceiver = new ResponseReceiver();
+        this.requestSender = new RequestSender();
+        this.requestReceiver = new RequestReceiver();
+    }
 
+    public void handleStart(Header header, DataInputStream bodyReader, DataOutputStream outputStream) throws IOException {
         String userID_for_test = "store1"; // test용 유저아이디
 
         switch (header.code) {
 
             case Header.CODE_SIGN_UP:  // 가입 시작을 받음
-                /*requestSender.sendUserInfoReq(outputStream);*/
+                requestSender.sendUserIDReq(outputStream);
+                System.out.println("SIGN UP 시작 요청을 받음");
+                break;
+
+            case Header.CODE_LOG_IN:  // 가입 시작을 받음
+                requestSender.sendUserIDReq(outputStream);
                 System.out.println("SIGN UP 시작 요청을 받음");
                 break;
 
@@ -54,6 +67,7 @@ public class StartController {
                 List<OrderDTO> orderList = myOrderDAO.selectOrder_store_Waiting(store_id);
                 responseSender.sendOrderListAns(orderList, outputStream);
                 break;
+
             case Header.CODE_USER_ACCEPT:
                 MyUserDAO myUserDAO = new MyUserDAO();
                 responseSender.sendWaitUserListAns(myUserDAO.selectUser_WaitingAccept(), outputStream);
@@ -84,9 +98,24 @@ public class StartController {
                         review_body.length);
                 outputStream.write(review_header.getBytes());
                 outputStream.write(review_body);
-
                 break;
 
+            case Header.CODE_INFO_AND_PW_FIX:
+                responseSender.sendCheckPwdResult(bodyReader, outputStream);
+                break;
+
+            case Header.CODE_STORE_LOOKUP:
+                myStoreDAO = new MyStoreDAO();
+                responseSender.sendStoreAndReviewAns(myStoreDAO.selectStoreReview(), outputStream);
+                break;
+
+            case Header.CODE_INSERT_MENU:
+                requestSender.sendMenuInfoReq(outputStream);
+                break;
+
+            case Header.CODE_UPDATE_STORE_TIME:
+                requestSender.sendStoreTimeReq(outputStream);
+                break;
 
             case Header.CODE_STATISTICS:
                 MyStoreDAO myStoreDAO4 = new MyStoreDAO();

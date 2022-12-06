@@ -51,8 +51,8 @@
     </select>
 
     <insert id="menuAdd" parameterType="MenuDTO" useGeneratedKeys="true" keyProperty="menu_id">
-        INSERT INTO project.menu(store_id, menu_name, menu_price, menu_quantity, menu_category)
-        VALUES(#{store_id}, #{menu_name}, #{menu_price}, #{menu_quantity}, #{menu_category})
+        INSERT INTO project.menu(store_id, menu_name, menu_price, menu_quantity, menu_category, menu_state)
+        VALUES(#{store_id}, #{menu_name}, #{menu_price}, #{menu_quantity}, #{menu_category}, #{menu_state})
     </insert>
 
 

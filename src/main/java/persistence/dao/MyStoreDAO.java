@@ -5,7 +5,9 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import persistence.MyBatisConnectionFactory;
 import persistence.dto.StatisticalInfoDTO;
 import persistence.dto.StoreDTO;
+import persistence.dto.StoreReviewDTO;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,6 +71,18 @@ public class MyStoreDAO {
         return storeDTO;
     }
 
+    public List<StoreDTO> selectByUserId(String user_id)
+    {
+        List<StoreDTO> storeDTOs = new ArrayList<StoreDTO>();
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            storeDTOs.add(session.selectOne("mapper.StoreMapper.selectByUserid", user_id));
+        } finally {
+            session.close();
+        }
+        return storeDTOs;
+    }
+
     public void storeAdd(StoreDTO addStoreDTO)
     {
         SqlSession session = sqlSessionFactory.openSession();
@@ -102,6 +116,17 @@ public class MyStoreDAO {
         SqlSession session = sqlSessionFactory.openSession();
         try{
             list  = session.selectList("mapper.StoreMapper.selectStore_Accepted");
+        } finally {
+            session.close();
+        }
+        return list;
+    }
+
+    public List<StoreReviewDTO> selectStoreReview(){
+        List<StoreReviewDTO> list = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            list  = session.selectList("mapper.StoreMapper.selectStoreReview");
         } finally {
             session.close();
         }

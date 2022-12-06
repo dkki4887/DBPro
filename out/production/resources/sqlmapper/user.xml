@@ -31,15 +31,15 @@
         SELECT * FROM project.user WHERE user_id = #{user_id}
     </select>
 
+    <select id="selectUser_WaitingAccept" resultMap="result">
+               SELECT * FROM USER WHERE user_state = false;
+           </select>
+
 
     <insert id="userAdd" parameterType="UserDTO" keyProperty="user_id">
         INSERT INTO project.user(user_id, user_pw, user_name, user_address, user_phone, user_category)
         VALUES(#{user_id}, #{user_pw}, #{user_name}, #{user_address}, #{user_phone}, #{user_category})
     </insert>
-
-
-
-
 
     <update id="userPwUpdate" parameterType="UserDTO" keyProperty="user_id">
         UPDATE project.user
@@ -55,18 +55,32 @@
     <update id="userInfoUpdate" parameterType="UserDTO" keyProperty="user_id">
         UPDATE project.user
         <set>
-            <if test='user_name!="'>
-                store_phone = #{store_phone},
+            <if test='user_pw!=""'>
+                user_pw = #{user_pw},
+            </if>
+            <if test='user_name!=""'>
+                user_name = #{user_name},
             </if>
             <if test='user_address!=""'>
-                store_address = #{store_address},
+                user_address = #{user_address},
             </if>
             <if test='user_phone!=""'>
-                store_category = #{store_category},
+                user_phone = #{user_phone},
             </if>
-            store_id = store_id
+            user_id = user_id
         </set>
         WHERE user_id = #{user_id};
     </update>
+
+    <update id="updateUser_Accept">
+        UPDATE project.user
+        SET user_state = true
+        WHERE user_id = #{user_id}
+    </update>
+
+    <delete id="deleteUser">
+        DELETE FROM USER
+        WHERE user_id = #{user_id}
+    </delete>
 
 </mapper>

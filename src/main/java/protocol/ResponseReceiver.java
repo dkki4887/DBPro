@@ -16,11 +16,34 @@ public class ResponseReceiver {
         Header header = Header.readHeader(inputStream);
         byte[] body = new byte[header.length];
         inputStream.read(body);
-        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
 
         OrderDTO order = new OrderDTO();
-        order.read(bodyReader);
+        order.read(inputStream);
         return order;
+    }
+
+    public OrderMenuDTO receiveOrderMenu(DataInputStream inputStream) throws IOException
+    {
+        Header header = Header.readHeader(inputStream);
+        byte[] body = new byte[header.length];
+        inputStream.read(body);
+        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
+
+        OrderMenuDTO orderMenu = new OrderMenuDTO();
+        orderMenu.read(bodyReader);
+        return orderMenu;
+    }
+
+    public OrderOptionDTO receiveOrderOption(DataInputStream inputStream) throws IOException
+    {
+        Header header = Header.readHeader(inputStream);
+        byte[] body = new byte[header.length];
+        inputStream.read(body);
+        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
+
+        OrderOptionDTO orderOption = new OrderOptionDTO();
+        orderOption.read(bodyReader);
+        return orderOption;
     }
 
     public String receiveUserID(DataInputStream inputStream) throws IOException {
@@ -96,9 +119,8 @@ public class ResponseReceiver {
         Header header = Header.readHeader(inputStream);
         byte[] body = new byte[header.length];
         inputStream.read(body);
-        DataInputStream bodyReader = new DataInputStream(new ByteArrayInputStream(body));
 
-        return bodyReader.readInt();
+        return inputStream.readInt();
     }
 
     public void receiveStoreName(DataInputStream inputStream) throws IOException {
@@ -347,7 +369,6 @@ public class ResponseReceiver {
             orderMenuDTOs.add(OrderMenuDTO.readOrderMenu(bodyReader));
         }
     }*/
-
 
 
     public void receiveReviewID(DataInputStream inputStream) throws IOException {
