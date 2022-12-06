@@ -44,7 +44,6 @@ public class StartController {
                 responseSender.sendStoreListAns(myStoreDAO.selectAllStoreNameAndId(), outputStream);
                 break;
 
-
             case Header.CODE_ORDER_ACCEPT: //주문 승인or거절 시작을 받고 ,Order List 전송
                 MyOrderDAO myOrderDAO = new MyOrderDAO();
                 MyStoreDAO myStoreDAO2 = new MyStoreDAO();
@@ -61,6 +60,7 @@ public class StartController {
                 List<OrderDTO> orderList = myOrderDAO.selectOrder_store_Waiting(store_id);
                 responseSender.sendOrderListAns(orderList, outputStream);
                 break;
+
             case Header.CODE_USER_ACCEPT:
                 MyUserDAO myUserDAO = new MyUserDAO();
                 responseSender.sendWaitUserListAns(myUserDAO.selectUser_WaitingAccept(), outputStream);
@@ -93,6 +93,8 @@ public class StartController {
                 outputStream.write(review_header.getBytes());
                 outputStream.write(review_body);
 
+            case Header.CODE_EDIT_INFORMATION:
+                
 
 
         }
