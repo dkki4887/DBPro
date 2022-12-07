@@ -121,6 +121,7 @@ public class StoreDTO implements MySerializableClass {
         dos.writeInt(store_rate);
         dos.writeUTF(store_time);
         dos.writeUTF(store_info);
+        dos.writeBoolean(store_ack);
         return buf.toByteArray();
     }
 

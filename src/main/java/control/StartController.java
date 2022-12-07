@@ -4,6 +4,8 @@ import control.*;
 import persistence.dao.*;
 import persistence.dto.*;
 import protocol.*;
+import service.MenuService;
+import service.StoreService;
 import service.UserService;
 
 import java.io.ByteArrayInputStream;
@@ -19,8 +21,7 @@ public class StartController {
     private RequestSender requestSender;
     private RequestReceiver requestReceiver;
 
-    public StartController()
-    {
+    public StartController() {
         this.responseSender = new ResponseSender();
         this.responseReceiver = new ResponseReceiver();
         this.requestSender = new RequestSender();
@@ -53,10 +54,8 @@ public class StartController {
                 MyStoreDAO myStoreDAO2 = new MyStoreDAO();
                 List<StoreDTO> storeList = myStoreDAO2.selectAll();
                 int store_id = -1;
-                for(int i = 0 ; i <storeList.size() ; i ++)
-                {
-                    if(storeList.get(i).getUser_id().equals( userID_for_test  ))
-                    {
+                for (int i = 0; i < storeList.size(); i++) {
+                    if (storeList.get(i).getUser_id().equals(userID_for_test)) {
                         store_id = storeList.get(i).getStore_id();
                         break;
                     }
@@ -65,20 +64,13 @@ public class StartController {
                 responseSender.sendOrderListAns(orderList, outputStream);
                 break;
 
-            case Header.CODE_USER_ACCEPT:
-                MyUserDAO myUserDAO = new MyUserDAO();
-                responseSender.sendWaitUserListAns(myUserDAO.selectUser_WaitingAccept(), outputStream);
-                break;
-
             case Header.CODE_REVIEW_LOOKUP:
                 MyReviewDAO myReviewDAO = new MyReviewDAO();
                 MyStoreDAO myStoreDAO3 = new MyStoreDAO();
                 List<StoreDTO> storeList2 = myStoreDAO3.selectAll();
                 int store_id2 = -1;
-                for(int i = 0 ; i <storeList2.size() ; i ++)
-                {
-                    if(storeList2.get(i).getUser_id().equals( userID_for_test  ))
-                    {
+                for (int i = 0; i < storeList2.size(); i++) {
+                    if (storeList2.get(i).getUser_id().equals(userID_for_test)) {
                         store_id2 = storeList2.get(i).getStore_id();
                         break;
                     }
@@ -87,7 +79,7 @@ public class StartController {
 
                 BodyMaker bodyMaker = new BodyMaker();
                 bodyMaker.addIntBytes(reviewList.size());
-                for(int i = 0 ; i <reviewList.size(); i ++)
+                for (int i = 0; i < reviewList.size(); i++)
                     bodyMaker.add(reviewList.get(i));
                 byte[] review_body = bodyMaker.getBody();
                 Header review_header = new Header(
@@ -148,6 +140,21 @@ public class StartController {
                 responseSender.sendOrderMenuList(orderMenus, outputStream);
                 responseSender.sendOrderOptionList(orderOptions, outputStream);
                 responseSender.sendStoreListAns(new MyStoreDAO().selectAll(), outputStream);
+                break;
+            case Header.CODE_USER_ACCEPT:
+                UserService us = new UserService();
+                List<UserDTO> userDTOS = us.selectUser_WaitingAccept();
+                responseSender.sendWaitUserListAns(userDTOS, outputStream);
+                break;
+            case Header.CODE_STORE_ACCEPT:
+                StoreService ss = new StoreService();
+                List<StoreDTO> storeDTOS = ss.selectStore_WaitingAccept();
+                responseSender.sendWaitStoreListAns(storeDTOS, outputStream);
+                break;
+            case Header.CODE_MENU_ACCEPT:
+                MenuService ms = new MenuService();
+                List<MenuDTO> menuDTOS = ms.selectMenu_WaitingAccept();
+                responseSender.sendWaitMenuListAns(menuDTOS, outputStream);
                 break;
         }
     }

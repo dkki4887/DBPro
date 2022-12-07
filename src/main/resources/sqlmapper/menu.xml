@@ -12,6 +12,7 @@
         <result property="menu_price" column="menu_price"/>
         <result property="menu_quantity" column="menu_quantity"/>
         <result property="menu_category" column="menu_category"/>
+        <result property="menu_state" column="menu_state"/>
     </resultMap>
 
     <select id="selectAll" resultMap="result">
@@ -82,6 +83,24 @@
         SET menu_quantity = menu_quantity - 1
         WHERE menu_id = #{menu_id}
     </update>
+
+    <select id="selectUser_WaitingAccept" resultMap="result">
+           SELECT *
+           FROM MENU
+           WHERE menu_state = false;
+       </select>
+
+       <update id="updateMenu_Accept">
+           UPDATE project.menu
+           SET menu_state = true
+           WHERE menu_id = #{menu_id}
+       </update>
+
+       <delete id="deleteMenu">
+           DELETE
+           FROM USER
+           WHERE menu_id = #{menu_id}
+       </delete>
 
 
 </mapper>

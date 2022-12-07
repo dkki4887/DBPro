@@ -128,5 +128,51 @@ public class MyMenuDAO {
             session.close();
         }
     }
+
+    public List<MenuDTO> selectMenu_WaitingAccept() {
+            List<MenuDTO> list = null;
+            SqlSession session = sqlSessionFactory.openSession();
+            try {
+                list = session.selectList("mapper.MenuMapper.selectMenu_WaitingAccept");
+            } finally {
+                session.close();
+            }
+            return list;
+        }
+
+        public int updateMenu_Accept(int menu_id) {
+            SqlSession session = sqlSessionFactory.openSession();
+            int result = -1;
+            try {
+                result = session.update("mapper.MenuMapper.updateMenu_Accept", menu_id);
+
+                if (result == 1) {
+                    session.commit();
+                } else {
+                    session.rollback();
+                }
+
+            } finally {
+                session.close();
+            }
+            return result;
+        }
+
+        public int deleteMenu(int menu_id) {
+            SqlSession session = sqlSessionFactory.openSession();
+            int result = -1;
+            try {
+                result = session.delete("mapper.MenuMapper.deleteMenu", menu_id);
+
+                if (result == 1) {
+                    session.commit();
+                } else {
+                    session.rollback();
+                }
+            } finally {
+                session.close();
+            }
+            return result;
+        }
 }
 

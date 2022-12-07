@@ -2,10 +2,7 @@ package control;
 
 import persistence.dao.*;
 import persistence.dto.*;
-import protocol.BodyMaker;
-import protocol.Header;
-import protocol.ResponseReceiver;
-import protocol.ResponseSender;
+import protocol.*;
 import service.MenuService;
 import service.OptionService;
 
@@ -15,19 +12,20 @@ import java.io.IOException;
 import java.util.List;
 
 public class RequestController {
-   private ResponseReceiver responseReceiver;
-   private ResponseSender responseSender;
+    private ResponseReceiver responseReceiver;
+    private ResponseSender responseSender;
+    private RequestSender requestSender;
 
-   public RequestController()
-   {
-       responseReceiver = new ResponseReceiver();
-       responseSender = new ResponseSender();
-   }
+    public RequestController() {
+        responseReceiver = new ResponseReceiver();
+        responseSender = new ResponseSender();
+        requestSender = new RequestSender();
+    }
 
     public void handleRequest(Header header, DataInputStream inputStream, DataOutputStream outputStream) throws IOException {
 
         String userID_for_test = "store1"; // test용 유저아이디
-        switch(header.code) {
+        switch (header.code) {
 
             case Header.CODE_MENU_LIST:
                 int store_id = inputStream.readInt();
@@ -78,10 +76,8 @@ public class RequestController {
                 MyStoreDAO myStoreDAO3 = new MyStoreDAO();
                 List<StoreDTO> storeList2 = myStoreDAO3.selectAll();
                 int store_id2 = -1;
-                for(int i = 0 ; i <storeList2.size() ; i ++)
-                {
-                    if(storeList2.get(i).getUser_id().equals( userID_for_test  ))
-                    {
+                for (int i = 0; i < storeList2.size(); i++) {
+                    if (storeList2.get(i).getUser_id().equals(userID_for_test)) {
                         store_id2 = storeList2.get(i).getStore_id();
                         break;
                     }
@@ -90,7 +86,7 @@ public class RequestController {
 
                 BodyMaker bodyMaker = new BodyMaker();
                 bodyMaker.addIntBytes(reviewList.size());
-                for(int i = 0 ; i <reviewList.size(); i ++)
+                for (int i = 0; i < reviewList.size(); i++)
                     bodyMaker.add(reviewList.get(i));
                 byte[] review_body = bodyMaker.getBody();
                 Header review_header = new Header(
@@ -114,6 +110,12 @@ public class RequestController {
             case Header.CODE_INSERT_REVIEW:
                 ReviewDTO reviewDTO = ReviewDTO.read(inputStream);
                 new MyReviewDAO().insertReview(reviewDTO);
+                break;
+            case Header.CODE_REQUEST_RECEIVE_ACCEPT_USER_NUM:
+                requestSender.sendAcceptUserNumReq(outputStream);
+                break;
+            case Header.CODE_REQUEST_RECEIVE_ACCEPT_STORE_NUM:
+                requestSender.sendAcceptStoreNumReq(outputStream);
                 break;
         }
     }

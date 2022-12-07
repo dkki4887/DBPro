@@ -413,4 +413,18 @@ public class MenuService
         return menuOptionDTOS;
     }
 
+    public List<MenuDTO> selectMenu_WaitingAccept() {
+            List<MenuDTO> list = myMenuDAO.selectMenu_WaitingAccept();
+            return list;
+        }
+
+        public int updateUser_Accept(int menu_id) {
+            int result = myMenuDAO.updateMenu_Accept(menu_id);
+            return result;
+        }
+
+        public int deleteUser(int menu_id) {
+            int result = myMenuDAO.deleteMenu(menu_id);
+            return result;
+        }
 }
