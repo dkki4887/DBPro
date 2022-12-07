@@ -53,6 +53,10 @@
         SELECT store_name FROM STORE WHERE store_id = #{store_id}
     </select>
 
+    <select id="selectStoreByid" parameterType="int" resultMap="result">
+        SELECT * FROM STORE WHERE store_id = #{store_id}
+    </select>
+
     <select id="selectByUserid" parameterType="string" resultMap="result">
         SELECT * FROM STORE WHERE user_id = #{user_id}
     </select>
@@ -68,8 +72,8 @@
 
 
     <insert id="storeAdd" parameterType="StoreDTO" keyProperty="store_id">
-        INSERT INTO project.store(user_id, store_name, store_phone, store_address, store_category, store_time, store_info, store_state, store_rate)
-        VALUES(#{user_id}, #{store_name}, #{store_phone}, #{store_address}, #{store_category}, #{store_time}, #{store_info}, false, 0)
+        INSERT INTO project.store(user_id, store_name, store_phone, store_address, store_category, store_time, store_info, store_state, store_rate, store_ack)
+        VALUES(#{user_id}, #{store_name}, #{store_phone}, #{store_address}, #{store_category}, #{store_time}, #{store_info}, false, 0, #{store_ack})
     </insert>
 
     <update id="storeUpdate" parameterType="StoreDTO" keyProperty="store_id">
@@ -107,7 +111,7 @@
         WHERE store_id = #{store_id};
     </update>
 
-    <update id="storeTimeUpdate" parameterType="string" keyProperty="store_id">
+    <update id="storeTimeUpdate" parameterType="StoreDTO" keyProperty="store_id">
         UPDATE STORE
         <set>
             <if test='store_time!=""'>

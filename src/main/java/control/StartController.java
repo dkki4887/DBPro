@@ -21,7 +21,8 @@ public class StartController {
     private RequestSender requestSender;
     private RequestReceiver requestReceiver;
 
-    public StartController() {
+    public StartController()
+    {
         this.responseSender = new ResponseSender();
         this.responseReceiver = new ResponseReceiver();
         this.requestSender = new RequestSender();
@@ -103,7 +104,21 @@ public class StartController {
                 break;
 
             case Header.CODE_UPDATE_STORE_TIME:
-                requestSender.sendStoreTimeReq(outputStream);
+                int ustStore_id = bodyReader.readInt();
+                MyStoreDAO misdo = new MyStoreDAO();
+
+                StoreDTO nowStore = misdo.selectById(ustStore_id);
+                System.out.println(nowStore.getStore_time());
+
+                requestSender.sendStoreTimeReq(nowStore, outputStream);
+                break;
+
+            case Header.CODE_INSERT_MENU_OPTION:
+                int imoStoreId = bodyReader.readInt();
+                MyOptionDAO ieoOptionDAO = new MyOptionDAO();
+                List<OptionDTO> allOption = ieoOptionDAO.selectAllByStoreId(imoStoreId);
+
+                requestSender.sendMenuOptionIDReq(allOption, outputStream);
                 break;
 
             case Header.CODE_ORDER_LIST_LOOKUP:
@@ -155,6 +170,10 @@ public class StartController {
                 MenuService ms = new MenuService();
                 List<MenuDTO> menuDTOS = ms.selectMenu_WaitingAccept();
                 responseSender.sendWaitMenuListAns(menuDTOS, outputStream);
+                break;
+
+            case Header.CODE_STORE_APPLY:
+                requestSender.sendStoreInfoReq(outputStream);
                 break;
         }
     }

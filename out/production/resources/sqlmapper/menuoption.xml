@@ -10,6 +10,13 @@
         <result property="menu_id" column="menu_id"/>
     </resultMap>
 
+    <resultMap id="resultOption" type="persistence.dto.OptionDTO">
+        <result property="option_id" column="option_id"/>
+        <result property="store_id" column="store_id"/>
+        <result property="option_price" column="option_price"/>
+        <result property="option_name" column="option_name"/>
+    </resultMap>
+
     <select id="selectAll" resultMap="result">
         SELECT * FROM project.menuoption
     </select>
@@ -20,6 +27,13 @@
         WHERE menu_id = #{menu_id}
         GROUP BY option_id
         ORDER BY option_id
+    </select>
+
+
+    <select id = "selectMenuOptionsById" resultMap="resultOption">
+        SELECT o.option_id, o.store_id, o.option_price, o.option_name
+        FROM project.menuoption mo, project.option o
+        WHERE mo.menu_id = #{menu_id} AND mo.option_id = o.option_id
     </select>
 
     <insert id="menuOptionAdd" parameterType="MenuOptionDTO" keyProperty="menuOption_id">

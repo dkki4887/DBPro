@@ -3,6 +3,7 @@ package control;
 import persistence.dao.*;
 import persistence.dto.*;
 import protocol.*;
+import service.MenuService;
 import service.StoreService;
 import service.UserService;
 
@@ -212,10 +213,23 @@ public class AnswerController {
 
             case Header.CODE_MENU_INFO:
                 MyMenuDAO myMenuDAO = new MyMenuDAO();
+                MenuService miMs = new MenuService();
                 MenuDTO addMenu = MenuDTO.read(bodyReader);
                 addMenu.setMenu_state(false);
 
+                if(miMs.isDupNAme(addMenu)) //이름 중복 시
+                {
+                    Header menuadd_resHeader = new Header(            //실패 결과 전송
+                            Header.TYPE_RES,
+                            Header.CODE_FAIL,
+                            0);
+                    outputStream.write(menuadd_resHeader.getBytes());
+                    break;
+                }
+
                 myMenuDAO.menuAdd(addMenu);         //전송받은 MenuDTO를 추가
+                System.out.println("메뉴 넣음");
+
                 BodyMaker menuInfo_bodyMaker = new BodyMaker();
                 menuInfo_bodyMaker.add(addMenu);
                 byte[] menuadd_body_success = menuInfo_bodyMaker.getBody();
@@ -284,6 +298,95 @@ public class AnswerController {
                 outputStream.write(WStoreBody);
                 break;
 
+            case Header.CODE_INSERT_MENU_OPTION:
+                int imoMenu_id = bodyReader.readInt();
+                int selectOptionsLength = bodyReader.readInt();
+                MyMenuOptionDAO myMenuOptionDAO = new MyMenuOptionDAO();
+                MenuService imoMs = new MenuService();
+                List<OptionDTO> imoOptions = new ArrayList<OptionDTO>();
+                List<MenuOptionDTO> imoMenuOptions = new ArrayList<MenuOptionDTO>();
+                MenuOptionDTO addMODTO = new MenuOptionDTO();
+
+                for(int i = 0; i < selectOptionsLength; i++)
+                {
+                    imoOptions.add(OptionDTO.read(bodyReader));
+                }
+
+                for(OptionDTO imoOption : imoOptions)
+                {
+                    addMODTO = new MenuOptionDTO();
+                    addMODTO.setMenu_id(imoMenu_id);
+                    addMODTO.setOption_id(imoOption.getOption_id());
+                    imoMenuOptions.add(addMODTO);
+                }
+
+                myMenuOptionDAO.menuOptionAdd(imoMs.menuOptionDupCheck(imoMenuOptions, imoMenu_id));
+
+                List<OptionDTO> addedOptions = myMenuOptionDAO.selectMenuOptionsById(imoMenu_id);
+
+                BodyMaker menuOption_bodyMaker = new BodyMaker();
+                menuOption_bodyMaker.add(imoMs.selectMenuById(imoMenu_id));
+                menuOption_bodyMaker.addIntBytes(addedOptions.size());
+
+                for(OptionDTO addedOption : addedOptions)
+                {
+                    menuOption_bodyMaker.add(addedOption);
+                }
+
+                byte[] menuOption_body_success = menuOption_bodyMaker.getBody();
+                Header menuOption_resHeader = new Header(            //성공 결과 전송
+                        Header.TYPE_RES,
+                        Header.CODE_SUCCESS,
+                        menuOption_body_success.length);
+                outputStream.write(menuOption_resHeader.getBytes());
+                outputStream.write(menuOption_body_success);
+                break;
+
+            case Header.CODE_STORE_TIME:
+                int stStore_id = bodyReader.readInt();  //store_id, 새 시간 받기
+                String newTime = bodyReader.readUTF();
+
+                StoreDTO timeUptStore = new StoreDTO(); //받은 값들을 storeDTO에 담아서
+                timeUptStore.setStore_time(newTime);
+                timeUptStore.setStore_id(stStore_id);
+
+                MyStoreDAO stmyStore = new MyStoreDAO();    //DAO를 이용해서 해당 가게 시간 변경
+                stmyStore.updateStoreTime(timeUptStore);
+
+                StoreDTO updateStore = stmyStore.selectById(stStore_id);
+
+                BodyMaker storeTime_bodyMaker = new BodyMaker();
+                storeTime_bodyMaker.add(updateStore);      //변경된 가게 정보 가져와서 바디에 저장 후
+                byte[] storeTime_body_success = storeTime_bodyMaker.getBody();
+                Header storeTime_resHeader = new Header(            //성공 결과 전송
+                        Header.TYPE_RES,
+                        Header.CODE_SUCCESS,
+                        storeTime_body_success.length);
+                outputStream.write(storeTime_resHeader.getBytes());
+                outputStream.write(storeTime_body_success);
+                break;
+
+            case Header.CODE_STORE_INFO:
+                int store_idd = bodyReader.readInt();
+                String user_idd = bodyReader.readUTF();
+                String store_named = bodyReader.readUTF();
+                String store_phoned = bodyReader.readUTF();
+                String store_addressd = bodyReader.readUTF();
+                boolean store_stated = bodyReader.readBoolean();
+                int store_categoryd = bodyReader.read();
+                int store_rated = bodyReader.read();
+                String store_timed = bodyReader.readUTF();
+                String store_infod = bodyReader.readUTF();
+                StoreDTO addStore = new StoreDTO(store_idd, user_idd, store_named, store_phoned, store_addressd, store_stated, store_categoryd, store_rated, store_timed, store_infod);
+                MyStoreDAO myStoreDAO = new MyStoreDAO();
+                System.out.println(addStore.getUser_id());
+                myStoreDAO.storeAdd(addStore);
+
+                Header storeAdd_resHeader = new Header(            //성공 결과 전송
+                        Header.TYPE_RES,
+                        Header.CODE_SUCCESS,
+                        0);
+                outputStream.write(storeAdd_resHeader.getBytes());
         }
         return USER_ID;
     }

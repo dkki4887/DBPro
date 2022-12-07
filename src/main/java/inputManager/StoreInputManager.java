@@ -5,18 +5,15 @@ import persistence.dto.StoreDTO;
 import java.util.Scanner;
 
 public class StoreInputManager {
-    private Scanner sc;
+    private Scanner sc = new Scanner(System.in);
 
-    public StoreInputManager(Scanner scanner)
+    public StoreInputManager()
     {
-        sc = scanner;
     }
 
     public StoreDTO getAddStoreInfo()
     {
         StoreDTO addStoreDTO = new StoreDTO();
-
-        System.out.println("================가게 요청================");
 
         String store_name = inputStore_Name(sc);
         String store_address = inputStore_Address(sc);
@@ -24,8 +21,6 @@ public class StoreInputManager {
         int store_category = inputStore_Category(sc);
         String store_time = inputStore_Time(sc);
         String store_info = inputStore_info(sc);
-
-        System.out.println("=======================================");
 
         addStoreDTO.setStore_name(store_name);
         addStoreDTO.setStore_address(store_address);
@@ -93,7 +88,7 @@ public class StoreInputManager {
                 System.out.print("입력 값이 형식에 맞지 않습니다.");
         }
     }
-    private String inputStore_Time(Scanner sc)
+    public String inputStore_Time(Scanner sc)
     {
         String store_time = "",open_input, close_input;
         while(true)
