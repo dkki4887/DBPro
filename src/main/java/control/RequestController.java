@@ -102,8 +102,8 @@ public class RequestController {
 
             case Header.CODE_ORDERED_MENU_LIST:
                 MyOrderDAO moDAO = new MyOrderDAO();
-                String order_num =inputStream.readUTF();
-                List<OrderMenuDTO> omDTOS = moDAO.selectOrderMenuWithOrderNum(order_num);
+                String order_num2 =inputStream.readUTF();
+                List<OrderMenuDTO> omDTOS = moDAO.selectOrderMenuWithOrderNum(order_num2);
 
                 BodyMaker omBM = new BodyMaker();
                 omBM.addIntBytes(omDTOS.size());
