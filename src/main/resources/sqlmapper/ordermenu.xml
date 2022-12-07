@@ -11,8 +11,13 @@
     </resultMap>
 
     <insert id="insertOrderMenu">
-        INSERT INTO project.ordermenu (orderMenu_id, order_num , menu_name)
+        INSERT INTO project.ordermenu (orderMenu_id, order_num, menu_name)
         VALUES (#{orderMenu_id}, #{order_num}, #{menu_name})
     </insert>
+
+    <select id="selectAllOrderMenu" resultMap="result">
+        SELECT *
+        FROM project.ordermenu
+    </select>
 
 </mapper>

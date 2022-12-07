@@ -8,34 +8,27 @@ import persistence.dto.UserDTO;
 import java.util.List;
 import java.util.Scanner;
 
-public class UserService
-{
+public class UserService {
     private final int ID_AND_PW_MIN_LENGTH = 3;
     private final MyUserDAO myUserDAO;
 
-    public UserService()
-    {
+    public UserService() {
         myUserDAO = new MyUserDAO();
     }
 
-    public List<UserDTO> findAll()
-    {
+    public List<UserDTO> findAll() {
         List<UserDTO> all = myUserDAO.selectAll();
         return all;
     }
 
-    public UserDTO findUser(String user_id)
-    {
+    public UserDTO findUser(String user_id) {
         return myUserDAO.selectUserById(user_id);
     }
 
-    public boolean idCheck(String userid)
-    {
+    public boolean idCheck(String userid) {
         List<UserDTO> userDTOS = myUserDAO.selectAllUserid();
-        for(UserDTO userDTO : userDTOS)
-        {
-            if(userid.equals(userDTO.getUser_id()))
-            {
+        for (UserDTO userDTO : userDTOS) {
+            if (userid.equals(userDTO.getUser_id())) {
                 return true;
             }
         }
@@ -44,9 +37,8 @@ public class UserService
 
     public boolean pwCheck(String userid, String userpw) {
         List<UserDTO> userDTOS = myUserDAO.selectAllUserid();
-        for(UserDTO userDTO : userDTOS)
-            if(userid.equals(userDTO.getUser_id()))
-            {
+        for (UserDTO userDTO : userDTOS)
+            if (userid.equals(userDTO.getUser_id())) {
                 UserDTO user_pwDTO = myUserDAO.selectUserpw(userDTO);
                 if (userpw.equals(user_pwDTO.getUser_pw()))
                     return true;
@@ -54,8 +46,7 @@ public class UserService
         return false;
     }
 
-    public void userAdd()
-    {
+    public void userAdd() {
         Scanner sc = new Scanner(System.in);
         UserDTO addUserDTO = new UserDTO();
 
@@ -77,8 +68,7 @@ public class UserService
         myUserDAO.userAdd(addUserDTO);
     }
 
-    public UserDTO getAddUserInfo()
-    {
+    public UserDTO getAddUserInfo() {
         Scanner sc = new Scanner(System.in);
         UserDTO addUserDTO = new UserDTO();
 
@@ -100,88 +90,72 @@ public class UserService
         boolean result = true;
         List<UserDTO> userDTOS = myUserDAO.selectAllUserid();
 
-        while(true)
-        {
+        while (true) {
             result = true;
             System.out.print("아이디를 입력해주세요. : ");
             input = sc.nextLine();
 
-            if(input.length() < ID_AND_PW_MIN_LENGTH)
-            {
+            if (input.length() < ID_AND_PW_MIN_LENGTH) {
                 System.out.println("사용하실 수 없는 아이디입니다. (최소 세 글자)");
                 result = false;
-            }
-            else
-            {
-                if(idCheck(input))
-                {
+            } else {
+                if (idCheck(input)) {
                     System.out.println("사용하실 수 없는 아이디입니다. (중복 아이디)");
                     result = false;
                 }
             }
-            if(result)
+            if (result)
                 return input;
         }
     }
 
-    private String inputUser_pw(Scanner sc)
-    {
+    private String inputUser_pw(Scanner sc) {
         String input = null;
 
-        while(true)
-        {
+        while (true) {
             System.out.print("비밀번호를 입력하세요. : ");
             input = sc.nextLine();
 
-            if(input.length() >= ID_AND_PW_MIN_LENGTH)
+            if (input.length() >= ID_AND_PW_MIN_LENGTH)
                 return input;
             else
                 System.out.println("입력 형식에 맞지 않습니다(최소 세 글자). ");
 
         }
     }
-    private String inputUser_name(Scanner sc)
-    {
+
+    private String inputUser_name(Scanner sc) {
         String input;
 
-        while(true)
-        {
+        while (true) {
             System.out.print("이름을 입력하세요. : ");
             input = sc.nextLine();
 
-            if(input.length() > 0)
-            {
+            if (input.length() > 0) {
                 return input;
-            }
-            else
+            } else
                 System.out.println("입력 형식에 맞지 않습니다(최소 한 글자). ");
         }
 
     }
 
-    private String inputUser_address(Scanner sc)
-    {
+    private String inputUser_address(Scanner sc) {
         String input;
 
-        while(true)
-        {
+        while (true) {
             System.out.print("주소를 입력하세요. : ");
             input = sc.nextLine();
 
-            if(input.length() > 0)
-            {
+            if (input.length() > 0) {
                 return input;
-            }
-            else
+            } else
                 System.out.println("입력 형식에 맞지 않습니다(최소 한 글자). ");
         }
     }
 
-    private String inputUser_phone(Scanner sc)
-    {
+    private String inputUser_phone(Scanner sc) {
         String input = null;
-        while(true)
-        {
+        while (true) {
             System.out.print("전화번호를 입력하세요. : ");
             input = sc.nextLine();
 
@@ -193,11 +167,9 @@ public class UserService
 
     }
 
-    private int inputUser_category(Scanner sc)
-    {
+    private int inputUser_category(Scanner sc) {
         int input;
-        while(true)
-        {
+        while (true) {
             System.out.print("계정 유형를 입력하세요.(0:관리자, 1:점주, 2:개인) : ");
             input = sc.nextInt();
 
@@ -210,45 +182,39 @@ public class UserService
     }
 
 
-    private boolean isdigit(String input)
-    {
+    private boolean isdigit(String input) {
         char tmp;
 
-        for(int i = 0; i<input.length(); i++)
-        {
+        for (int i = 0; i < input.length(); i++) {
             tmp = input.charAt(i);
-            if(!('0' <= tmp && tmp <= '9'))
+            if (!('0' <= tmp && tmp <= '9'))
                 return false;
         }
 
         return true;
     }
 
-    private boolean isTime(String input)
-    {
+    private boolean isTime(String input) {
         String[] temp = input.split(":");
-        for(int i = 0; i < temp.length; i++)
-        {
-            if(!(isdigit(temp[i]) && temp[i].length() == 2))
+        for (int i = 0; i < temp.length; i++) {
+            if (!(isdigit(temp[i]) && temp[i].length() == 2))
                 return false;
         }
-        if(0 <= Integer.parseInt(temp[0]) && Integer.parseInt(temp[0]) <= 24)
-            if(0 <= Integer.parseInt(temp[1]) && Integer.parseInt(temp[1]) < 60)
+        if (0 <= Integer.parseInt(temp[0]) && Integer.parseInt(temp[0]) <= 24)
+            if (0 <= Integer.parseInt(temp[1]) && Integer.parseInt(temp[1]) < 60)
                 return true;
 
         return false;
     }
 
-    private boolean compareTime(String open, String close)
-    {
+    private boolean compareTime(String open, String close) {
         String[] open_temp = open.split(":");
         String[] close_temp = close.split(":");
 
-        if(Integer.parseInt(open_temp[0]) < Integer.parseInt(close_temp[0]))
+        if (Integer.parseInt(open_temp[0]) < Integer.parseInt(close_temp[0]))
             return true;
-        else if(Integer.parseInt(open_temp[0]) == Integer.parseInt(close_temp[0]))
-        {
-            if(Integer.parseInt(open_temp[1]) <= Integer.parseInt(close_temp[1]))
+        else if (Integer.parseInt(open_temp[0]) == Integer.parseInt(close_temp[0])) {
+            if (Integer.parseInt(open_temp[1]) <= Integer.parseInt(close_temp[1]))
                 return true;
         }
 
@@ -256,5 +222,19 @@ public class UserService
     }
 
 
+    public List<UserDTO> selectUser_WaitingAccept() {
+        List<UserDTO> list = myUserDAO.selectUser_WaitingAccept();
+        return list;
+    }
+
+    public int updateUser_Accept(String user_id) {
+        int result = myUserDAO.updateUser_Accept(user_id);
+        return result;
+    }
+
+    public int deleteUser(String user_id) {
+        int result = myUserDAO.deleteUser(user_id);
+        return result;
+    }
 }
 

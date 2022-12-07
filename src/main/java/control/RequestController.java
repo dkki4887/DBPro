@@ -2,10 +2,7 @@ package control;
 
 import persistence.dao.*;
 import persistence.dto.*;
-import protocol.BodyMaker;
-import protocol.Header;
-import protocol.ResponseReceiver;
-import protocol.ResponseSender;
+import protocol.*;
 import service.MenuService;
 import service.OptionService;
 
@@ -15,23 +12,24 @@ import java.io.IOException;
 import java.util.List;
 
 public class RequestController {
-   private ResponseReceiver responseReceiver;
-   private ResponseSender responseSender;
+    private ResponseReceiver responseReceiver;
+    private ResponseSender responseSender;
+    private RequestSender requestSender;
 
-   public RequestController()
-   {
-       responseReceiver = new ResponseReceiver();
-       responseSender = new ResponseSender();
-   }
+    public RequestController() {
+        responseReceiver = new ResponseReceiver();
+        responseSender = new ResponseSender();
+        requestSender = new RequestSender();
+    }
 
     public void handleRequest(Header header, DataInputStream inputStream, DataOutputStream outputStream) throws IOException {
 
         String userID_for_test = "store1"; // test용 유저아이디
-        switch(header.code) {
+        switch (header.code) {
 
             case Header.CODE_MENU_LIST:
                 int store_id = inputStream.readInt();
-                List<MenuDTO> menuList = new MenuService().selectStoreMenu(store_id);
+                List<MenuDTO> menuList = new MyMenuDAO().selectStoreMenu(store_id);
                 responseSender.sendMenuListAns(menuList, outputStream);
                 System.out.println("메뉴리스트 보내줌!!");
                 break;
@@ -52,8 +50,10 @@ public class RequestController {
 
             case Header.CODE_UPDATE_MENU_QUANTITY:
                 int updateMenu_id = inputStream.readInt();
-                MyMenuDAO myMenuDAO = new MyMenuDAO();
-                myMenuDAO.updateMenuQuantity(updateMenu_id);
+                long order_price = inputStream.readLong();
+                String order_num = inputStream.readUTF();
+                new MyMenuDAO().updateMenuQuantity(updateMenu_id);
+                new MyOrderDAO().updateOrderPrice(order_price, order_num);
                 System.out.println("메뉴 수량 바꿈!!");
                 break;
 
@@ -76,10 +76,8 @@ public class RequestController {
                 MyStoreDAO myStoreDAO3 = new MyStoreDAO();
                 List<StoreDTO> storeList2 = myStoreDAO3.selectAll();
                 int store_id2 = -1;
-                for(int i = 0 ; i <storeList2.size() ; i ++)
-                {
-                    if(storeList2.get(i).getUser_id().equals( userID_for_test  ))
-                    {
+                for (int i = 0; i < storeList2.size(); i++) {
+                    if (storeList2.get(i).getUser_id().equals(userID_for_test)) {
                         store_id2 = storeList2.get(i).getStore_id();
                         break;
                     }
@@ -141,6 +139,22 @@ public class RequestController {
             case Header.CODE_UPDATE_USER_INFO:
                 UserDTO user = UserDTO.read(inputStream);
                 new MyUserDAO().userInfoUpdate(user);
+                break;
+
+            case Header.CODE_CANCEL_ORDER:
+                int order_id = inputStream.readInt();
+                new MyOrderDAO().updateOrderState_Cancle(order_id);
+                break;
+
+            case Header.CODE_INSERT_REVIEW:
+                ReviewDTO reviewDTO = ReviewDTO.read(inputStream);
+                new MyReviewDAO().insertReview(reviewDTO);
+                break;
+            case Header.CODE_REQUEST_RECEIVE_ACCEPT_USER_NUM:
+                requestSender.sendAcceptUserNumReq(outputStream);
+                break;
+            case Header.CODE_REQUEST_RECEIVE_ACCEPT_STORE_NUM:
+                requestSender.sendAcceptStoreNumReq(outputStream);
                 break;
         }
     }

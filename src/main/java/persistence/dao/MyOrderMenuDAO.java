@@ -22,6 +22,28 @@ public class MyOrderMenuDAO {
         return list;
     }
 
+    public List<OrderMenuDTO> selectAllMenu(){
+        List<OrderMenuDTO> list = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            list = session.selectList("mapper.OrderMenuMapper.selectAllOrderMenu");
+        } finally {
+            session.close();
+        }
+        return list;
+    }
+
+    public List<OrderOptionDTO> selectAllOption(){
+        List<OrderOptionDTO> list = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            list = session.selectList("mapper.OrderOptionMapper.selectAllOrderOption");
+        } finally {
+            session.close();
+        }
+        return list;
+    }
+
     public int insertOrderMenu(OrderMenuDTO omd)
     {
         SqlSession session = sqlSessionFactory.openSession();

@@ -36,6 +36,12 @@ public class OrderDTO implements MySerializableClass {
         this.order_num = order_num;
     }
 
+    public OrderDTO(long order_price, String order_num)
+    {
+        this.order_price = order_price;
+        this.order_num = order_num;
+    }
+
     public OrderDTO(int order_id) {
         this.order_id = order_id;
     }
@@ -106,6 +112,7 @@ public class OrderDTO implements MySerializableClass {
 
     public static OrderDTO read(DataInputStream bodyReader) throws IOException
     {
+        int order_id = bodyReader.readInt();
         String user_id = bodyReader.readUTF();
         int store_id = bodyReader.readInt();
         long order_price = bodyReader.readLong();
@@ -131,14 +138,13 @@ public class OrderDTO implements MySerializableClass {
     public byte[] getBytes() throws IOException {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(buf);
-        String ldtToStr = order_orderTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
         dos.writeInt(order_id);
         dos.writeUTF(user_id);
         dos.writeInt(store_id);
         dos.writeLong(order_price);
         dos.writeUTF(order_state);
-        dos.writeUTF(ldtToStr); // 받는 쪽에서 String -> LocalDateTime으로 변환해야함
+        dos.writeUTF(String.valueOf(order_orderTime)); // 받는 쪽에서 String -> LocalDateTime으로 변환해야함
         dos.writeUTF(order_num);
         return buf.toByteArray();
     }

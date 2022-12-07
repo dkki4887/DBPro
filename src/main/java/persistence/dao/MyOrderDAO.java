@@ -51,6 +51,27 @@ public class MyOrderDAO {
         return dtos;
     }
 
+    public int updateOrderPrice(long order_price, String order_num)
+    {
+        OrderDTO od = new OrderDTO(order_price, order_num);
+        SqlSession session = sqlSessionFactory.openSession();
+        int result = -1;
+        try{
+            result =session.update("mapper.OrderMapper.updateOrderPrice", od);
+
+            if (result==1){
+                session.commit();
+            }else {
+                session.rollback();
+            }
+
+        }finally {
+            session.close();
+        }
+        return result;
+
+    }
+
     public int updateOrderState_Complete(int order_id) {
 
         SqlSession session = sqlSessionFactory.openSession();
@@ -70,6 +91,7 @@ public class MyOrderDAO {
         return result;
 
     }
+
     public int updateOrderState_Cancle(int order_id) {
 
         SqlSession session = sqlSessionFactory.openSession();
@@ -157,6 +179,7 @@ public class MyOrderDAO {
         }
         return dtos;
     }
+
     public List<OrderDTO> selectAllOrder_customer(String user_id)
     {
         List<OrderDTO> dtos = null;
@@ -188,6 +211,42 @@ public class MyOrderDAO {
         SqlSession session = sqlSessionFactory.openSession();
         try{
             dtos = session.selectList("mapper.OrderMapper.selectOrderOptionWithOrderMenuID", orderMenu_id);
+        }finally {
+            session.close();
+        }
+        return dtos;
+    }
+
+    public List<OrderDTO> selectAllCustomerOrder(String user_id)
+    {
+        List<OrderDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.OrderMapper.selectAllCustomerOrder", user_id);
+        }finally {
+            session.close();
+        }
+        return dtos;
+    }
+
+    public List<OrderDTO> selectAllCustomerOrderForCancel(String user_id)
+    {
+        List<OrderDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.OrderMapper.selectAllCustomerOrderForCancel", user_id);
+        }finally {
+            session.close();
+        }
+        return dtos;
+    }
+
+    public List<OrderDTO> selectAllCustomerOrderForReview(String user_id)
+    {
+        List<OrderDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.OrderMapper.selectAllCustomerOrderForReview", user_id);
         }finally {
             session.close();
         }

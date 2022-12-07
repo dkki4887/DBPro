@@ -255,6 +255,44 @@ public class RequestSender {
         );
         outputStream.write(header.getBytes());
     }
+
+    public void sendAcceptUserNumReq(DataOutputStream outputStream) throws IOException {
+            System.out.println("요청 보냄");
+            Header header = new Header(
+                    Header.TYPE_REQ,
+                    Header.CODE_ACCEPT_USER_NUM,
+                    0
+            );
+            outputStream.write(header.getBytes());
+        }
+
+    public void sendHowAcceptUserReq(DataOutputStream outputStream) throws IOException {
+            Header header = new Header(
+                    Header.TYPE_REQ,
+                    Header.CODE_HOW_ACCEPT_USER,
+                    0
+            );
+            outputStream.write(header.getBytes());
+
+        }
+
+        public void sendAcceptStoreNumReq(DataOutputStream outputStream) throws IOException {
+            Header header = new Header(
+                    Header.TYPE_REQ,
+                    Header.CODE_ACCEPT_STORE_NUM,
+                    0
+            );
+            outputStream.write(header.getBytes());
+        }
+
+        public void sendHowAcceptStoreReq(DataOutputStream outputStream) throws IOException {
+            Header header = new Header(
+                           Header.TYPE_REQ,
+                           Header.CODE_HOW_ACCEPT_STORE,
+                           0
+                   );
+                   outputStream.write(header.getBytes());
+        }
     /*
 
     public void sendMenuListReq(Scanner s, DataOutputStream outputStream) throws IOException {
