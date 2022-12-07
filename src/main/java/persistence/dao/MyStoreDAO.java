@@ -64,7 +64,7 @@ public class MyStoreDAO {
         StoreDTO storeDTO;
         SqlSession session = sqlSessionFactory.openSession();
         try{
-            storeDTO = session.selectOne("mapper.StoreMapper.selectStore_id", id);
+            storeDTO = session.selectOne("mapper.StoreMapper.selectStoreByid", id);
         } finally {
             session.close();
         }
@@ -139,6 +139,25 @@ public class MyStoreDAO {
         int result = -1;
         try{
             result =session.update("mapper.StoreMapper.updateStore_Accept",store_id);
+
+            if (result==1){
+                session.commit();
+            }else {
+                session.rollback();
+            }
+
+        }finally {
+            session.close();
+        }
+        return result;
+    }
+
+    public int updateStoreTime(StoreDTO storeDTO) {
+
+        SqlSession session = sqlSessionFactory.openSession();
+        int result = -1;
+        try{
+            result =session.update("mapper.StoreMapper.storeTimeUpdate",storeDTO);
 
             if (result==1){
                 session.commit();

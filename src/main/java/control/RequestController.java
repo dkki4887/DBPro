@@ -156,6 +156,8 @@ public class RequestController {
             case Header.CODE_REQUEST_RECEIVE_ACCEPT_STORE_NUM:
                 requestSender.sendAcceptStoreNumReq(outputStream);
                 break;
+
+
         }
     }
 }

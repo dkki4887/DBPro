@@ -1,7 +1,13 @@
 package protocol;
 
+import inputManager.StoreInputManager;
+import persistence.dto.OptionDTO;
+import persistence.dto.StoreDTO;
+
+import javax.swing.text.html.Option;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class RequestSender {
@@ -145,15 +151,38 @@ public class RequestSender {
     }
     */
 
-    public void sendStoreTimeReq(DataOutputStream outputStream) throws IOException {
+    public void sendStoreTimeReq(StoreDTO storeDTO, DataOutputStream outputStream) throws IOException {
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.add(storeDTO);
+
+        byte[] stbody = bodyMaker.getBody();
 
         Header header = new Header(
                 Header.TYPE_REQ,
                 Header.CODE_STORE_TIME,
-                0
+                stbody.length
         );
 
         outputStream.write(header.getBytes());
+        outputStream.write(stbody);
+    }
+
+    public void sendMenuOptionIDReq(List<OptionDTO> optionDTOS, DataOutputStream outputStream) throws IOException {
+
+        BodyMaker ieo_bodyMaker = new BodyMaker();
+        ieo_bodyMaker.addIntBytes(optionDTOS.size());
+
+        for(OptionDTO imoOption : optionDTOS)
+            ieo_bodyMaker.add(imoOption);
+
+        byte[] options_body = ieo_bodyMaker.getBody();
+        Header header = new Header(
+                Header.TYPE_REQ,
+                Header.CODE_MENU_OPTION,
+                options_body.length
+        );
+        outputStream.write(header.getBytes());
+        outputStream.write(options_body);
     }
     /*
 
@@ -504,4 +533,110 @@ public class RequestSender {
     }
 
      */
+
+    public void sendStoreTimeAns(int store_id, DataOutputStream outputStream) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        StoreInputManager sim = new StoreInputManager();
+        String newTime = sim.inputStore_Time(sc);
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addIntBytes(store_id);
+        bodyMaker.addStringBytes(newTime);
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_STORE_TIME,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendStoreInfoAns(String user_id, DataOutputStream outputStream) throws IOException {
+        StoreInputManager addStoreInfoManager = new StoreInputManager();
+        StoreDTO addStoreInfo = addStoreInfoManager.getAddStoreInfo(); //가게 정보 입력 후 전송
+        addStoreInfo.setUser_id(user_id);
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.add(addStoreInfo);
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_STORE_INFO,//임시 코드 가게 정보 전송
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendUserIDAns(Scanner s, DataOutputStream outputStream) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("아이디를 입력하세요 : ");
+        String id = sc.nextLine();
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addStringBytes(id);
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_USER_ID,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+        System.out.println("아이디 입력 보냄");
+    }
+
+    public void sendUserPWAns(Scanner s,String user_id, DataOutputStream outputStream) throws IOException {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("비밀번호를 입력하세요 : ");
+        String pw = sc.nextLine();
+
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addStringBytes(user_id);
+        bodyMaker.addStringBytes(pw);
+
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_USER_PW,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
+    public void sendAddMenuOptionAns(List<OptionDTO> options ,int Menu_id, DataOutputStream outputStream) throws IOException {
+        BodyMaker bodyMaker = new BodyMaker();
+        bodyMaker.addIntBytes(Menu_id);
+        bodyMaker.addIntBytes(options.size());
+
+        for(OptionDTO option: options)
+        {
+            bodyMaker.add(option);
+        }
+        byte[] body = bodyMaker.getBody();
+
+        Header header = new Header(
+                Header.TYPE_ANS,
+                Header.CODE_INSERT_MENU_OPTION,
+                body.length
+        );
+
+        outputStream.write(header.getBytes());
+        outputStream.write(body);
+    }
+
 }

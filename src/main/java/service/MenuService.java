@@ -305,6 +305,19 @@ public class MenuService
         }
     }
 
+    public boolean isDupNAme(MenuDTO menuDTO)
+    {
+        List<MenuDTO> menuDTOS = myMenuDAO.selectAll();
+
+        for(MenuDTO menu: menuDTOS)
+        {
+            if(menuDTO.getMenu_name().equals(menu.getMenu_name()))
+                return true;
+        }
+
+        return false;
+    }
+
     private String inputMenu_name_mod(Scanner sc)
     {
         String input;
@@ -396,7 +409,7 @@ public class MenuService
         return true;
     }
 
-    private List<MenuOptionDTO> menuOptionDupCheck(List<MenuOptionDTO> menuOptionDTOS, int menu_id)
+    public List<MenuOptionDTO> menuOptionDupCheck(List<MenuOptionDTO> menuOptionDTOS, int menu_id)
     {
         OptionService os = new OptionService();
         List<OptionDTO> optionDTOS = os.selectMenuOption(menu_id);

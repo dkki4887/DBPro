@@ -33,6 +33,17 @@ public class MyMenuOptionDAO {
         return list;
     }
 
+    public List<OptionDTO> selectMenuOptionsById(int menu_id) {
+        List<OptionDTO> list = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            list = session.selectList("mapper.MenuOptionMapper.selectMenuOptionsById", menu_id);
+        } finally {
+            session.close();
+        }
+        return list;
+    }
+
     public void menuOptionAdd(List<MenuOptionDTO> menuOptionDTOs){
         SqlSession session = sqlSessionFactory.openSession();
         int result = -1;
