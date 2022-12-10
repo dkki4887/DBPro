@@ -22,8 +22,8 @@
         <result property="store_id" column="store_id"/>
         <result property="store_name" column="store_name"/>
         <result property="menu_name" column="menu_name"/>
-        <result property="sum_order_price" column="sum_order_price"/>
         <result property="count_order" column="count_order"/>
+        <result property="sum_order_price" column="sum_order_price"/>
     </resultMap>
 
     <resultMap id="StoreReview" type="persistence.dto.StoreReviewDTO">
@@ -59,6 +59,10 @@
 
     <select id="selectByUserid" parameterType="string" resultMap="result">
         SELECT * FROM STORE WHERE user_id = #{user_id}
+    </select>
+
+    <select id="selectStoreByUserId" parameterType="string" resultMap="result">
+        SELECT * FROM STORE WHERE user_id = #{user_id} AND store_ack = 1
     </select>
 
     <select id="selectStaticalinfo" parameterType="int" resultMap="staticalinfo">

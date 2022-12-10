@@ -117,7 +117,6 @@ public class AnswerController {
                         }
                     }
 
-
                     byte[] pw_resBody_Success = user_pw_bodyMaker.getBody();
 
                     Header pw_resHeader = new Header(       //성공결과 전송
@@ -142,17 +141,7 @@ public class AnswerController {
 
             case Header.CODE_FIXED_ORDER_DTO:
                 MyOrderDAO myOrderDAO = new MyOrderDAO();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-                int order_id = bodyReader.readInt();
-                String user = bodyReader.readUTF();
-                int store_id = bodyReader.readInt();
-                long order_price = bodyReader.readLong();
-                String order_state = bodyReader.readUTF();
-                LocalDateTime order_orderTime = LocalDateTime.parse(bodyReader.readUTF(), formatter);
-                String order_num = bodyReader.readUTF();
-
-                OrderDTO orderDTO = new OrderDTO(order_id, user, store_id, order_price, order_state, order_orderTime, order_num);
+                OrderDTO orderDTO = OrderDTO.read(bodyReader);
                 boolean isSuccess = true;
                 if (orderDTO.getOrder_state().equals("배달중"))
                     myOrderDAO.updateOrderState_Delivery(orderDTO.getOrder_id());
@@ -367,19 +356,9 @@ public class AnswerController {
                 break;
 
             case Header.CODE_STORE_INFO:
-                int store_idd = bodyReader.readInt();
-                String user_idd = bodyReader.readUTF();
-                String store_named = bodyReader.readUTF();
-                String store_phoned = bodyReader.readUTF();
-                String store_addressd = bodyReader.readUTF();
-                boolean store_stated = bodyReader.readBoolean();
-                int store_categoryd = bodyReader.read();
-                int store_rated = bodyReader.read();
-                String store_timed = bodyReader.readUTF();
-                String store_infod = bodyReader.readUTF();
-                StoreDTO addStore = new StoreDTO(store_idd, user_idd, store_named, store_phoned, store_addressd, store_stated, store_categoryd, store_rated, store_timed, store_infod);
                 MyStoreDAO myStoreDAO = new MyStoreDAO();
-                System.out.println(addStore.getUser_id());
+                StoreDTO addStore = StoreDTO.read(bodyReader);
+                StoreDTO.print(addStore);
                 myStoreDAO.storeAdd(addStore);
 
                 Header storeAdd_resHeader = new Header(            //성공 결과 전송
@@ -387,6 +366,30 @@ public class AnswerController {
                         Header.CODE_SUCCESS,
                         0);
                 outputStream.write(storeAdd_resHeader.getBytes());
+                break;
+
+            case Header.CODE_LOGINED_USER_ID:
+                String logined_user_id = bodyReader.readUTF();
+                MyStoreDAO myLoginedStoreDAO = new MyStoreDAO();
+
+                List<StoreDTO> loginUserStores = myLoginedStoreDAO.selectStoreByUserId(logined_user_id);
+
+                BodyMaker login_bodyMaker = new BodyMaker();
+
+                login_bodyMaker.addIntBytes(loginUserStores.size());
+
+                for (StoreDTO userStore : loginUserStores) {
+                    login_bodyMaker.add(userStore);
+                }
+
+                byte[] login_Success_body = login_bodyMaker.getBody();
+                Header login_Success_Header = new Header(       //성공결과 전송
+                        Header.TYPE_RES,
+                        Header.CODE_SUCCESS,
+                        login_Success_body.length);
+                outputStream.write(login_Success_Header.getBytes());
+                outputStream.write(login_Success_body);
+                break;
         }
         return USER_ID;
     }

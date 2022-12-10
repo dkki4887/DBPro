@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class RequestSender {
 
     public void sendUserIDReq(DataOutputStream outputStream) throws IOException {
+
         BodyMaker bodyMaker = new BodyMaker();
         byte[] resBody = bodyMaker.getBody();
         Header header = new Header(
@@ -222,13 +223,13 @@ public class RequestSender {
 
     public void sendStoreInfoReq(DataOutputStream outputStream) throws IOException {
 
-        Header header = new Header(
+        Header StoreInfoReqheader = new Header(
                 Header.TYPE_REQ,
                 Header.CODE_STORE_INFO,//가게 정보 전송 요청
                 0
         );
+        outputStream.write(StoreInfoReqheader.getBytes());
 
-        outputStream.write(header.getBytes());
     }
 
     public void sendStoreStateReq(Scanner s, DataOutputStream outputStream) throws IOException {

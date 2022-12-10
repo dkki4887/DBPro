@@ -20,6 +20,15 @@ public class StatisticalInfoDTO implements MySerializableClass {
     private long sum_order_price;
     private int count_order;
 
+    public StatisticalInfoDTO(int store_id, String store_name, String menu_name, long sum_order_price, int count_order)
+    {
+        this.store_id = store_id;
+        this.store_name = store_name;
+        this.menu_name = menu_name;
+        this.sum_order_price = sum_order_price;
+        this.count_order = count_order;
+    }
+
     @Override
     public byte[] getBytes() throws IOException {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();

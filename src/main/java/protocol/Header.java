@@ -116,9 +116,8 @@ public class Header implements MySerializableClass {
     public static final byte CODE_REQUEST_RECEIVE_ACCEPT_USER_NUM = 0x6A;
     public static final byte CODE_REQUEST_RECEIVE_ACCEPT_STORE_NUM = 0x6B;
     public final static byte CODE_STORE_APPLY = 0x61;
-
-
-
+    public final static byte CODE_SELECT_STORE = 0x62;
+    public final static byte CODE_LOGINED_USER_ID = 0x63;
 
 
     //TYPE : 0x03(RESULT) 일 때

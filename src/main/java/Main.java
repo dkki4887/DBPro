@@ -12,7 +12,7 @@ import java.net.Socket;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        ServerSocket ss = new ServerSocket(5000);
+        ServerSocket ss = new ServerSocket(3000);
         System.out.println("ServerSocket created.\nWaiting for connection ...\n\n");
 
         Socket socket = ss.accept();

@@ -31,7 +31,7 @@ public class StoreDTO implements MySerializableClass {
     public StoreDTO() {
     }
 
-    public StoreDTO(int store_id, String user_id, String store_name, String store_phone, String store_address, boolean store_state, int store_category, int store_rate, String store_time, String store_info) {
+    public StoreDTO(int store_id, String user_id, String store_name, String store_phone, String store_address, boolean store_state, int store_category, int store_rate, String store_time, String store_info, boolean store_ack) {
         this.store_id = store_id;
         this.user_id = user_id; //점주 누군지 확인용
         this.store_name = store_name;
@@ -42,7 +42,7 @@ public class StoreDTO implements MySerializableClass {
         this.store_rate = store_rate;
         this.store_time = store_time;
         this.store_info = store_info;
-
+        this.store_ack = store_ack;
     }
 
     public static StoreDTO read(DataInputStream bodyReader) throws IOException {
@@ -52,14 +52,21 @@ public class StoreDTO implements MySerializableClass {
         String store_phone = bodyReader.readUTF();
         String store_address = bodyReader.readUTF();
         boolean store_state = bodyReader.readBoolean();
-        int store_category = bodyReader.read();
-        int store_rate = bodyReader.read();
+        int store_category = bodyReader.readInt();
+        int store_rate = bodyReader.readInt();
         String store_time = bodyReader.readUTF();
         String store_info = bodyReader.readUTF();
-        StoreDTO storeDTO = new StoreDTO(store_id, user_id, store_name, store_phone, store_address, store_state, store_category, store_rate, store_time, store_info);
+        boolean store_ack = bodyReader.readBoolean();
+        StoreDTO storeDTO = new StoreDTO(store_id, user_id, store_name, store_phone, store_address, store_state, store_category, store_rate, store_time, store_info, store_ack);
         return storeDTO;
     }
 
+    public static void print(StoreDTO storeDTO)
+    {
+        System.out.println("가게 아이디 : " + storeDTO.getStore_id() + "| 가게 이름 : " + storeDTO.getStore_name() + "| 가게 전화 : " + storeDTO.getStore_phone()
+                + "| 가게 주소 : " + storeDTO.getStore_address() + "| 가게 상태 : " + storeDTO.getStore_state() + "| 가게 시간 : " + storeDTO.getStore_time()
+                + "| 가게 소개 : " + storeDTO.getStore_info() + "| 가게 소유주 : " + storeDTO.getUser_id());
+    }
 
     public int getStore_id() {
         return store_id;
@@ -139,6 +146,16 @@ public class StoreDTO implements MySerializableClass {
 
     public void setStore_info(String store_info) {
         this.store_info = store_info;
+    }
+
+    public boolean getStore_ack()
+    {
+        return store_ack;
+    }
+
+    public void setStore_ack(boolean store_ack)
+    {
+        this.store_ack = store_ack;
     }
 
     @Override

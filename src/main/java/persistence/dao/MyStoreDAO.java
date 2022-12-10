@@ -76,7 +76,19 @@ public class MyStoreDAO {
         List<StoreDTO> storeDTOs = new ArrayList<StoreDTO>();
         SqlSession session = sqlSessionFactory.openSession();
         try{
-            storeDTOs.add(session.selectOne("mapper.StoreMapper.selectByUserid", user_id));
+            storeDTOs = session.selectList("mapper.StoreMapper.selectByUserid", user_id);
+        } finally {
+            session.close();
+        }
+        return storeDTOs;
+    }
+
+    public List<StoreDTO> selectStoreByUserId(String user_id)
+    {
+        List<StoreDTO> storeDTOs = new ArrayList<StoreDTO>();
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            storeDTOs = session.selectList("mapper.StoreMapper.selectStoreByUserId", user_id);
         } finally {
             session.close();
         }

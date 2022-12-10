@@ -56,32 +56,19 @@ public class StartController {
 
 
             case Header.CODE_ORDER_ACCEPT: //주문 승인or거절 시작을 받고 ,Order List 전송
+                int store_id = bodyReader.readInt();
                 MyOrderDAO myOrderDAO = new MyOrderDAO();
                 MyStoreDAO myStoreDAO2 = new MyStoreDAO();
-                List<StoreDTO> storeList = myStoreDAO2.selectAll();
-                int store_id = -1;
-                for (int i = 0; i < storeList.size(); i++) {
-                    if (storeList.get(i).getUser_id().equals(userID_for_test)) {
-                        store_id = storeList.get(i).getStore_id();
-                        break;
-                    }
-                }
+                StoreDTO store = myStoreDAO2.selectById(store_id);
+
                 List<OrderDTO> orderList = myOrderDAO.selectOrder_store_Waiting(store_id);
                 responseSender.sendOrderListAns(orderList, outputStream);
                 break;
 
             case Header.CODE_REVIEW_LOOKUP:
+                int r_store_id = bodyReader.readInt();
                 MyReviewDAO myReviewDAO = new MyReviewDAO();
-                MyStoreDAO myStoreDAO3 = new MyStoreDAO();
-                List<StoreDTO> storeList2 = myStoreDAO3.selectAll();
-                int store_id2 = -1;
-                for (int i = 0; i < storeList2.size(); i++) {
-                    if (storeList2.get(i).getUser_id().equals(userID_for_test)) {
-                        store_id2 = storeList2.get(i).getStore_id();
-                        break;
-                    }
-                }
-                List<Review_omDTO> reviewList = myReviewDAO.findReviewWithStoreAndNonReply(store_id2);
+                List<Review_omDTO> reviewList = myReviewDAO.findReviewWithStoreAndNonReply(r_store_id);
 
                 BodyMaker bodyMaker = new BodyMaker();
                 bodyMaker.addIntBytes(reviewList.size());
@@ -128,20 +115,18 @@ public class StartController {
                 break;
 
             case Header.CODE_STATISTICS:
+                int stat_store_id = bodyReader.readInt();
                 MyStoreDAO myStoreDAO4 = new MyStoreDAO();
-                List<StoreDTO> stores = myStoreDAO4.selectAll();
-                int storeID = 0;
-                for(int i = 0 ; i < stores.size() ; i ++)
-                {
-                    if(stores.get(i).getUser_id().equals(userID_for_test))
-                        storeID = stores.get(i).getStore_id();
-                }
-                List<StatisticalInfoDTO> staInfoList = myStoreDAO4.selectStaticalinfo(storeID);
+                List<StatisticalInfoDTO> staInfoList = myStoreDAO4.selectStaticalinfo(stat_store_id);
 
                 BodyMaker bodyMaker2 = new BodyMaker();
                 bodyMaker2.addIntBytes(staInfoList.size());
-                for(int i = 0 ; i <staInfoList.size(); i ++)
-                    bodyMaker2.add(staInfoList.get(i));
+
+               for(StatisticalInfoDTO sInfoDTO: staInfoList)
+               {
+                   bodyMaker2.add(sInfoDTO);
+               }
+
                 byte[] sta_body = bodyMaker2.getBody();
                 Header sta_header = new Header(
                         Header.TYPE_ANS,
@@ -204,6 +189,10 @@ public class StartController {
 
             case Header.CODE_STORE_APPLY:
                 requestSender.sendStoreInfoReq(outputStream);
+                break;
+
+            case Header.CODE_SELECT_STORE:
+                requestSender.sendUserIDReq(outputStream);
                 break;
         }
     }

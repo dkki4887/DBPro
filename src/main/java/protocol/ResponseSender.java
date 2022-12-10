@@ -653,7 +653,7 @@ public class ResponseSender {
 
         bodyMaker.addIntBytes(OrderList.size());
         for (OrderDTO orderDTO : OrderList)
-            bodyMaker.add(orderDTO); // 이런식으로 하는데 일단 회의해야할 듯
+            bodyMaker.add(orderDTO);
 
         byte[] orderBody = bodyMaker.getBody();
         Header orderHeader = new Header(

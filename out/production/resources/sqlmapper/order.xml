@@ -131,4 +131,17 @@
         WHERE order_id = #{order_id}
     </update>
 
+    <select id="selectOrderMenuWithOrderNum" resultMap="orderMenuList">
+        SELECT *
+        FROM ordermenu
+        WHERE order_num = #{order_num}
+    </select>
+
+
+    <select id="selectOrderOptionWithOrderMenuID" resultMap="orderOptionList">
+        SELECT *
+        FROM orderoption
+        WHERE orderMenu_id = #{orderMenu_id}
+    </select>
+
 </mapper>

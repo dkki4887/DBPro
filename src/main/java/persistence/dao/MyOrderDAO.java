@@ -53,7 +53,9 @@ public class MyOrderDAO {
 
     public int updateOrderPrice(long order_price, String order_num)
     {
-        OrderDTO od = new OrderDTO(order_price, order_num);
+        OrderDTO od = new OrderDTO();
+        od.setOrder_price(order_price);
+        od.setOrder_num(order_num);
         SqlSession session = sqlSessionFactory.openSession();
         int result = -1;
         try{
